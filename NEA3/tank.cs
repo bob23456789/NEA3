@@ -70,11 +70,11 @@ namespace NEA3
             {
                 if (Player == true)
                 {
-                    Texture = Content.Load<Texture2D>(@"Light_blue_RF");
+                    Texture = Content.Load<Texture2D>(@"LightblueRF");
                 }
                 else if (Player == false)
                 {
-                    Texture = Content.Load<Texture2D>(@"Light_red_LF");
+                    Texture = Content.Load<Texture2D>(@"LightredLF");
                 }
 
             }
@@ -82,11 +82,11 @@ namespace NEA3
             {
                 if (Player == true)
                 {
-                    Texture = Content.Load<Texture2D>(@"blue_medium_RF");
+                    Texture = Content.Load<Texture2D>(@"bluemediumRF");
                 }
                 else if (Player == false)
                 {
-                    Texture = Content.Load<Texture2D>(@"red_medium_LF");
+                    Texture = Content.Load<Texture2D>(@"redmediumLF");
                 }
 
             }
@@ -94,11 +94,11 @@ namespace NEA3
             {
                 if (Player == true)
                 {
-                    Texture = Content.Load<Texture2D>(@"blueheavy_RF");
+                    Texture = Content.Load<Texture2D>(@"blueheavyRF");
                 }
                 else if (Player == false)
                 {
-                    Texture = Content.Load<Texture2D>(@"red_heavy_LF");
+                    Texture = Content.Load<Texture2D>(@"redheavyLF");
                 }
 
             }

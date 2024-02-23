@@ -14,7 +14,6 @@ namespace NEA3
     {
         public Vector2 Location; //public anyone can see it!
         protected Texture2D Texture;
-        public Rectangle Edge;
         public virtual void LoadContent(ContentManager Content)
         {
 
