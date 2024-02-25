@@ -28,7 +28,7 @@ namespace NEA3
         Texture2D rightturntexture;
         private Texture2D buttonTexture;
         private SpriteFont myfontyfont;
-        private Rectangle buttonRectangle; // square which teh tecture will be put in 
+        private Rectangle buttonRectangle; // square which teh tecture will be put in
         double gamestate = 1;//shows if playign or meue 
         string menuTitle = "War On Perliculum\n             Prime";
         string Line = "";
@@ -204,7 +204,7 @@ namespace NEA3
                 // Places text in center of the screen
                 Vector2 position = new Vector2(Window.ClientBounds.Width / 2, Window.ClientBounds.Height / 2 - 50);
                 _spriteBatch.DrawString(myfontyfont, menuTitle, position, Color.AntiqueWhite, 0, textMiddlePoint, 1.5f, SpriteEffects.None, 1.0f);
-                _spriteBatch.Draw(buttonTexture, buttonRectangle, Color.White);
+                _spriteBatch.Draw(buttonTexture, buttonRectangle, Color.White);//button rectnagle allows for mouse to click
                 _spriteBatch.End();
             }
 

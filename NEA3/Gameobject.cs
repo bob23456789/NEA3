@@ -14,9 +14,10 @@ namespace NEA3
     {
         public Vector2 Location; //public anyone can see it!
         protected Texture2D Texture;
+        private Rectangle tankRectangle;
         public virtual void LoadContent(ContentManager Content)
         {
-
+            tankRectangle = new Rectangle((int)position.X, (int)position.Y, Texture.Width, Texture.Height);
         }
 
         public virtual void Update(GameTime gameTime)
@@ -25,7 +26,7 @@ namespace NEA3
 
         public virtual void Draw(SpriteBatch _spriteBatch)
         {
-            _spriteBatch.Draw(Texture, Location, Color.White);
+            _spriteBatch.Draw(Texture,Location,tankRectangle, Color.White);
         }
     }
 }
