@@ -109,25 +109,26 @@ namespace NEA3
             int _Y = 0;
             if (Player == true)
             {
+                 _X = 0;
                 switch (Type, TankID)
                 {
                     case (3, 1):
-                        _Y = 275;
+                        _Y = 285;
                         spriteBatch.Draw(Texture, new Vector2(_X, _Y), Color.White);
                         break;
                     case (2, 2):
-                        _Y = 220;
+                        _Y = 150;
                         spriteBatch.Draw(Texture, new Vector2(_X, _Y), Color.White);
                         break;
                     case (2, 3):
                         _Y = 330;
                         spriteBatch.Draw(Texture, new Vector2(_X, _Y), Color.White);
                         break;
-                    case (3, 4):
+                    case (1, 4):
                         _Y = 170;
                         spriteBatch.Draw(Texture, new Vector2(_X, _Y), Color.White);
                         break;
-                    case (3, 5):
+                    case (1, 5):
                         _Y = 280;
                         spriteBatch.Draw(Texture, new Vector2(_X, _Y), Color.White);
                         break;
@@ -151,11 +152,11 @@ namespace NEA3
                         _Y = 330;
                         spriteBatch.Draw(Texture, new Vector2(_X, _Y), Color.White);
                         break;
-                    case (3, 4):
+                    case (1, 4):
                         _Y = 170;
                         spriteBatch.Draw(Texture, new Vector2(_X, _Y), Color.White);
                         break;
-                    case (3, 5):
+                    case (1, 5):
                         _Y = 280;
                         spriteBatch.Draw(Texture, new Vector2(_X, _Y), Color.White);
                         break;

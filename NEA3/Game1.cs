@@ -24,7 +24,7 @@ namespace NEA3
         private Texture2D buttonTexture;
         private SpriteFont myfontyfont;
         private Rectangle buttonRectangle; // square which teh tecture will be put in 
-        double gamestate = 0;//shows if playign or meue 
+        double gamestate = 1;//shows if playign or meue 
         string menuTitle = "War On Perliculum\n             Prime";
         string Line = "";
         // objects
