@@ -78,7 +78,7 @@ namespace NEA3
                 }
 
             }
-            if (Type == 2 && Player == true)
+            if (Type == 2 )
             {
                 if (Player == true)
                 {
@@ -90,7 +90,7 @@ namespace NEA3
                 }
 
             }
-            if (Type == 3 && Player == true)
+            if (Type == 3 )
             {
                 if (Player == true)
                 {
@@ -109,71 +109,136 @@ namespace NEA3
             int _Y = 0;
             if (Player == true)
             {
-                if (Type == 3 && TankID == 1)
+                switch (Type, TankID)
                 {
-                   
-                    _Y = 275;
-                    spriteBatch.Draw(Texture, new Vector2(_X, _Y), Color.White);
-                }
-                else if (Type == 2 && TankID == 2)
-                {
-                    
-                    _Y = 220;
-                    spriteBatch.Draw(Texture, new Vector2(_X, _Y), Microsoft.Xna.Framework.Color.White);
-                }
-                else if (Type == 2 && TankID == 3)
-                {
-                   
-                    _Y = 330;
-                    spriteBatch.Draw(Texture, new Vector2(_X, _Y), Microsoft.Xna.Framework.Color.White);
-                }
-                else if (Type == 1 && TankID == 4)
-                {
-                   
-                    _Y = 170;
-                    spriteBatch.Draw(Texture, new Vector2(_X, _Y), Microsoft.Xna.Framework.Color.White);
-                }
-                else if (Type == 1 && TankID == 5)
-                {
-                   
-                    _Y = 280;
-                    spriteBatch.Draw(Texture, new Vector2(_X, _Y), Microsoft.Xna.Framework.Color.White);
+                    case (3, 1):
+                        _Y = 275;
+                        spriteBatch.Draw(Texture, new Vector2(_X, _Y), Color.White);
+                        break;
+                    case (2, 2):
+                        _Y = 220;
+                        spriteBatch.Draw(Texture, new Vector2(_X, _Y), Color.White);
+                        break;
+                    case (2, 3):
+                        _Y = 330;
+                        spriteBatch.Draw(Texture, new Vector2(_X, _Y), Color.White);
+                        break;
+                    case (3, 4):
+                        _Y = 170;
+                        spriteBatch.Draw(Texture, new Vector2(_X, _Y), Color.White);
+                        break;
+                    case (3, 5):
+                        _Y = 280;
+                        spriteBatch.Draw(Texture, new Vector2(_X, _Y), Color.White);
+                        break;
+
                 }
             }
             if (Player == false)
             {
                 _X = 825;
-                if (Type == 2 && TankID == 1)
+                switch (Type, TankID)
                 {
-                    
-                    _Y = 275;
-                    spriteBatch.Draw(Texture, new Vector2(_X, _Y), Microsoft.Xna.Framework.Color.White);
-                }
-                else if (Type == 2 && TankID == 2)
-                {
-                    
-                    _Y = 220;
-                    spriteBatch.Draw(Texture, new Vector2(_X, _Y), Microsoft.Xna.Framework.Color.White);
-                }
-                else if (Type == 2 && TankID == 3)
-                {
-                   
-                    _Y = 330;
-                    spriteBatch.Draw(Texture, new Vector2(_X, _Y), Microsoft.Xna.Framework.Color.White);
-                }
-                else if (Type == 1 && TankID == 4)
-                {
-                    
-                    _Y = 170;
-                    spriteBatch.Draw(Texture, new Vector2(_X, _Y), Microsoft.Xna.Framework.Color.White);
-                }
-                else if (Type == 1 && TankID == 5)
-                {
-                   
-                    _Y = 280;
-                    spriteBatch.Draw(Texture, new Vector2(_X, _Y), Microsoft.Xna.Framework.Color.White);
+                    case (3, 1):
+                        _Y = 275;
+                        spriteBatch.Draw(Texture, new Vector2(_X, _Y), Color.White);
+                        break;
+                    case (2, 2):
+                        _Y = 220;
+                        spriteBatch.Draw(Texture, new Vector2(_X, _Y), Color.White);
+                        break;
+                    case (2, 3):
+                        _Y = 330;
+                        spriteBatch.Draw(Texture, new Vector2(_X, _Y), Color.White);
+                        break;
+                    case (3, 4):
+                        _Y = 170;
+                        spriteBatch.Draw(Texture, new Vector2(_X, _Y), Color.White);
+                        break;
+                    case (3, 5):
+                        _Y = 280;
+                        spriteBatch.Draw(Texture, new Vector2(_X, _Y), Color.White);
+                        break;
+
+
+
+
                 }
             }
+
+
+
+
+
+
+
+            //if (Player == true)
+            //{
+            //    if (Type == 3 && TankID == 1)
+            //    {
+
+            //        _Y = 275;
+            //        spriteBatch.Draw(Texture, new Vector2(_X, _Y), Color.White);
+            //    }
+            //    else if (Type == 2 && TankID == 2)
+            //    {
+
+            //        _Y = 220;
+            //        spriteBatch.Draw(Texture, new Vector2(_X, _Y), Microsoft.Xna.Framework.Color.White);
+            //    }
+            //    else if (Type == 2 && TankID == 3)
+            //    {
+
+            //        _Y = 330;
+            //        spriteBatch.Draw(Texture, new Vector2(_X, _Y), Microsoft.Xna.Framework.Color.White);
+            //    }
+            //    else if (Type == 1 && TankID == 4)
+            //    {
+
+            //        _Y = 170;
+            //        spriteBatch.Draw(Texture, new Vector2(_X, _Y), Microsoft.Xna.Framework.Color.White);
+            //    }
+            //    else if (Type == 1 && TankID == 5)
+            //    {
+
+            //        _Y = 280;
+            //        spriteBatch.Draw(Texture, new Vector2(_X, _Y), Microsoft.Xna.Framework.Color.White);
+            //    }
+            //}
+            //if (Player == false)
+            //{
+            //    _X = 825;
+            //    if (Type == 2 && TankID == 1)
+            //    {
+
+            //        _Y = 275;
+            //        spriteBatch.Draw(Texture, new Vector2(_X, _Y), Microsoft.Xna.Framework.Color.White);
+            //    }
+            //    else if (Type == 2 && TankID == 2)
+            //    {
+
+            //        _Y = 220;
+            //        spriteBatch.Draw(Texture, new Vector2(_X, _Y), Microsoft.Xna.Framework.Color.White);
+            //    }
+            //    else if (Type == 2 && TankID == 3)
+            //    {
+
+            //        _Y = 330;
+            //        spriteBatch.Draw(Texture, new Vector2(_X, _Y), Microsoft.Xna.Framework.Color.White);
+            //    }
+            //    else if (Type == 1 && TankID == 4)
+            //    {
+
+            //        _Y = 170;
+            //        spriteBatch.Draw(Texture, new Vector2(_X, _Y), Microsoft.Xna.Framework.Color.White);
+            //    }
+            //    else if (Type == 1 && TankID == 5)
+            //    {
+
+            //        _Y = 280;
+            //        spriteBatch.Draw(Texture, new Vector2(_X, _Y), Microsoft.Xna.Framework.Color.White);
+            //    }
+            //}
 
         }
         ////how game going to work
