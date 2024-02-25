@@ -21,6 +21,11 @@ namespace NEA3
         Texture2D treesquaretexture;
         Texture2D mountaintexutre;
         Texture2D menuTexture;
+        Texture2D GUIsqauretexture;
+        Texture2D uparrowtexture;
+        Texture2D downarrowtexture;
+        Texture2D leftturntexture;
+        Texture2D rightturntexture;
         private Texture2D buttonTexture;
         private SpriteFont myfontyfont;
         private Rectangle buttonRectangle; // square which teh tecture will be put in 
@@ -44,8 +49,8 @@ namespace NEA3
         List<tank> p1tanks = new List<tank>();
         List<tank> p2tanks = new List<tank>();
         //misc
-        float initialZoom = 0.7f;//sets inital zoom
-        Vector2 initialPosition = new Vector2(-55, 0); // sets inital potion of camera
+        float initialZoom = 0.8f;//sets inital zoom
+        Vector2 initialPosition = new Vector2(0, 0); // sets inital potion of camera
 
         public int[,] tilemap =
         {
@@ -58,7 +63,7 @@ namespace NEA3
               {0, 0, 0, 0, 0,0, 0, 2, 0, 0,0,0,0,0,0},
               {0, 0, 0, 0, 0,0, 0, 2, 0, 0,0,0,0,0,0},
               {0, 0, 0, 0, 0,0, 2, 2, 0, 0,0,0,0,0,0},
-              {0, 0, 0, 0, 0,0, 0, 2, 0, 0,0,0,0,0,0},
+              {0, 0, 0, 0, 0,0, 0, 0, 0, 0,0,0,0,0,0},
               {0, 0, 0, 0, 0,0, 0, 2, 0, 0,0,0,0,0,0},// last 0 is x = 825 & y= 550
         };
         public Game1()
@@ -81,26 +86,26 @@ namespace NEA3
             //    for()
             //}
                 //blue tanks
-            Bheavy = new tank(0, 275, tank.Direction.right, 75, 80, 1, 75, 5, 2, false, 3, true, 1, false);// x,y,direction,armour,acc,speed,penpower,range,movepoints,havefired,type,player,id 
+            Bheavy = new tank(0, 285, tank.Direction.right, 75, 80, 1, 75, 5, 2, false, 3, true, 1, false);// x,y,direction,armour,acc,speed,penpower,range,movepoints,havefired,type,player,id 
             p1tanks.Add(Bheavy);
-            Bmed = new tank(0, 220, tank.Direction.right, 50, 70, 2, 50, 5, 3, false, 2, true, 2, false);
+            Bmed = new tank(0, 230, tank.Direction.right, 50, 70, 2, 50, 5, 3, false, 2, true, 2, false);
             p1tanks.Add(Bmed);
-            Bmed2 = new tank(0, 330, tank.Direction.right, 50, 70, 2, 50, 5, 3, false, 2, true, 3, false);
+            Bmed2 = new tank(0, 340, tank.Direction.right, 50, 70, 2, 50, 5, 3, false, 2, true, 3, false);
             p1tanks.Add(Bmed2);
-            Blight = new tank(0, 170, tank.Direction.right, 25, 60, 3, 25, 3, 5, false, 2, true, 4, false);
+            Blight = new tank(0, 100, tank.Direction.right, 25, 60, 3, 25, 3, 5, false, 2, true, 4, false);
             p1tanks.Add(Blight);
-            Blight2 = new tank(0, 280, tank.Direction.right, 25, 60, 3, 25, 3, 5, false, 1, true, 5, false);
+            Blight2 = new tank(0,400, tank.Direction.right, 25, 60, 3, 25, 3, 5, false, 1, true, 5, false);
             p1tanks.Add(Blight2);
             ////red tanks
-            Rheavy = new tank(825, 275, tank.Direction.right, 75, 80, 1, 75, 5, 2, false, 3, false, 1, false);// x,y,direction,armour,acc,speed,penpower,range,movepoints,havefired,type,player,id 
+            Rheavy = new tank(770, 285, tank.Direction.right, 75, 80, 1, 75, 5, 2, false, 3, false, 1, false);// x,y,direction,armour,acc,speed,penpower,range,movepoints,havefired,type,player,id 
             p2tanks.Add(Rheavy);
-            Rmed = new tank(825, 220, tank.Direction.right, 50, 70, 2, 50, 5, 3, false, 2, false, 2, false);
+            Rmed = new tank(750, 195, tank.Direction.right, 50, 70, 2, 50, 5, 3, false, 2, false, 2, false);
             p2tanks.Add(Rmed);
-            Rmed2 = new tank(825, 230, tank.Direction.right, 50, 70, 2, 50, 5, 3, false, 2, false, 3, false);
+            Rmed2 = new tank(750, 305, tank.Direction.right, 50, 70, 2, 50, 5, 3, false, 2, false, 3, false);
             p2tanks.Add(Rmed2);
-            Rlight = new tank(825, 170, tank.Direction.right, 25, 60, 3, 25, 3, 5, false, 2, false, 4, false);
+            Rlight = new tank(750, 170, tank.Direction.right, 25, 60, 3, 25, 3, 5, false, 2, false, 4, false);
             p2tanks.Add(Rlight);
-            Rlight2 = new tank(825, 280, tank.Direction.right, 25, 60, 3, 25, 3, 5, false, 1, false, 5, false);
+            Rlight2 = new tank(785, 400, tank.Direction.right, 25, 60, 3, 25, 3, 5, false, 1, false, 5, false);
             p2tanks.Add(Rlight2);
             camera = new Camera(GraphicsDevice.Viewport, initialZoom, initialPosition);
            
@@ -117,6 +122,11 @@ namespace NEA3
                 grassTexture = Content.Load<Texture2D>("grass");//loads grass 
                 treesquaretexture = Content.Load<Texture2D>("tree");// loads tree tile
                 mountaintexutre = Content.Load<Texture2D>("maintain");
+                GUIsqauretexture = Content.Load<Texture2D>("blacksquare1");
+                uparrowtexture = Content.Load<Texture2D>("uparrow");
+                downarrowtexture = Content.Load<Texture2D>("downarrow");
+                leftturntexture = Content.Load<Texture2D>("leftturn");
+                rightturntexture = Content.Load<Texture2D>("rightturn");
             }
             if (gamestate == 0)
             {
@@ -158,21 +168,32 @@ namespace NEA3
         }
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
             MouseState mouseState = Mouse.GetState();
-            if (mouseState.LeftButton == ButtonState.Pressed && buttonRectangle.Contains(mouseState.Position))
+            if (gamestate == 0)
             {
-                gamestate = 1;
-                LoadContent();
+                if (mouseState.LeftButton == ButtonState.Pressed && buttonRectangle.Contains(mouseState.Position))
+                {
+                    gamestate = 1;
+                    LoadContent();
+                }
             }
-
+            Bheavy.Update(gameTime);
+             Bmed.Update(gameTime);
+            Bmed2.Update(gameTime);
+            Blight.Update(gameTime);
+            Blight2.Update(gameTime);
+            Rheavy.Update(gameTime);
+            Rmed.Update(gameTime);
+            Rmed2.Update(gameTime);
+            Rlight.Update(gameTime);
+            Rlight2.Update(gameTime);
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);//set background to black
+            GraphicsDevice.Clear(Color.DarkGray);//set background to black
             int col = 0;
             int row = 0;
             if (gamestate == 0)// menu screen  // y = 550 x = 825 area = 453750 pixles 
@@ -237,7 +258,14 @@ namespace NEA3
                 Rlight2.LoadContent(Content);
                 Rlight2.Draw(_spriteBatch);
                 _spriteBatch.End();
-
+                //UI
+                _spriteBatch.Begin();
+                _spriteBatch.Draw(GUIsqauretexture, new Vector2(670, 50), Color.White);
+                _spriteBatch.Draw(uparrowtexture, new Vector2(710, 200), Color.White);
+                _spriteBatch.Draw(downarrowtexture, new Vector2(710, 250), Color.White);
+                _spriteBatch.Draw(leftturntexture, new Vector2(760, 250), Color.White);
+                _spriteBatch.Draw(rightturntexture, new Vector2(660, 250), Color.White);
+                _spriteBatch.End();
 
                 base.Draw(gameTime);
             }

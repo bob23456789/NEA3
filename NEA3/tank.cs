@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection.Metadata;
+using Microsoft.Xna.Framework.Input;
 
 namespace NEA3
 {
@@ -117,19 +118,20 @@ namespace NEA3
                         spriteBatch.Draw(Texture, new Vector2(_X, _Y), Color.White);
                         break;
                     case (2, 2):
-                        _Y = 150;
+                        _Y = 230;
+                        
                         spriteBatch.Draw(Texture, new Vector2(_X, _Y), Color.White);
                         break;
                     case (2, 3):
-                        _Y = 330;
+                        _Y = 340;
                         spriteBatch.Draw(Texture, new Vector2(_X, _Y), Color.White);
                         break;
                     case (1, 4):
-                        _Y = 170;
+                        _Y = 100;
                         spriteBatch.Draw(Texture, new Vector2(_X, _Y), Color.White);
                         break;
                     case (1, 5):
-                        _Y = 280;
+                        _Y = 400;
                         spriteBatch.Draw(Texture, new Vector2(_X, _Y), Color.White);
                         break;
 
@@ -137,27 +139,29 @@ namespace NEA3
             }
             if (Player == false)
             {
-                _X = 825;
+                _X = 780;
                 switch (Type, TankID)
                 {
                     case (3, 1):
-                        _Y = 275;
+                        _Y = 285;
+                        _X = 770;
                         spriteBatch.Draw(Texture, new Vector2(_X, _Y), Color.White);
                         break;
                     case (2, 2):
-                        _Y = 220;
+                        _Y = 230;
                         spriteBatch.Draw(Texture, new Vector2(_X, _Y), Color.White);
                         break;
                     case (2, 3):
-                        _Y = 330;
+                        _Y = 340;
                         spriteBatch.Draw(Texture, new Vector2(_X, _Y), Color.White);
                         break;
                     case (1, 4):
-                        _Y = 170;
+                        _Y = 100;
                         spriteBatch.Draw(Texture, new Vector2(_X, _Y), Color.White);
                         break;
                     case (1, 5):
-                        _Y = 280;
+                        _Y = 400;
+                        _X = 785;
                         spriteBatch.Draw(Texture, new Vector2(_X, _Y), Color.White);
                         break;
 
@@ -241,6 +245,16 @@ namespace NEA3
             //    }
             //}
 
+        }
+        public override void Update(GameTime gameTime)
+        {
+            MouseState mouseState = Mouse.GetState();
+            if (mouseState.LeftButton == ButtonState.Pressed && Texture.Contains(mouseState.Position))
+            {
+
+
+            }
+                base.Update(gameTime);
         }
         ////how game going to work
 
