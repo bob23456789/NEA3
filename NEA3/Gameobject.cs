@@ -17,7 +17,7 @@ namespace NEA3
         private Rectangle tankRectangle;
         public virtual void LoadContent(ContentManager Content)
         {
-            tankRectangle = new Rectangle((int)position.X, (int)position.Y, Texture.Width, Texture.Height);
+            //tankRectangle = new Rectangle((int)position.X, (int)position.Y, Texture.Width, Texture.Height);
         }
 
         public virtual void Update(GameTime gameTime)

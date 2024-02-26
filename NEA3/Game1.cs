@@ -14,21 +14,18 @@ namespace NEA3
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        const int tilesize = 55; // so i rember teh tile size
+        const int tilesize = 55; // so i remember teh tile size
         //textures for terrain and ui 
-        Texture2D squareTexture;
-        Texture2D grassTexture;
-        Texture2D treesquaretexture;
-        Texture2D mountaintexutre;
-        Texture2D menuTexture;
-        Texture2D GUIsqauretexture;
-        Texture2D uparrowtexture;
-        Texture2D downarrowtexture;
-        Texture2D leftturntexture;
-        Texture2D rightturntexture;
+        Texture2D squareTexture, grassTexture, treesquaretexture, mountaintexutre, menuTexture, GUIsqauretexture, uparrowtexture, downarrowtexture, leftturntexture, rightturntexture;
         private Texture2D buttonTexture;
         private SpriteFont myfontyfont;
         private Rectangle buttonRectangle; // square which teh tecture will be put in
+        private Rectangle forwadbutton;
+        private Rectangle bakbutton;
+        private Rectangle leftbutton;
+        private Rectangle rigtbutton;
+        //private Rectangle forwardbutton;
+        //private Rectangle forwardbutton;
         double gamestate = 1;//shows if playign or meue 
         string menuTitle = "War On Perliculum\n             Prime";
         string Line = "";
@@ -118,6 +115,7 @@ namespace NEA3
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             if (gamestate == 1)
             {
+
                 //tankinstalise(Bheavy, Bmed, Bmed2, Rmed, Rmed2, Blight, Blight2, Rlight, Rlight2, Rheavy, p1tanks, p2tanks);
                 grassTexture = Content.Load<Texture2D>("grass");//loads grass 
                 treesquaretexture = Content.Load<Texture2D>("tree");// loads tree tile
@@ -127,6 +125,8 @@ namespace NEA3
                 downarrowtexture = Content.Load<Texture2D>("downarrow");
                 leftturntexture = Content.Load<Texture2D>("leftturn");
                 rightturntexture = Content.Load<Texture2D>("rightturn");
+                Vector2 position = new Vector2(Window.ClientBounds.Width / 2 - 100, Window.ClientBounds.Height / 2 + 20);
+                fow = new Rectangle((int)position.X, (int)position.Y, buttonTexture.Width, buttonTexture.Height)
             }
             if (gamestate == 0)
             {
@@ -177,16 +177,24 @@ namespace NEA3
                     LoadContent();
                 }
             }
-            Bheavy.Update(gameTime);
-             Bmed.Update(gameTime);
-            Bmed2.Update(gameTime);
-            Blight.Update(gameTime);
-            Blight2.Update(gameTime);
-            Rheavy.Update(gameTime);
-            Rmed.Update(gameTime);
-            Rmed2.Update(gameTime);
-            Rlight.Update(gameTime);
-            Rlight2.Update(gameTime);
+            if(gamestate == 1)
+            {
+                if (mouseState.LeftButton == ButtonState.Pressed && buttonRectangle.Contains(mouseState.Position))
+                {
+                    gamestate = 1;
+                    LoadContent();
+                }
+                Bheavy.Update(gameTime);
+                Bmed.Update(gameTime);
+                Bmed2.Update(gameTime);
+                Blight.Update(gameTime);
+                Blight2.Update(gameTime);
+                Rheavy.Update(gameTime);
+                Rmed.Update(gameTime);
+                Rmed2.Update(gameTime);
+                Rlight.Update(gameTime);
+                Rlight2.Update(gameTime);
+            }
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             base.Update(gameTime);
         }
@@ -261,10 +269,10 @@ namespace NEA3
                 //UI
                 _spriteBatch.Begin();
                 _spriteBatch.Draw(GUIsqauretexture, new Vector2(670, 50), Color.White);
-                _spriteBatch.Draw(uparrowtexture, new Vector2(710, 200), Color.White);
-                _spriteBatch.Draw(downarrowtexture, new Vector2(710, 250), Color.White);
-                _spriteBatch.Draw(leftturntexture, new Vector2(760, 250), Color.White);
-                _spriteBatch.Draw(rightturntexture, new Vector2(660, 250), Color.White);
+                _spriteBatch.Draw(uparrowtexture,  new Vector2(710, 200),  Color.White);
+                _spriteBatch.Draw(downarrowtexture, new Vector2(710, 250),  Color.White);
+                _spriteBatch.Draw(leftturntexture, new Vector2(760, 250),  Color.White);
+                _spriteBatch.Draw(rightturntexture, new Vector2(660, 250),  Color.White);
                 _spriteBatch.End();
 
                 base.Draw(gameTime);

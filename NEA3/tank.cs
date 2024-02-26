@@ -249,11 +249,11 @@ namespace NEA3
         public override void Update(GameTime gameTime)
         {
             MouseState mouseState = Mouse.GetState();
-            if (mouseState.LeftButton == ButtonState.Pressed && Texture.Contains(mouseState.Position))
-            {
+            //if (mouseState.LeftButton == ButtonState.Pressed && Texture.Contains(mouseState.Position))
+            //{
 
 
-            }
+            //}
                 base.Update(gameTime);
         }
         ////how game going to work
