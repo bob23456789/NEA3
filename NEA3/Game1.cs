@@ -20,10 +20,10 @@ namespace NEA3
         private Texture2D buttonTexture;
         private SpriteFont myfontyfont;
         private Rectangle buttonRectangle; // square which teh tecture will be put in
-        private Rectangle forwadbutton;
-        private Rectangle bakbutton;
+        private Rectangle forwardbutton;
+        private Rectangle backbutton;
         private Rectangle leftbutton;
-        private Rectangle rigtbutton;
+        private Rectangle rightbutton;
         //private Rectangle forwardbutton;
         //private Rectangle forwardbutton;
         double gamestate = 1;//shows if playign or meue 
@@ -125,8 +125,11 @@ namespace NEA3
                 downarrowtexture = Content.Load<Texture2D>("downarrow");
                 leftturntexture = Content.Load<Texture2D>("leftturn");
                 rightturntexture = Content.Load<Texture2D>("rightturn");
-                Vector2 position = new Vector2(Window.ClientBounds.Width / 2 - 100, Window.ClientBounds.Height / 2 + 20);
-                fow = new Rectangle((int)position.X, (int)position.Y, buttonTexture.Width, buttonTexture.Height)
+                Vector2 fbposition = new Vector2(Window.ClientBounds.Width / 2 - 100, Window.ClientBounds.Height / 2 + 20);// gives postion for hidden rectangle around buttons
+                fowardbutton = new Rectangle((int)position.X, (int)position.Y, uparrowtexture.Width, uparrowtexture.Height);//foward button rectangle
+                backbutton = new Rectangle((int)position.X, (int)position.Y, downarrowtexture.Width, downarrowtexture.Height);
+                leftbutton = new Rectangle((int)position.X, (int)position.Y, leftturntexture.Width, leftturntexture.Height);
+                rightbutton = new Rectangle((int)position.X, (int)position.Y, rightturntexture.Width, rightturntexture.Height);
             }
             if (gamestate == 0)
             {
