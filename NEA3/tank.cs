@@ -13,8 +13,8 @@ namespace NEA3
 {
     internal class tank : Gameobject
     {
-        Game1 game1;
-        Texture2D selectedtexture;
+
+        
         public enum Direction
         {
             down,
@@ -178,34 +178,34 @@ namespace NEA3
         public override void Update(GameTime gameTime)
         {
             MouseState mouseState = Mouse.GetState();
-            Selected(game1);
+            Selected();
             base.Update(gameTime);
         }
-        public void Selected(Game1 game1)
+        public void Selected()
         {
             if (Keyboard.GetState().IsKeyDown(Keys.D1))//when 1 is pressed this will select the heavy tank for whihc ever side it is 
             {
                 
-                if ( game1.turn % 2 == 0 )//checks whos tunr it is 
+                if ( Game1.turn % 2 == 0 || Game1.turn == 0)//checks whos tunr it is 
                 {
-                    if(Type == 1 && Player == true)// makes sure its the hevay tank on blue team 
+                    if(TankID == 1 && Player == true)// makes sure its the hevay tank on blue team 
                     {
                         _selected = true;//sets selcted for that tank to true 
-                        LoadContent(ContentManager content);
+
                     }
-                    else
+                    else if ((TankID == 3 || TankID == 2 || TankID == 4 || TankID == 5) && Player == true)
                     {
                         _selected = false;//sets selected for other tanks to false 
                     }
                 }
                 else
                 {
-                    if (Type == 1 && Player == false)
+                    if (TankID == 1 && Player == false)
                     {
                         _selected = true;
 
                     }
-                    else
+                    else if ((TankID == 3 || TankID == 2 || TankID == 4 || TankID == 5) && Player == false)
                     {
                         _selected = false;
                     }
@@ -215,24 +215,117 @@ namespace NEA3
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.D2))
             {
+                if (Game1.turn % 2 == 0 || Game1.turn == 0)//checks whos tunr it is 
+                {
+                    if (TankID == 2 && Player == true)// makes sure its the hevay tank on blue team 
+                    {
+                        _selected = true;//sets selcted for that tank to true 
 
+                    }
+                    else if ((TankID == 1 || TankID == 3 || TankID == 4 || TankID == 5) && Player == true)
+                    {
+                        _selected = false;//sets selected for other tanks to false 
+                    }
+                }
+                else
+                {
+                    if (TankID == 2 && Player == false)
+                    {
+                        _selected = true;
+
+                    }
+                    else if ((TankID == 1 || TankID == 3 || TankID == 4 || TankID == 5) && Player == false)
+                    {
+                        _selected = false;
+                    }
+
+                }
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.D3))
             {
+                if (Game1.turn % 2 == 0 || Game1.turn == 0)//checks whos tunr it is 
+                {
+                    if (TankID == 3 && Player == true)// makes sure its the hevay tank on blue team 
+                    {
+                        _selected = true;//sets selcted for that tank to true 
 
+                    }
+                    else if((TankID == 1 || TankID == 2 || TankID == 4 || TankID == 5)&& Player == true)
+                    {
+                        _selected = false;//sets selected for other tanks to false 
+                    }
+                }
+                else 
+                {
+                    if (TankID == 3 && Player == false)
+                    {
+                        _selected = true;
+
+                    }
+                    else if ((TankID == 1 || TankID == 2 || TankID == 4 || TankID == 5) && Player == false)
+                    {
+                        _selected = false;
+                    }
+
+                }
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.D4))
             {
+                if (Game1.turn % 2 == 0 || Game1.turn == 0)//checks whos tunr it is 
+                {
+                    if (TankID == 4 && Player == true)// makes sure its the hevay tank on blue team 
+                    {
+                        _selected = true;//sets selcted for that tank to true 
 
+                    }
+                    else if ((TankID == 1 || TankID == 2 || TankID == 3 || TankID == 5) && Player == true)
+                    {
+                        _selected = false;//sets selected for other tanks to false 
+                    }
+                }
+                else
+                {
+                    if (TankID == 4 && Player == false)
+                    {
+                        _selected = true;
+
+                    }
+                    else if((TankID == 1 || TankID == 2 || TankID == 3 || TankID == 5) && Player == false)
+                    {
+                        _selected = false;
+                    }
+
+                }
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.D5))
             {
+                if (Game1.turn % 2 == 0 || Game1.turn == 0)//checks whos tunr it is 
+                {
+                    if (TankID == 5 && Player == true)// makes sure its the hevay tank on blue team 
+                    {
+                        _selected = true;//sets selcted for that tank to true 
 
-            }
-            else if (Keyboard.GetState().IsKeyDown(Keys.D6))
-            {
+                    }
+                    else if((TankID == 1 || TankID == 2 || TankID == 4 || TankID == 3) && Player == true)
+                    {
+                        _selected = false;//sets selected for other tanks to false 
+                    }
+                }
+                else
+                {
+                    if (TankID == 5 && Player == false)
+                    {
+                        _selected = true;
 
+                    }
+                    else if ((TankID == 1 || TankID == 2 || TankID == 4 || TankID == 3) && Player == false)
+                    {
+                        _selected = false;
+                    }
+
+                }
             }
+            
         }
         public static void movement()
         {

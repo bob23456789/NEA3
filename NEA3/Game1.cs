@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.DirectoryServices.ActiveDirectory;
 using System;
 
+
 namespace NEA3
 {
     public class Game1 : Game
@@ -16,7 +17,7 @@ namespace NEA3
         private SpriteBatch _spriteBatch;
         const int tilesize = 55; // so i remember teh tile size
         //textures for terrain and ui 
-        Texture2D squareTexture, grassTexture, treesquaretexture, mountaintexutre, menuTexture, GUIsqauretexture, uparrowtexture, downarrowtexture, leftturntexture, rightturntexture;
+        Texture2D squareTexture, grassTexture, treesquaretexture, mountaintexutre, menuTexture, GUIsqauretexture, uparrowtexture, downarrowtexture, leftturntexture, rightturntexture ,selectedtextureHB , selectedtextureMB , selectedtextureLB, selectedtextureHR, selectedtextureMR, selectedtextureLR;
         private Texture2D buttonTexture;
         private SpriteFont myfontyfont;
         private Rectangle buttonRectangle; // square which teh tecture will be put in
@@ -29,7 +30,7 @@ namespace NEA3
         double gamestate = 1;//shows if playign or meue 
         string menuTitle = "War On Perliculum\n             Prime";
         string Line = "";
-        public int turn = 0; // even = blue odd = red turn
+        public static int turn = 0; // even = blue odd = red turn
         // objects
         Camera camera;
         //tank objects
@@ -126,6 +127,12 @@ namespace NEA3
                 downarrowtexture = Content.Load<Texture2D>("downarrow");
                 leftturntexture = Content.Load<Texture2D>("leftturn");
                 rightturntexture = Content.Load<Texture2D>("rightturn");
+                selectedtextureHB = Content.Load<Texture2D>("blueheavyUF");
+                selectedtextureHR = Content.Load<Texture2D>("redheavyUF");
+                selectedtextureMB = Content.Load<Texture2D>("bluemediumUF");
+                selectedtextureMR = Content.Load<Texture2D>("redmediumUF");
+                selectedtextureLB = Content.Load<Texture2D>("LightblueUF");
+                selectedtextureLR = Content.Load<Texture2D>("LightredUF");
                 Vector2 fbposition = new Vector2(710,200);// gives postion for hidden rectangle around buttons
                 Vector2 bbposition = new Vector2(710, 250);
                 Vector2 lbposition = new Vector2(760, 250);
@@ -216,6 +223,8 @@ namespace NEA3
                 Rmed2.Update(gameTime);
                 Rlight.Update(gameTime);
                 Rlight2.Update(gameTime);
+                //selected fun
+               
             }
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             base.Update(gameTime);
@@ -223,11 +232,13 @@ namespace NEA3
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.DarkGray);//set background to black
+            const int selx = 710;// where the imagees of the selted tanks will be drawn
+            const int sely = 85;
             int col = 0;
             int row = 0;
             if (gamestate == 0)// menu screen  // y = 550 x = 825 area = 453750 pixles 
             {
+                GraphicsDevice.Clear(Color.DarkGray);//sets back ground to dark grey
                 _spriteBatch.Begin();
                 _spriteBatch.Draw(squareTexture, new Vector2(row, col), Color.White);
                 Vector2 textMiddlePoint = myfontyfont.MeasureString(menuTitle) / 2;
@@ -240,6 +251,7 @@ namespace NEA3
 
             if (gamestate == 1)
             {
+                GraphicsDevice.Clear(Color.DarkGray);
                 Initialize();
                 _spriteBatch.Begin(transformMatrix: camera.GetViewMatrix());// begins draws  in the srpites + sets the zoom
                 for (int y = 0; y < tilemap.GetLength(0); y++)
@@ -266,7 +278,9 @@ namespace NEA3
                     }
                     col += 55;
                 }
+                _spriteBatch.End();
                 // drawing the tanks probaly an esasier way 
+                _spriteBatch.Begin();
                 Bheavy.LoadContent(Content);
                 Bheavy.Draw(_spriteBatch);
                 Rheavy.LoadContent(Content);
@@ -297,8 +311,39 @@ namespace NEA3
                 _spriteBatch.Draw(rightturntexture,rightbutton,  Color.White);
                 _spriteBatch.End();
 
-                base.Draw(gameTime);
+                _spriteBatch.Begin();
+                //selected fun
+                if (Bheavy._selected == true)
+                {
+                    _spriteBatch.Draw(selectedtextureHB, new Vector2(selx, sely), Color.White);
+                }
+                else if (Rheavy._selected == true)
+                {
+                    _spriteBatch.Draw(selectedtextureHR, new Vector2(selx, sely), Color.White);
+                }
+                else if (Bmed._selected == true || Bmed2._selected == true)
+                {
+                    _spriteBatch.Draw(selectedtextureMB, new Vector2(selx, sely), Color.White);
+                }
+                else if (Blight._selected == true || Blight2._selected == true)
+                {
+                    _spriteBatch.Draw(selectedtextureMR, new Vector2(selx, sely), Color.White);
+                }
+                else if (Rmed._selected == true || Rmed2._selected == true)
+                {
+                    _spriteBatch.Draw(selectedtextureLB, new Vector2(selx, sely), Color.White);
+                }
+                else if (Rlight._selected == true || Rlight2._selected == true)
+                {
+                    _spriteBatch.Draw(selectedtextureLR, new Vector2(selx, sely), Color.White);
+                }
+                _spriteBatch.End();
             }
+            base.Draw(gameTime);
+        }
+        public void Selecteddraw(GameTime gameTime)
+        {
+
         }
         public class Camera
         {
