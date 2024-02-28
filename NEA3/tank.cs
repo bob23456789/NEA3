@@ -13,6 +13,8 @@ namespace NEA3
 {
     internal class tank : Gameobject
     {
+        Game1 game1;
+        Texture2D selectedtexture;
         public enum Direction
         {
             down,
@@ -103,6 +105,7 @@ namespace NEA3
                 }
 
             }
+
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -171,90 +174,69 @@ namespace NEA3
                 }
             }
 
-
-
-
-
-
-
-            //if (Player == true)
-            //{
-            //    if (Type == 3 && TankID == 1)
-            //    {
-
-            //        _Y = 275;
-            //        spriteBatch.Draw(Texture, new Vector2(_X, _Y), Color.White);
-            //    }
-            //    else if (Type == 2 && TankID == 2)
-            //    {
-
-            //        _Y = 220;
-            //        spriteBatch.Draw(Texture, new Vector2(_X, _Y), Microsoft.Xna.Framework.Color.White);
-            //    }
-            //    else if (Type == 2 && TankID == 3)
-            //    {
-
-            //        _Y = 330;
-            //        spriteBatch.Draw(Texture, new Vector2(_X, _Y), Microsoft.Xna.Framework.Color.White);
-            //    }
-            //    else if (Type == 1 && TankID == 4)
-            //    {
-
-            //        _Y = 170;
-            //        spriteBatch.Draw(Texture, new Vector2(_X, _Y), Microsoft.Xna.Framework.Color.White);
-            //    }
-            //    else if (Type == 1 && TankID == 5)
-            //    {
-
-            //        _Y = 280;
-            //        spriteBatch.Draw(Texture, new Vector2(_X, _Y), Microsoft.Xna.Framework.Color.White);
-            //    }
-            //}
-            //if (Player == false)
-            //{
-            //    _X = 825;
-            //    if (Type == 2 && TankID == 1)
-            //    {
-
-            //        _Y = 275;
-            //        spriteBatch.Draw(Texture, new Vector2(_X, _Y), Microsoft.Xna.Framework.Color.White);
-            //    }
-            //    else if (Type == 2 && TankID == 2)
-            //    {
-
-            //        _Y = 220;
-            //        spriteBatch.Draw(Texture, new Vector2(_X, _Y), Microsoft.Xna.Framework.Color.White);
-            //    }
-            //    else if (Type == 2 && TankID == 3)
-            //    {
-
-            //        _Y = 330;
-            //        spriteBatch.Draw(Texture, new Vector2(_X, _Y), Microsoft.Xna.Framework.Color.White);
-            //    }
-            //    else if (Type == 1 && TankID == 4)
-            //    {
-
-            //        _Y = 170;
-            //        spriteBatch.Draw(Texture, new Vector2(_X, _Y), Microsoft.Xna.Framework.Color.White);
-            //    }
-            //    else if (Type == 1 && TankID == 5)
-            //    {
-
-            //        _Y = 280;
-            //        spriteBatch.Draw(Texture, new Vector2(_X, _Y), Microsoft.Xna.Framework.Color.White);
-            //    }
-            //}
-
         }
         public override void Update(GameTime gameTime)
         {
             MouseState mouseState = Mouse.GetState();
-            //if (mouseState.LeftButton == ButtonState.Pressed && Texture.Contains(mouseState.Position))
-            //{
+            Selected(game1);
+            base.Update(gameTime);
+        }
+        public void Selected(Game1 game1)
+        {
+            if (Keyboard.GetState().IsKeyDown(Keys.D1))//when 1 is pressed this will select the heavy tank for whihc ever side it is 
+            {
+                
+                if ( game1.turn % 2 == 0 )//checks whos tunr it is 
+                {
+                    if(Type == 1 && Player == true)// makes sure its the hevay tank on blue team 
+                    {
+                        _selected = true;//sets selcted for that tank to true 
+                        LoadContent(ContentManager content);
+                    }
+                    else
+                    {
+                        _selected = false;//sets selected for other tanks to false 
+                    }
+                }
+                else
+                {
+                    if (Type == 1 && Player == false)
+                    {
+                        _selected = true;
 
+                    }
+                    else
+                    {
+                        _selected = false;
+                    }
 
-            //}
-                base.Update(gameTime);
+                }
+
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.D2))
+            {
+
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.D3))
+            {
+
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.D4))
+            {
+
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.D5))
+            {
+
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.D6))
+            {
+
+            }
+        }
+        public static void movement()
+        {
+
         }
         ////how game going to work
 

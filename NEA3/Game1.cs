@@ -29,6 +29,7 @@ namespace NEA3
         double gamestate = 1;//shows if playign or meue 
         string menuTitle = "War On Perliculum\n             Prime";
         string Line = "";
+        public int turn = 0; // even = blue odd = red turn
         // objects
         Camera camera;
         //tank objects
@@ -125,11 +126,14 @@ namespace NEA3
                 downarrowtexture = Content.Load<Texture2D>("downarrow");
                 leftturntexture = Content.Load<Texture2D>("leftturn");
                 rightturntexture = Content.Load<Texture2D>("rightturn");
-                Vector2 fbposition = new Vector2(Window.ClientBounds.Width / 2 - 100, Window.ClientBounds.Height / 2 + 20);// gives postion for hidden rectangle around buttons
-                fowardbutton = new Rectangle((int)position.X, (int)position.Y, uparrowtexture.Width, uparrowtexture.Height);//foward button rectangle
-                backbutton = new Rectangle((int)position.X, (int)position.Y, downarrowtexture.Width, downarrowtexture.Height);
-                leftbutton = new Rectangle((int)position.X, (int)position.Y, leftturntexture.Width, leftturntexture.Height);
-                rightbutton = new Rectangle((int)position.X, (int)position.Y, rightturntexture.Width, rightturntexture.Height);
+                Vector2 fbposition = new Vector2(710,200);// gives postion for hidden rectangle around buttons
+                Vector2 bbposition = new Vector2(710, 250);
+                Vector2 lbposition = new Vector2(760, 250);
+                Vector2 rbposition = new Vector2(660, 250);
+                forwardbutton = new Rectangle((int)fbposition.X, (int)fbposition.Y, uparrowtexture.Width, uparrowtexture.Height);//foward button rectangle
+                backbutton = new Rectangle((int)bbposition.X, (int)bbposition.Y, downarrowtexture.Width, downarrowtexture.Height);
+                leftbutton = new Rectangle((int)lbposition.X, (int)lbposition.Y, leftturntexture.Width, leftturntexture.Height);
+                rightbutton = new Rectangle((int)rbposition.X, (int)rbposition.Y, rightturntexture.Width, rightturntexture.Height);
             }
             if (gamestate == 0)
             {
@@ -182,10 +186,25 @@ namespace NEA3
             }
             if(gamestate == 1)
             {
-                if (mouseState.LeftButton == ButtonState.Pressed && buttonRectangle.Contains(mouseState.Position))
+                if (mouseState.LeftButton == ButtonState.Pressed && forwardbutton.Contains(mouseState.Position))
                 {
-                    gamestate = 1;
-                    LoadContent();
+                   
+                    
+                }
+                if (mouseState.LeftButton == ButtonState.Pressed && forwardbutton.Contains(mouseState.Position))
+                {
+
+
+                }
+                if (mouseState.LeftButton == ButtonState.Pressed && forwardbutton.Contains(mouseState.Position))
+                {
+
+
+                }
+                if (mouseState.LeftButton == ButtonState.Pressed && forwardbutton.Contains(mouseState.Position))
+                {
+
+
                 }
                 Bheavy.Update(gameTime);
                 Bmed.Update(gameTime);
@@ -272,10 +291,10 @@ namespace NEA3
                 //UI
                 _spriteBatch.Begin();
                 _spriteBatch.Draw(GUIsqauretexture, new Vector2(670, 50), Color.White);
-                _spriteBatch.Draw(uparrowtexture,  new Vector2(710, 200),  Color.White);
-                _spriteBatch.Draw(downarrowtexture, new Vector2(710, 250),  Color.White);
-                _spriteBatch.Draw(leftturntexture, new Vector2(760, 250),  Color.White);
-                _spriteBatch.Draw(rightturntexture, new Vector2(660, 250),  Color.White);
+                _spriteBatch.Draw(uparrowtexture, forwardbutton,  Color.White);
+                _spriteBatch.Draw(downarrowtexture, backbutton,  Color.White);
+                _spriteBatch.Draw(leftturntexture,leftbutton,  Color.White);
+                _spriteBatch.Draw(rightturntexture,rightbutton,  Color.White);
                 _spriteBatch.End();
 
                 base.Draw(gameTime);
