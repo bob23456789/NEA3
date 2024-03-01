@@ -96,15 +96,15 @@ namespace NEA3
             Blight2 = new tank(0,400, tank.Direction.right, 25, 60, 3, 25, 3, 5, false, 1, true, 5, false);
             p1tanks.Add(Blight2);
             ////red tanks
-            Rheavy = new tank(770, 285, tank.Direction.right, 75, 80, 1, 75, 5, 2, false, 3, false, 1, false);// x,y,direction,armour,acc,speed,penpower,range,movepoints,havefired,type,player,id 
+            Rheavy = new tank(770, 285, tank.Direction.left, 75, 80, 1, 75, 5, 2, false, 3, false, 1, false);// x,y,direction,armour,acc,speed,penpower,range,movepoints,havefired,type,player,id 
             p2tanks.Add(Rheavy);
-            Rmed = new tank(750, 195, tank.Direction.right, 50, 70, 2, 50, 5, 3, false, 2, false, 2, false);
+            Rmed = new tank(750, 195, tank.Direction.left, 50, 70, 2, 50, 5, 3, false, 2, false, 2, false);
             p2tanks.Add(Rmed);
-            Rmed2 = new tank(750, 305, tank.Direction.right, 50, 70, 2, 50, 5, 3, false, 2, false, 3, false);
+            Rmed2 = new tank(750, 305, tank.Direction.left, 50, 70, 2, 50, 5, 3, false, 2, false, 3, false);
             p2tanks.Add(Rmed2);
-            Rlight = new tank(750, 170, tank.Direction.right, 25, 60, 3, 25, 3, 5, false, 2, false, 4, false);
+            Rlight = new tank(750, 170, tank.Direction.left, 25, 60, 3, 25, 3, 5, false, 2, false, 4, false);
             p2tanks.Add(Rlight);
-            Rlight2 = new tank(785, 400, tank.Direction.right, 25, 60, 3, 25, 3, 5, false, 1, false, 5, false);
+            Rlight2 = new tank(785, 400, tank.Direction.left, 25, 60, 3, 25, 3, 5, false, 1, false, 5, false);
             p2tanks.Add(Rlight2);
             camera = new Camera(GraphicsDevice.Viewport, initialZoom, initialPosition);
            
@@ -248,6 +248,16 @@ namespace NEA3
                 _spriteBatch.Draw(buttonTexture, buttonRectangle, Color.White);//button rectnagle allows for mouse to click
                 _spriteBatch.End();
             }
+            if(gamestate == 1.5)
+            {
+                _spriteBatch.Begin();
+                _spriteBatch.Draw(GUIsqauretexture, new Vector2(670, 50), Color.White);
+                _spriteBatch.Draw(uparrowtexture, forwardbutton, Color.White);
+                _spriteBatch.Draw(downarrowtexture, backbutton, Color.White);
+                _spriteBatch.Draw(leftturntexture, leftbutton, Color.White);
+                _spriteBatch.Draw(rightturntexture, rightbutton, Color.White);
+                _spriteBatch.End();
+            }
 
             if (gamestate == 1)
             {
@@ -310,38 +320,38 @@ namespace NEA3
                 _spriteBatch.Draw(leftturntexture,leftbutton,  Color.White);
                 _spriteBatch.Draw(rightturntexture,rightbutton,  Color.White);
                 _spriteBatch.End();
-
-                _spriteBatch.Begin();
-                //selected fun
-                if (Bheavy._selected == true)
-                {
-                    _spriteBatch.Draw(selectedtextureHB, new Vector2(selx, sely), Color.White);
-                }
-                else if (Rheavy._selected == true)
-                {
-                    _spriteBatch.Draw(selectedtextureHR, new Vector2(selx, sely), Color.White);
-                }
-                else if (Bmed._selected == true || Bmed2._selected == true)
-                {
-                    _spriteBatch.Draw(selectedtextureMB, new Vector2(selx, sely), Color.White);
-                }
-                else if (Blight._selected == true || Blight2._selected == true)
-                {
-                    _spriteBatch.Draw(selectedtextureMR, new Vector2(selx, sely), Color.White);
-                }
-                else if (Rmed._selected == true || Rmed2._selected == true)
-                {
-                    _spriteBatch.Draw(selectedtextureLB, new Vector2(selx, sely), Color.White);
-                }
-                else if (Rlight._selected == true || Rlight2._selected == true)
-                {
-                    _spriteBatch.Draw(selectedtextureLR, new Vector2(selx, sely), Color.White);
-                }
-                _spriteBatch.End();
+                    _spriteBatch.Begin();
+                    //selected fun
+                    if (Bheavy._selected == true)
+                    {
+                        _spriteBatch.Draw(selectedtextureHB, new Vector2(selx, sely), Color.White);
+                    }
+                    else if (Rheavy._selected == true)
+                    {
+                        _spriteBatch.Draw(selectedtextureHR, new Vector2(selx, sely), Color.White);
+                    }
+                    else if (Bmed._selected == true || Bmed2._selected == true)
+                    {
+                        _spriteBatch.Draw(selectedtextureMB, new Vector2(selx, sely), Color.White);
+                    }
+                    else if (Blight._selected == true || Blight2._selected == true)
+                    {
+                        _spriteBatch.Draw(selectedtextureMR, new Vector2(selx, sely), Color.White);
+                    }
+                    else if (Rmed._selected == true || Rmed2._selected == true)
+                    {
+                        _spriteBatch.Draw(selectedtextureLB, new Vector2(selx, sely), Color.White);
+                    }
+                    else if (Rlight._selected == true || Rlight2._selected == true)
+                    {
+                        _spriteBatch.Draw(selectedtextureLR, new Vector2(selx, sely), Color.White);
+                    }
+                    _spriteBatch.End();
+                
             }
             base.Draw(gameTime);
         }
-        public void Selecteddraw(GameTime gameTime)
+        public void Redraw(GameTime gameTime)
         {
 
         }
