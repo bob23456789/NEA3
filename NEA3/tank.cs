@@ -92,7 +92,7 @@ namespace NEA3
                         Vector2 LBposition = new Vector2(0, 100); //positon of the rectangles for light tank 1
                         RBLight = new Rectangle((int)LBposition.X, (int)LBposition.Y, Texture.Width, Texture.Height); // actual retangle 
                     }
-                    if (TankID == 5)
+                    else if (TankID == 5)
                     {
                         Vector2 LB2position = new Vector2(0, 400); //positon of the rectangles 
                         RB2light = new Rectangle((int)LB2position.X, (int)LB2position.Y, Texture.Width, Texture.Height);
@@ -107,7 +107,7 @@ namespace NEA3
                         Vector2 LRposition = new Vector2(635, 100);
                         RRLight = new Rectangle((int)LRposition.X, (int)LRposition.Y, Texture.Width, Texture.Height);
                     }
-                    if (TankID == 5)
+                    else if (TankID == 5)
                     {
                         Vector2 LR2position = new Vector2(635, 400);
                        RR2light = new Rectangle((int)LR2position.X, (int)LR2position.Y, Texture.Width, Texture.Height);
@@ -125,7 +125,7 @@ namespace NEA3
                         Vector2 MB2position = new Vector2(320, 340);
                         RBMed = new Rectangle((int)MB2position.X, (int)MB2position.Y, Texture.Width, Texture.Height);
                     }
-                    if (TankID == 2)
+                    else if (TankID == 2)
                     {
                         Vector2 MBposition = new Vector2(-100, 200);
                         RB2Med = new Rectangle((int)MBposition.X, (int)MBposition.Y, Texture.Width, Texture.Height);
@@ -139,7 +139,7 @@ namespace NEA3
                         Vector2 Mr2position = new Vector2(620, 340);
                         RR2Med = new Rectangle((int)Mr2position.X, (int)Mr2position.Y, Texture.Width, Texture.Height);
                     }
-                    if (TankID == 2)
+                    else if (TankID == 2)
                     {
                         Vector2 MRposition = new Vector2(620, 200);
                         RRMed = new Rectangle((int)MRposition.X, (int)MRposition.Y, Texture.Width, Texture.Height);
