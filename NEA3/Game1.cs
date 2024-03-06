@@ -7,6 +7,7 @@ using System.Runtime.Intrinsics.X86;
 using System.Collections.Generic;
 using System.DirectoryServices.ActiveDirectory;
 using System;
+using System.Diagnostics.Eventing.Reader;
 
 
 namespace NEA3
@@ -50,20 +51,32 @@ namespace NEA3
         //misc
         float initialZoom = 0.8f;//sets inital zoom
         Vector2 initialPosition = new Vector2(0, 0); // sets inital potion of camera
+        static Random R = new Random();
 
         public int[,] tilemap =
         {
-              {0, 0, 0, 0, 0,0, 0, 0, 0, 0,0,0,0,0,0}, //  first 0 is x = 0 & y = 0 15 tiles across
-              {0, 0, 0, 1, 1,0, 0, 0, 0, 0,0,0,0,0,0},
-              {0, 0, 0, 0, 1,1, 0, 0, 0, 0,0,0,0,0,0},
-              {0, 0, 0, 1, 1,1, 1, 0, 0, 0,0,0,0,0,0},
-              {0, 0, 0, 0, 0,0, 1, 0, 0, 0,0,0,0,0,0},
-              {0, 0, 0, 0, 0,0, 0, 0, 0, 0,0,0,0,0,0},// x = 0 y= 275
-              {0, 0, 0, 0, 0,0, 0, 2, 0, 0,0,0,0,0,0},
-              {0, 0, 0, 0, 0,0, 0, 2, 0, 0,0,0,0,0,0},
-              {0, 0, 0, 0, 0,0, 2, 2, 0, 0,0,0,0,0,0},
+              //{0, 0, 0, 0, 0,0, 0, 0, 0, 0,0,0,0,0,0}, //  first 0 is x = 0 & y = 0 15 tiles across
+              //{0, 0, 0, 1, 1,0, 0, 0, 0, 0,0,0,0,0,0},
+              //{0, 0, 0, 0, 1,1, 0, 0, 0, 0,0,0,0,0,0},
+              //{0, 0, 0, 1, 1,1, 1, 0, 0, 0,0,0,0,0,0},
+              //{0, 0, 0, 0, 0,0, 1, 0, 0, 0,0,0,0,0,0},
+              //{0, 0, 0, 0, 0,0, 0, 0, 0, 0,0,0,0,0,0},// x = 0 y= 275
+              //{0, 0, 0, 0, 0,0, 0, 2, 0, 0,0,0,0,0,0},
+              //{0, 0, 0, 0, 0,0, 0, 2, 0, 0,0,0,0,0,0},
+              //{0, 0, 0, 0, 0,0, 2, 2, 0, 0,0,0,0,0,0},
+              //{0, 0, 0, 0, 0,0, 0, 0, 0, 0,0,0,0,0,0},
+              //{0, 0, 0, 0, 0,0, 0, 2, 0, 0,0,0,0,0,0},// last 0 is x = 825 & y= 550
+              {0, 0, 0, 0, 0,0, 0, 0, 0, 0,0,0,0,0,0}, //  first 0 is x = 0 & y = 0 15 tiles across not exact cord
               {0, 0, 0, 0, 0,0, 0, 0, 0, 0,0,0,0,0,0},
-              {0, 0, 0, 0, 0,0, 0, 2, 0, 0,0,0,0,0,0},// last 0 is x = 825 & y= 550
+              {0, 0, 0, 0, 0,0, 0, 0, 0, 0,0,0,0,0,0},
+              {0, 0, 0, 0, 0,0, 0, 0, 0, 0,0,0,0,0,0},
+              {0, 0, 0, 0, 0,0, 0, 0, 0, 0,0,0,0,0,0},
+              {0, 0, 0, 0, 0,0, 0, 0, 0, 0,0,0,0,0,0},// x = 0 y= 275
+              {0, 0, 0, 0, 0,0, 0, 0, 0, 0,0,0,0,0,0},
+              {0, 0, 0, 0, 0,0, 0, 0, 0, 0,0,0,0,0,0},
+              {0, 0, 0, 0, 0,0, 0, 0, 0, 0,0,0,0,0,0},
+              {0, 0, 0, 0, 0,0, 0, 0, 0, 0,0,0,0,0,0},
+              {0, 0, 0, 0, 0,0, 0, 0, 0, 0,0,0,0,0,0},// last 0 is x = 825 & y= 550
         };
         public Game1()
         {
@@ -77,14 +90,71 @@ namespace NEA3
         protected override void Initialize()
         {
             bool done = false;
-            
+            int genplacemnetx= 0;// for map genration
+            int genplacemnety = 0;
+            int treetilecount = 0;
+            const int treetilemax =10;
+            int moutaintilecount = 0;
+            const int mountaintilemax = 5;
+            int chanceplace = 0;
             camera = new Camera(GraphicsDevice.Viewport, initialZoom, initialPosition);
-           //map randomization
-            //while(done == false)
-            //{
-            //    for()
-            //}
-                //blue tanks
+            //map randomization
+            while (done == false)
+            {
+                genplacemnetx = R.Next(1, 13);//picks random x coordinate in tilemap 
+                genplacemnety = R.Next(1, 10);//picks radnom y coordinate in tlemap this is to place first forest or moutian tile
+                if(treetilecount != treetilemax)// cheks to see if the gneratio of tree tiels has already been completed
+                {
+                    tilemap[genplacemnetx, genplacemnety] = 1;//sets this as starter tile
+                     int fcentrex = genplacemnetx;
+                     int fcentrey = genplacemnety;
+                    treetilecount++;
+                    for(int i = 0;i <= 8; i++)
+                    {
+                        chanceplace = R.Next(0, 100);
+                        if (i == 0)
+                        {
+                            if (chanceplace <= 20 &&(fcentrex - 1 == 0 && fcentrey -1 >= 0 && fcentrey - 1 <= 10 ))//checks to see if the tree tile is trying to generate were it shouldnt on the left of the array from 0,0 - 0,10
+                            {
+
+                            }
+                            else
+                            {
+                                treetilecount++;
+                                tilemap[fcentrex - 1, fcentrey - 1] = 1;
+                            }
+
+                        }
+                        if(i == 1)
+                        {
+
+                        }
+                        chanceplace = R.Next(0, 100);
+                    }
+                    
+
+
+                }
+                else if(mountaintilemax != moutaintilecount) // cheks to see if moutains have been gend 
+                {                    if (tilemap[genplacemnetx,genplacemnety] != 1 && tilemap[genplacemnetx+1, genplacemnety] != 1 && tilemap[genplacemnetx - 1, genplacemnety] != 1 && tilemap[genplacemnetx, genplacemnety+1] != 1 && tilemap[genplacemnetx , genplacemnety-1] != 1 && tilemap[genplacemnetx - 1, genplacemnety-1] != 1 && tilemap[genplacemnetx - 1, genplacemnety+1] != 1 && tilemap[genplacemnetx + 1, genplacemnety + 1] != 1 && tilemap[genplacemnetx + 1, genplacemnety - 1] != 1)
+                    {//checks to see if the tile will be placed on a  tree tile  or near one ^
+                        tilemap[genplacemnetx, genplacemnety] = 2;//places moutain tile
+                    }
+                    else if (tilemap[genplacemnetx, genplacemnety] == 1 && tilemap[genplacemnetx + 1, genplacemnety] == 1 && tilemap[genplacemnetx - 1, genplacemnety] == 1 && tilemap[genplacemnetx, genplacemnety + 1] == 1 && tilemap[genplacemnetx, genplacemnety - 1] == 1 && tilemap[genplacemnetx - 1, genplacemnety - 1] == 1 && tilemap[genplacemnetx - 1, genplacemnety + 1] == 1 && tilemap[genplacemnetx + 1, genplacemnety + 1] == 1 && tilemap[genplacemnetx + 1, genplacemnety - 1] == 1) //checks to see if the tile will be placed on a  tree tile 
+                    {
+                        while (tilemap[genplacemnetx,genplacemnety] == 1 && tilemap[genplacemnetx + 1, genplacemnety] == 1 && tilemap[genplacemnetx - 1, genplacemnety] == 1 && tilemap[genplacemnetx, genplacemnety + 1] == 1 && tilemap[genplacemnetx, genplacemnety - 1] == 1 && tilemap[genplacemnetx - 1, genplacemnety - 1] == 1 && tilemap[genplacemnetx - 1, genplacemnety + 1] == 1 && tilemap[genplacemnetx + 1, genplacemnety + 1] == 1 && tilemap[genplacemnetx + 1, genplacemnety - 1] == 1)//while loop reradnomisers  x and y start postion till it wont place a moutian tile on a tree tile 
+                        {
+                            genplacemnetx = R.Next(1, 13);
+                            genplacemnety = R.Next(1, 10);
+
+                        }
+                    }
+                   
+
+                }
+
+            }
+            //blue tanks
             Bheavy = new tank(0, 285, tank.Direction.right, 75, 80, 1, 75, 5, 2, false, 3, true, 1, false);// x,y,direction,armour,acc,speed,penpower,range,movepoints,havefired,type,player,id 
             p1tanks.Add(Bheavy);
             Bmed = new tank(0, 230, tank.Direction.right, 50, 70, 2, 50, 5, 3, false, 2, true, 2, false);

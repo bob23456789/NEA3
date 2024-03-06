@@ -394,7 +394,9 @@ namespace NEA3
         //if amrmour == pen power pen chance = 60 %
         //if armour<pen power = 80%
         //if armour> pen power = 45%
-        //base for heavy = 75 medium = 50 light = 25
+        //if armour => pen power x2 =25%
+        //if armour x2 =< pen power = 95%
+        //base for heavy front = 75 heavy sides = 55 heavy back = 25 medium front = 50 medium sides + back = 35  front= sides light = 25  light s back = 10 
         //base pen heavy = 75 medium = 50 light = 25
 
         //Range
