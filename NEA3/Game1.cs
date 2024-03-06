@@ -50,7 +50,7 @@ namespace NEA3
         List<tank> p2tanks = new List<tank>();
         //misc
         float initialZoom = 0.8f;//sets inital zoom
-        Vector2 initialPosition = new Vector2(0, 0); // sets inital potion of camera
+        Vector2 initialPosition = new Vector2(0, 0); // sets initial position of camera
         static Random R = new Random();
 
         public int[,] tilemap =
@@ -66,7 +66,7 @@ namespace NEA3
               //{0, 0, 0, 0, 0,0, 2, 2, 0, 0,0,0,0,0,0},
               //{0, 0, 0, 0, 0,0, 0, 0, 0, 0,0,0,0,0,0},
               //{0, 0, 0, 0, 0,0, 0, 2, 0, 0,0,0,0,0,0},// last 0 is x = 825 & y= 550
-              {0, 0, 0, 0, 0,0, 0, 0, 0, 0,0,0,0,0,0}, //  first 0 is x = 0 & y = 0 15 tiles across not exact cord
+              {0, 0, 0, 0, 0,0, 0, 0, 0, 0,0,0,0,0,0}, //  first 0 is x = 0 & y = 0 15 tiles across not exact coord
               {0, 0, 0, 0, 0,0, 0, 0, 0, 0,0,0,0,0,0},
               {0, 0, 0, 0, 0,0, 0, 0, 0, 0,0,0,0,0,0},
               {0, 0, 0, 0, 0,0, 0, 0, 0, 0,0,0,0,0,0},
@@ -97,11 +97,25 @@ namespace NEA3
             int moutaintilecount = 0;
             const int mountaintilemax = 5;
             int chanceplace = 0;
+            char[,] placedts =
+            {
+                { '-','-','-'},
+                { '-','c','-'},
+                { '-','-','-'}
+
+            };
+            char[,] placedms =
+            {
+                { '-','-','-'},
+                { '-','c','-'},
+                { '-','-','-'}
+
+            };
             camera = new Camera(GraphicsDevice.Viewport, initialZoom, initialPosition);
             //map randomization
             while (done == false)
             {
-                genplacemnetx = R.Next(1, 13);//picks random x coordinate in tilemap 
+                genplacemnetx = R.Next(1, 14);//picks random x coordinate in tilemap 
                 genplacemnety = R.Next(1, 10);//picks radnom y coordinate in tlemap this is to place first forest or moutian tile
                 if(treetilecount != treetilemax)// cheks to see if the gneratio of tree tiels has already been completed
                 {
@@ -116,20 +130,103 @@ namespace NEA3
                         {
                             if (chanceplace <= 20 &&(fcentrex - 1 == 0 && fcentrey -1 >= 0 && fcentrey - 1 <= 10 ))//checks to see if the tree tile is trying to generate were it shouldnt on the left of the array from 0,0 - 0,10
                             {
-
+                                placedts[0, 2] = 'x';
                             }
                             else
                             {
                                 treetilecount++;
-                                tilemap[fcentrex - 1, fcentrey - 1] = 1;
+                                tilemap[fcentrex - 1, fcentrey - 1] = 1;// adds to square in into array diagonally down left of the first generated square 
+                                placedts[0, 2] = 'O';
                             }
 
                         }
                         if(i == 1)
                         {
+                            if (chanceplace <= 20 && (fcentrex - 1 == 0 && fcentrey - 1 >= 0 && fcentrey - 1 <= 10))//checks to see if the tree tile is trying to generate were it shouldnt on the left of the array from 0,0 - 0,10
+                            {
+                                placedts[0, 1] = 'x';
+                            }
+                            else
+                            {
+                                treetilecount++;
+                                tilemap[fcentrex - 1, fcentrey] = 1; //left of the mian square
+                                placedts[0, 1] = 'O';
+                            }
+                        }
+                        if (i == 2)
+                        {
+                            if (chanceplace <= 40 && (fcentrex - 1 == 0 && fcentrey - 1 >= 0 && fcentrey - 1 <= 10))//checks to see if the tree tile is trying to generate were it shouldnt on the left of the array from 0,0 - 0,10
+                            {
+                                placedts[0, 0] = 'x';
+                            }
+                            else
+                            {
+                                treetilecount++;
+                                tilemap[fcentrex - 1, fcentrey +1] = 1; //left of the mian square
+                                placedts[0, 0] = 'O';
+                            }
+                        }
+                        if (i == 3)
+                        {
+                            treetilecount++;
+                            tilemap[fcentrex , fcentrey+1] = 1; //left of the mian square
+                            placedts[0, 1] = 'O';
 
                         }
-                        chanceplace = R.Next(0, 100);
+                        if (i == 4)
+                        {
+                            if (chanceplace <= 20 && (fcentrex +1 == 14 && fcentrey - 1 >= 0 && fcentrey - 1 <= 10))//checks to see if the tree tile is trying to generate were it shouldnt on the left of the array from 0,0 - 0,10
+                            {
+                                placedts[0, 2] = 'x';
+                            }
+                            else
+                            {
+                                treetilecount++;
+                                tilemap[fcentrex +1, fcentrey + 1] = 1; //left of the mian square
+                                placedts[0, 2] = 'O';
+                            }
+                        }
+                        if (i == 5)
+                        {
+                            if (chanceplace <= 20 && (fcentrex + 1 == 14 && fcentrey - 1 >= 0 && fcentrey - 1 <= 10))//checks to see if the tree tile is trying to generate were it shouldnt on the left of the array from 0,0 - 0,10
+                            {
+                                placedts[2, 1] = 'x';
+                            }
+                            else
+                            {
+                                treetilecount++;
+                                tilemap[fcentrex + 1, fcentrey ] = 1; //left of the mian square
+                                placedts[2, 1] = 'O';
+                            }
+                        }
+                        if (i == 6)
+                        {
+                            if (chanceplace <= 20 && (fcentrex + 1 == 14 && fcentrey - 1 >= 0 && fcentrey - 1 <= 10))//checks to see if the tree tile is trying to generate were it shouldnt on the left of the array from 0,0 - 0,10
+                            {
+                                placedts[2, 2] = 'x';
+                            }
+                            else
+                            {
+                                treetilecount++;
+                                tilemap[fcentrex + 1 , fcentrey + 1] = 1; //left of the mian square
+                                placedts[2, 2] = 'O';
+                            }
+                        }
+                        if (i == 7)
+                        {
+                            if (chanceplace <= 20 && (fcentrex + 1 == 14 && fcentrey - 1 >= 0 && fcentrey - 1 <= 10))//checks to see if the tree tile is trying to generate were it shouldnt on the left of the array from 0,0 - 0,10
+                            {
+                                placedts[1, 2] = 'x';
+                            }
+                            else
+                            {
+                                treetilecount++;
+                                tilemap[fcentrex , fcentrey - 1] = 1; //left of the tienimen square
+                                placedts[1, 2] = 'O';
+                            }
+                        }
+
+                       
                     }
                     
 
@@ -144,7 +241,7 @@ namespace NEA3
                     {
                         while (tilemap[genplacemnetx,genplacemnety] == 1 && tilemap[genplacemnetx + 1, genplacemnety] == 1 && tilemap[genplacemnetx - 1, genplacemnety] == 1 && tilemap[genplacemnetx, genplacemnety + 1] == 1 && tilemap[genplacemnetx, genplacemnety - 1] == 1 && tilemap[genplacemnetx - 1, genplacemnety - 1] == 1 && tilemap[genplacemnetx - 1, genplacemnety + 1] == 1 && tilemap[genplacemnetx + 1, genplacemnety + 1] == 1 && tilemap[genplacemnetx + 1, genplacemnety - 1] == 1)//while loop reradnomisers  x and y start postion till it wont place a moutian tile on a tree tile 
                         {
-                            genplacemnetx = R.Next(1, 13);
+                            genplacemnetx = R.Next(1, 14);
                             genplacemnety = R.Next(1, 10);
 
                         }
