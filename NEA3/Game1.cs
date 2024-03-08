@@ -66,7 +66,7 @@ namespace NEA3
               //{0, 0, 0, 0, 0,0, 2, 2, 0, 0,0,0,0,0,0},
               //{0, 0, 0, 0, 0,0, 0, 0, 0, 0,0,0,0,0,0},
               //{0, 0, 0, 0, 0,0, 0, 2, 0, 0,0,0,0,0,0},// last 0 is x = 825 & y= 550
-              {0, 0, 0, 0, 0,0, 0, 0, 0, 0,0,0,0,0,0}, //  first 0 is x = 0 & y = 0 15 tiles across not exact coord
+              {0, 0, 0, 0, 0,0, 0, 0, 0, 0,0,0,0,0,0}, //  first 0 is x = 0 & y = 0 15 tiles across not exact coord x = 15 tiles  y = 11
               {0, 0, 0, 0, 0,0, 0, 0, 0, 0,0,0,0,0,0},
               {0, 0, 0, 0, 0,0, 0, 0, 0, 0,0,0,0,0,0},
               {0, 0, 0, 0, 0,0, 0, 0, 0, 0,0,0,0,0,0},
@@ -97,18 +97,18 @@ namespace NEA3
             int moutaintilecount = 0;
             const int mountaintilemax = 5;
             int chanceplace = 0;
-            char[,] placedts =
+            string[,] placedts =
             {
-                { '-','-','-'},
-                { '-','c','-'},
-                { '-','-','-'}
+                { "-","-","-"},
+                { "-","c","-"},
+                { "-","-","-"}
 
             };
-            char[,] placedms =
+            string[,] placedms =
             {
-                { '-','-','-'},
-                { '-','c','-'},
-                { '-','-','-'}
+                { "-","-","-"},
+                { "-","c","-"},
+                { "-","-","-"}
 
             };
             camera = new Camera(GraphicsDevice.Viewport, initialZoom, initialPosition);
@@ -119,7 +119,7 @@ namespace NEA3
                 genplacemnety = R.Next(1, 10);//picks radnom y coordinate in tlemap this is to place first forest or moutian tile
                 if(treetilecount != treetilemax)// cheks to see if the gneratio of tree tiels has already been completed
                 {
-                    tilemap[genplacemnetx, genplacemnety] = 1;//sets this as starter tile
+                    tilemap[genplacemnety,genplacemnetx] = 1;//sets this as starter tile
                      int fcentrex = genplacemnetx;
                      int fcentrey = genplacemnety;
                     treetilecount++;
@@ -130,13 +130,13 @@ namespace NEA3
                         {
                             if (chanceplace <= 20 &&(fcentrex - 1 == 0 && fcentrey -1 >= 0 && fcentrey - 1 <= 10 ))//checks to see if the tree tile is trying to generate were it shouldnt on the left of the array from 0,0 - 0,10
                             {
-                                placedts[0, 2] = 'x';
+                                placedts[0, 2] = "x";
                             }
                             else
                             {
                                 treetilecount++;
-                                tilemap[fcentrex - 1, fcentrey - 1] = 1;// adds to square in into array diagonally down left of the first generated square 
-                                placedts[0, 2] = 'O';
+                                tilemap[fcentrey - 1, fcentrex - 1] = 1;// adds to square in into array diagonally down left of the first generated square 
+                                placedts[0, 2] = "O";
                             }
 
                         }
@@ -144,261 +144,112 @@ namespace NEA3
                         {
                             if (chanceplace <= 20 && (fcentrex - 1 == 0 && fcentrey - 1 >= 0 && fcentrey - 1 <= 10))
                             {
-                                placedts[0, 1] = 'x';
+                                placedts[0, 1] = "x";
                             }
                             else
                             {
                                 treetilecount++;
-                                tilemap[fcentrex - 1, fcentrey] = 1; //left of the mian square
-                                placedts[0, 1] = 'O';
+                                tilemap[fcentrey - 1, fcentrex] = 1; //left of the mian square
+                                placedts[0, 1] = "O";
                             }
                         }
                         if (i == 2)
                         {
                             if (chanceplace <= 40 && (fcentrex - 1 == 0 && fcentrey - 1 >= 0 && fcentrey - 1 <= 10))
                             {
-                                placedts[0, 0] = 'x';
+                                placedts[0, 0] = "x";
                             }
                             else
                             {
                                 treetilecount++;
-                                tilemap[fcentrex - 1, fcentrey +1] = 1; 
-                                placedts[0, 0] = 'O';
+                                tilemap[fcentrey - 1, fcentrex +1] = 1; 
+                                placedts[0, 0] = "O";
                             }
                         }
                         if (i == 3)
                         {
                             treetilecount++;
-                            tilemap[fcentrex , fcentrey+1] = 1;
-                            placedts[1, 0] = 'O';
+                            tilemap[fcentrey , fcentrex+1] = 1;
+                            placedts[1, 0] = "O";
 
                         }
                         if (i == 4)
                         {
                             if (chanceplace <= 20 && (fcentrex +1 == 14 && fcentrey - 1 >= 0 && fcentrey - 1 <= 10))
                             {
-                                placedts[2, 0] = 'x';
+                                placedts[2, 0] = "x";
                             }
                             else
                             {
                                 treetilecount++;
-                                tilemap[fcentrex +1, fcentrey + 1] = 1; 
-                                placedts[2, 0] = 'O';
+                                tilemap[fcentrey +1, fcentrex + 1] = 1; 
+                                placedts[2,0] = "O";
                             }
                         }
                         if (i == 5)
                         {
                             if (chanceplace <= 20 && (fcentrex + 1 == 14 && fcentrey - 1 >= 0 && fcentrey - 1 <= 10))
                             {
-                                placedts[2, 1] = 'x';
+                                placedts[2, 1] = "x";
                             }
                             else
                             {
                                 treetilecount++;
-                                tilemap[fcentrex + 1, fcentrey ] = 1;
-                                placedts[2, 1] = 'O';
+                                tilemap[fcentrey + 1, fcentrex ] = 1;
+                                placedts[2, 1] = "O";
                             }
                         }
                         if (i == 6)
                         {
                             if (chanceplace <= 20 && (fcentrex + 1 == 14 && fcentrey - 1 >= 0 && fcentrey - 1 <= 10))
                             {
-                                placedts[2, 2] = 'x';
+                                placedts[2, 2] = "x";
                             }
                             else
                             {
                                 treetilecount++;
-                                tilemap[fcentrex + 1 , fcentrey + 1] = 1;
-                                placedts[2, 2] = 'O';
+                                tilemap[fcentrey + 1 , fcentrex + 1] = 1;
+                                placedts[2, 2] = "O";
                             }
                         }
                         if (i == 7)
                         {
                             if (chanceplace <= 20 && (fcentrex + 1 == 14 && fcentrey - 1 >= 0 && fcentrey - 1 <= 10))
                             {
-                                placedts[1, 2] = 'x';
+                                placedts[1, 2] = "x";
                             }
                             else
                             {
                                 treetilecount++;
-                                tilemap[fcentrex , fcentrey - 1] = 1; 
-                                placedts[1, 2] = 'O';
+                                tilemap[fcentrey , fcentrex - 1] = 1; 
+                                placedts[1, 2] = "O";
                             }
                         }
 
                        
                     }
-                    while(treetilecount != treetilemax)
+                    while (treetilecount <= treetilemax )
                     {
                         const int n = 3; //n = the highet adn width of placedts array 
-                        genplacemnetx = R.next(-3,4);// x location on tile map fo were it will be placed relative to first tree tile 
-                        genplacemnety = R.next(-3,4);// y locationof were on tiel map itll be placed relactive to first tree tiel
-                        if((genplacemnetx != -1 || genplacemnetx != 0 || genplacemnetx != 1 || genplacemnetx != 4) && (genplacemnety != -1 || genplacemnety != 0 || genplacemnety !=1 || genplacemnety != 4))// makes sure its no trying to place where it has laready been placed basically within in the placedts array
+                        genplacemnetx = R.Next(-3, 4);// x location on tile map fo were it will be placed relative to first tree tile 
+                        genplacemnety = R.Next(-3, 4);// y locationof were on tiel map itll be placed relactive to first tree tiel
+
+                        int xplace = genplacemnetx + fcentrex;
+                        int yplace = genplacemnety + fcentrey;
+                        if((xplace >= 1 && xplace <= 13) && (yplace >=0 && yplace <= 10) )
                         {
-
-                            if (tilemap[genplacemnetx + fcentrex, genplacemnety + fcentrey, genplacemnety + fcentrey] > tilemap[14, 11])
-                            {
-                                for (int i = 0; i < n; i++)
-                                {
-                                    for (int j = 0; i < n; i++)
-                                    {
-                                        if (placedts[j, i] != 'x' || placedts[j, i] != '-'  && ( (j != genplacemnetx + 1 || j != genplacemnetx +2 || j != genplacemnetx -1 || j != genplacemnetx -2 ) && (  i != genplacemnety + 1 || i != genplacemnety + 2 || i != genplacemnety - 1 || i != genplacemnety - 2 ) ))
-                                        {
-                                           if(tilemap[genplacemnetx + fcentrex, genplacemnety + fcentrey] != 1)
-                                           {
-                                                tilemap[genplacemnetx + fcentrex, genplacemnety + fcentrey] = 1;
-                                           }
-                                           else{ }
-
-
-                                        }
-                                        else { }
-                                    }
-                                }
-
-
-                            }
-                            else { }
-                        }
-                        else { }
-                    }
-                    
-                    
-                    
-
-
-                }
-                else if(mountaintilemax != moutaintilecount) // cheks to see if moutains have been gend 
-                {   if (tilemap[genplacemnetx, genplacemnety] != 1 && tilemap[genplacemnetx + 1, genplacemnety] != 1 && tilemap[genplacemnetx - 1, genplacemnety] != 1 && tilemap[genplacemnetx, genplacemnety + 1] != 1 && tilemap[genplacemnetx, genplacemnety - 1] != 1 && tilemap[genplacemnetx - 1, genplacemnety - 1] != 1 && tilemap[genplacemnetx - 1, genplacemnety + 1] != 1 && tilemap[genplacemnetx + 1, genplacemnety + 1] != 1 && tilemap[genplacemnetx + 1, genplacemnety - 1] != 1)
-                    {//checks to see if the tile will be placed on a  tree tile  or near one ^
-                        tilemap[genplacemnetx, genplacemnety] = 2;//places moutain tile setting it as centre
-                        int mcentrex = genplacemnetx;
-                        int mcentrey = genplacemnety;
-                        moutaintilecount++;
-                        for (int i = 0; i <= 8; i++)
-                        {
-                            chanceplace = R.Next(0, 100);
-                            if (i == 0)
-                            {
-                                if (chanceplace <= 20 && (mcentrex - 1 == 0 && mcentrey - 1 >= 0 && mcentrey - 1 <= 10))//checks to see if the tree tile is trying to generate were it shouldnt on the left of the array from 0,0 - 0,10
-                                {
-                                    placedms[0, 2] = 'x';
-                                }
-                                else
-                                {
-                                    moutaintilecount++;
-                                    tilemap[mcentrex - 1, mcentrey - 1] = 2;//bottom left of array
-                                    placedms[0, 2] = 'O';
-                                }
-
-                            }
-                            if (i == 1)
-                            {
-                                if (chanceplace <= 20 && (mcentrex - 1 == 0 && mcentrey - 1 >= 0 && mcentrey - 1 <= 10))
-                                {
-                                    placedms[0, 1] = 'x';
-                                }
-                                else
-                                {
-                                    moutaintilecount++;
-                                    tilemap[mcentrex - 1, mcentrey] = 2; //left main square
-                                    placedms[0, 1] = 'O';
-                                }
-                            }
-                            if (i == 2)
-                            {
-                                if (chanceplace <= 40 && (mcentrex - 1 == 0 && mcentrey - 1 >= 0 && mcentrey - 1 <= 10))
-                                {
-                                    placedms[0, 0] = 'x';
-                                }
-                                else
-                                {
-                                    moutaintilecount++;
-                                    tilemap[mcentrex - 1, mcentrey + 1] = 2;//top left of array
-                                    placedms[0, 0] = 'O';
-                                }
-                            }
-                            if (i == 3)
-                            {
-                                moutaintilecount++;
-                                tilemap[mcentrex, mcentrey + 1] = 1; //above mian square
-                                placedms[1, 0] = 'O';
-
-                            }
-                            if (i == 4)
-                            {
-                                if (chanceplace <= 20 && (mcentrex + 1 == 14 && mcentrey - 1 >= 0 && mcentrey - 1 <= 10))
-                                {
-                                    placedms[2, 0] = 'x';
-                                }
-                                else
-                                {
-                                    moutaintilecount++;
-                                    tilemap[mcentrex + 1, mcentrey + 1] = 1;// top right corner of array
-                                    placedms[2, 0] = 'O';
-                                }
-                            }
-                            if (i == 5)
-                            {
-                                if (chanceplace <= 20 && (mcentrex + 1 == 14 && mcentrey - 1 >= 0 && mcentrey - 1 <= 10))
-                                {
-                                    placedms[2, 1] = 'x';
-                                }
-                                else
-                                {
-                                    moutaintilecount++;
-                                    tilemap[mcentrex + 1, mcentrey] = 1; //right of main square
-                                    placedms[2, 1] = 'O';
-                                }
-                            }
-                            if (i == 6)
-                            {
-                                if (chanceplace <= 20 && (mcentrex + 1 == 14 && mcentrey - 1 >= 0 && mcentrey - 1 <= 10))
-                                {
-                                    placedms[2, 2] = 'x';
-                                }
-                                else
-                                {
-                                    treetilecount++;
-                                    tilemap[mcentrex + 1, mcentrey + 1] = 1; // bottom left 
-                                    placedms[2, 2] = 'O';
-                                }
-                            }
-                            if (i == 7)
-                            {
-                                if (chanceplace <= 20 && (mcentrex + 1 == 14 && mcentrey - 1 >= 0 && mcentrey - 1 <= 10))
-                                {
-                                    placedms[1, 2] = 'x';
-                                }
-                                else
-                                {
-                                    moutaintilecount++;
-                                    tilemap[mcentrex, mcentrey - 1] = 1; //below main square
-                                    placedms[1, 2] = 'O';
-                                }
-                            }
-
-
-                        }
-                        while (moutaintilecount != mountaintilemax)
-                        {
-                            const int n = 3; //n = the highet adn width of placedts array 
-                            genplacemnetx = R.next(-3, 4);// x location on tile map fo were it will be placed relative to first tree tile 
-                            genplacemnety = R.next(-3, 4);// y locationof were on tiel map itll be placed relactive to first tree tiel
-                            if ((genplacemnetx != -1 || genplacemnetx != 0 || genplacemnetx != 1 || genplacemnetx != 4) && (genplacemnety != -1 || genplacemnety != 0 || genplacemnety != 1 || genplacemnety != 4))// makes sure its no trying to place where it has laready been placed basically within in the placedts array
-                            {
-
-                                if (tilemap[genplacemnetx + mcentrex, genplacemnety + mcentrey, genplacemnety + mcentrey] > tilemap[14, 11])
+                                if ((yplace < 11 && xplace < 15) && xplace > 0)
                                 {
                                     for (int i = 0; i < n; i++)
                                     {
                                         for (int j = 0; i < n; i++)
                                         {
-                                            if (placedts[j, i] != 'x' || placedts[j, i] != '-' && ((j != genplacemnetx + 1 || j != genplacemnetx + 2 || j != genplacemnetx - 1 || j != genplacemnetx - 2) && (i != genplacemnety + 1 || i != genplacemnety + 2 || i != genplacemnety - 1 || i != genplacemnety - 2)))
+                                            if (placedts[j, i] != "x" || placedts[j, i] != "-" && ((j != genplacemnetx + 1 || j != genplacemnetx + 2 || j != genplacemnetx - 1 || j != genplacemnetx - 2) && (i != genplacemnety + 1 || i != genplacemnety + 2 || i != genplacemnety - 1 || i != genplacemnety - 2)))
                                             {
-                                                if (tilemap[genplacemnetx + mcentrex, genplacemnety + mcentrey] != 1)
+                                                if (tilemap[yplace, xplace] != 1)
                                                 {
-                                                    tilemap[genplacemnetx + mcentrex, genplacemnety + mcentrey] = 1;
+                                                    tilemap[yplace, xplace] = 1;
+                                                    treetilecount++;
                                                 }
                                                 else { }
 
@@ -411,12 +262,171 @@ namespace NEA3
 
                                 }
                                 else { }
+                            
+                            
+                        }
+                        else { }
+
+
+
+
+                    }
+
+                }
+                else if(mountaintilemax != moutaintilecount) // cheks to see if moutains have been gend 
+                {   if (tilemap[genplacemnety, genplacemnetx] != 1 && tilemap[genplacemnety + 1, genplacemnetx] != 1 && tilemap[genplacemnety - 1, genplacemnetx] != 1 && tilemap[genplacemnety, genplacemnetx + 1] != 1 && tilemap[genplacemnety, genplacemnetx - 1] != 1 && tilemap[genplacemnety - 1, genplacemnetx - 1] != 1 && tilemap[genplacemnety - 1, genplacemnetx + 1] != 1 && tilemap[genplacemnety + 1, genplacemnetx + 1] != 1 && tilemap[genplacemnety + 1, genplacemnetx - 1] != 1)
+                    {//checks to see if the tile will be placed on a  tree tile  or near one ^
+                        tilemap[genplacemnety, genplacemnetx] = 2;//places moutain tile setting it as centre
+                        int mcentrex = genplacemnetx;
+                        int mcentrey = genplacemnety;
+                        moutaintilecount++;
+                        for (int i = 0; i <= 8; i++)
+                        {
+                            chanceplace = R.Next(0, 100);
+                            if (i == 0)
+                            {
+                                if (chanceplace <= 20 && (mcentrex - 1 == 0 && mcentrey - 1 >= 0 && mcentrey - 1 <= 10))//checks to see if the tree tile is trying to generate were it shouldnt on the left of the array from 0,0 - 0,10
+                                {
+                                    placedms[0, 2] = "x";
+                                }
+                                else
+                                {
+                                    moutaintilecount++;
+                                    tilemap[mcentrey - 1, mcentrex - 1] = 2;//bottom left of array
+                                    placedms[0, 2] = "O";
+                                }
+
+                            }
+                            if (i == 1)
+                            {
+                                if (chanceplace <= 20 && (mcentrex - 1 == 0 && mcentrey - 1 >= 0 && mcentrey - 1 <= 10))
+                                {
+                                    placedms[0, 1] = "x";
+                                }
+                                else
+                                {
+                                    moutaintilecount++;
+                                    tilemap[mcentrey - 1, mcentrex] = 2; //left main square
+                                    placedms[0, 1] = "O";
+                                }
+                            }
+                            if (i == 2)
+                            {
+                                if (chanceplace <= 40 && (mcentrex - 1 == 0 && mcentrey - 1 >= 0 && mcentrey - 1 <= 10))
+                                {
+                                    placedms[0, 0] = "x";
+                                }
+                                else
+                                {
+                                    moutaintilecount++;
+                                    tilemap[mcentrex - 1, mcentrey + 1] = 2;//top left of array
+                                    placedms[0, 0] = "O";
+                                }
+                            }
+                            if (i == 3)
+                            {
+                                moutaintilecount++;
+                                tilemap[mcentrey, mcentrex + 1] = 1; //above mian square
+                                placedms[1, 0] = "O";
+
+                            }
+                            if (i == 4)
+                            {
+                                if (chanceplace <= 20 && (mcentrex + 1 == 14 && mcentrey - 1 >= 0 && mcentrey - 1 <= 10))
+                                {
+                                    placedms[2, 0] = "x";
+                                }
+                                else
+                                {
+                                    moutaintilecount++;
+                                    tilemap[mcentrey + 1, mcentrex + 1] = 1;// top right corner of array
+                                    placedms[2, 0] = "O";
+                                }
+                            }
+                            if (i == 5)
+                            {
+                                if (chanceplace <= 20 && (mcentrex + 1 == 14 && mcentrey - 1 >= 0 && mcentrey - 1 <= 10))
+                                {
+                                    placedms[2, 1] = "x";
+                                }
+                                else
+                                {
+                                    moutaintilecount++;
+                                    tilemap[mcentrey + 1, mcentrex] = 1; //right of main square
+                                    placedms[2, 1] = "O";
+                                }
+                            }
+                            if (i == 6)
+                            {
+                                if (chanceplace <= 20 && (mcentrex + 1 == 14 && mcentrey - 1 >= 0 && mcentrey - 1 <= 10))
+                                {
+                                    placedms[2, 2] = "x";
+                                }
+                                else
+                                {
+                                    treetilecount++;
+                                    tilemap[mcentrey + 1, mcentrex + 1] = 1; // bottom left 
+                                    placedms[2, 2] = "O";
+                                }
+                            }
+                            if (i == 7)
+                            {
+                                if (chanceplace <= 20 && (mcentrex + 1 == 14 && mcentrey - 1 >= 0 && mcentrey - 1 <= 10))
+                                {
+                                    placedms[1, 2] = "x";
+                                }
+                                else
+                                {
+                                    moutaintilecount++;
+                                    tilemap[mcentrey, mcentrex - 1] = 1; //below main square
+                                    placedms[1, 2] = "O";
+                                }
+                            }
+
+
+                        }
+                        while (moutaintilecount != mountaintilemax)
+                        {
+                            const int n = 3; //n = the highet adn width of placedts array 
+                            genplacemnetx = R.Next(-3, 4);// x location on tile map fo were it will be placed relative to first tree tile 
+                            genplacemnety = R.Next(-3, 4);// y locationof were on tiel map itll be placed relactive to first tree tiel
+
+                            int xplace = genplacemnetx + mcentrex;
+                            int yplace = genplacemnety + mcentrey;
+                            if ((xplace >= 1 && xplace <= 13) && (yplace >= 0 && yplace <= 10))
+                            {
+                                if ((yplace < 11 && xplace < 15) && xplace > 0)
+                                {
+                                    for (int i = 0; i < n; i++)
+                                    {
+                                        for (int j = 0; i < n; i++)
+                                        {
+                                            if (placedms[j, i] != "x" || placedms[j, i] != "-" && ((j != genplacemnetx + 1 || j != genplacemnetx + 2 || j != genplacemnetx - 1 || j != genplacemnetx - 2) && (i != genplacemnety + 1 || i != genplacemnety + 2 || i != genplacemnety - 1 || i != genplacemnety - 2)))
+                                            {
+                                                if (tilemap[yplace, xplace] != 2 || tilemap[yplace, xplace] != 1 )
+                                                {
+                                                    tilemap[yplace, xplace] = 2;
+                                                    moutaintilecount++;
+                                                }
+                                                else { }
+
+
+                                            }
+                                            else { }
+                                        }
+                                    }
+
+
+                                }
+                                else { }
+
+
                             }
                             else { }
                         }
 
                     }
-                    else if (tilemap[genplacemnetx, genplacemnety] == 1 && tilemap[genplacemnetx + 1, genplacemnety] == 1 && tilemap[genplacemnetx - 1, genplacemnety] == 1 && tilemap[genplacemnetx, genplacemnety + 1] == 1 && tilemap[genplacemnetx, genplacemnety - 1] == 1 && tilemap[genplacemnetx - 1, genplacemnety - 1] == 1 && tilemap[genplacemnetx - 1, genplacemnety + 1] == 1 && tilemap[genplacemnetx + 1, genplacemnety + 1] == 1 && tilemap[genplacemnetx + 1, genplacemnety - 1] == 1) //checks to see if the tile will be placed on a  tree tile 
+                    else if (tilemap[genplacemnety, genplacemnetx] == 1 && tilemap[genplacemnety + 1, genplacemnetx] == 1 && tilemap[genplacemnety - 1, genplacemnety] == 1 && tilemap[genplacemnetx, genplacemnety + 1] == 1 && tilemap[genplacemnetx, genplacemnety - 1] == 1 && tilemap[genplacemnetx - 1, genplacemnety - 1] == 1 && tilemap[genplacemnetx - 1, genplacemnety + 1] == 1 && tilemap[genplacemnetx + 1, genplacemnety + 1] == 1 && tilemap[genplacemnetx + 1, genplacemnety - 1] == 1) //checks to see if the tile will be placed on a  tree tile 
                     {
                         while (tilemap[genplacemnetx, genplacemnety] == 1 && tilemap[genplacemnetx + 1, genplacemnety] == 1 && tilemap[genplacemnetx - 1, genplacemnety] == 1 && tilemap[genplacemnetx, genplacemnety + 1] == 1 && tilemap[genplacemnetx, genplacemnety - 1] == 1 && tilemap[genplacemnetx - 1, genplacemnety - 1] == 1 && tilemap[genplacemnetx - 1, genplacemnety + 1] == 1 && tilemap[genplacemnetx + 1, genplacemnety + 1] == 1 && tilemap[genplacemnetx + 1, genplacemnety - 1] == 1)//while loop reradnomisers  x and y start postion till it wont place a moutian tile on a tree tile 
                         {
