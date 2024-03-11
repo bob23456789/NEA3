@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.DirectoryServices.ActiveDirectory;
 using System;
 using System.Diagnostics.Eventing.Reader;
+using System.Threading;
+ 
 
 
 namespace NEA3
@@ -354,26 +356,26 @@ namespace NEA3
                 }
 
                 //blue tanks
-                Bheavy = new tank(0, 285, tank.Direction.right, 75, 80, 1, 75, 5, 2, false, 3, true, 1, false);// x,y,direction,armour,acc,speed,penpower,range,movepoints,havefired,type,player,id 
+                Bheavy = new tank(0, 268, tank.Direction.right, 75, 80, 1, 75, 5, 2, false, 3, true, 1, false);// x,y,direction,armour,acc,speed,penpower,range,movepoints,havefired,type,player,id 
                 p1tanks.Add(Bheavy);
-                Bmed = new tank(0, 230, tank.Direction.right, 50, 70, 2, 50, 5, 3, false, 2, true, 2, false);
+                Bmed = new tank(0, 225, tank.Direction.right, 50, 70, 2, 50, 5, 3, false, 2, true, 2, false);
                 p1tanks.Add(Bmed);
-                Bmed2 = new tank(0, 340, tank.Direction.right, 50, 70, 2, 50, 5, 3, false, 2, true, 3, false);
+                Bmed2 = new tank(0, 315, tank.Direction.right, 50, 70, 2, 50, 5, 3, false, 2, true, 3, false);
                 p1tanks.Add(Bmed2);
-                Blight = new tank(0, 100, tank.Direction.right, 25, 60, 3, 25, 3, 5, false, 2, true, 4, false);
+                Blight = new tank(0, 360, tank.Direction.right, 25, 60, 3, 25, 3, 5, false, 2, true, 4, false);
                 p1tanks.Add(Blight);
-                Blight2 = new tank(0, 400, tank.Direction.right, 25, 60, 3, 25, 3, 5, false, 1, true, 5, false);
+                Blight2 = new tank(0, 360, tank.Direction.right, 25, 60, 3, 25, 3, 5, false, 1, true, 5, false);
                 p1tanks.Add(Blight2);
                 ////red tanks
-                Rheavy = new tank(770, 285, tank.Direction.left, 75, 80, 1, 75, 5, 2, false, 3, false, 1, false);// x,y,direction,armour,acc,speed,penpower,range,movepoints,havefired,type,player,id 
+                Rheavy = new tank(610,268 , tank.Direction.left, 75, 80, 1, 75, 5, 2, false, 3, false, 1, false);// x,y,direction,armour,acc,speed,penpower,range,movepoints,havefired,type,player,id 
                 p2tanks.Add(Rheavy);
-                Rmed = new tank(750, 195, tank.Direction.left, 50, 70, 2, 50, 5, 3, false, 2, false, 2, false);
+                Rmed = new tank(620, 225, tank.Direction.left, 50, 70, 2, 50, 5, 3, false, 2, false, 2, false);
                 p2tanks.Add(Rmed);
-                Rmed2 = new tank(750, 305, tank.Direction.left, 50, 70, 2, 50, 5, 3, false, 2, false, 3, false);
+                Rmed2 = new tank(620, 315, tank.Direction.left, 50, 70, 2, 50, 5, 3, false, 2, false, 3, false);
                 p2tanks.Add(Rmed2);
-                Rlight = new tank(750, 170, tank.Direction.left, 25, 60, 3, 25, 3, 5, false, 2, false, 4, false);
+                Rlight = new tank(635, 360, tank.Direction.left, 25, 60, 3, 25, 3, 5, false, 2, false, 4, false);
                 p2tanks.Add(Rlight);
-                Rlight2 = new tank(785, 400, tank.Direction.left, 25, 60, 3, 25, 3, 5, false, 1, false, 5, false);
+                Rlight2 = new tank(635, 360, tank.Direction.left, 25, 60, 3, 25, 3, 5, false, 1, false, 5, false);
                 p2tanks.Add(Rlight2);
             }
             camera = new Camera(GraphicsDevice.Viewport, initialZoom, initialPosition);
@@ -462,22 +464,81 @@ namespace NEA3
             }
             if(currentgamestate == gamestate.playing)
             {
+                
+                _spriteBatch.Begin();
                 if (mouseState.LeftButton == ButtonState.Pressed && forwardbutton.Contains(mouseState.Position))
                 {
-                   
+                   if(turn % 2 == 0)
+                   {
+                        if(Bheavy._selected == true)
+                        {
+                            Bheavy.forwadmovement(Bheavy._direction);
+                            
+                            Bheavy.Draw(_spriteBatch);
+                            Thread.Sleep(200);
+                        }
+                        if (Bmed._selected == true)
+                        {
+                            Bmed.forwadmovement(Bmed._direction);
+
+                            Bheavy.Draw(_spriteBatch);
+                            Thread.Sleep(200);
+                        }
+                        if (Bheavy._selected == true)
+                        {
+                            Bheavy.forwadmovement(Bheavy._direction);
+
+                            Bheavy.Draw(_spriteBatch);
+                            Thread.Sleep(200);
+                        }
+                        if (Bheavy._selected == true)
+                        {
+                            Bheavy.forwadmovement(Bheavy._direction);
+
+                            Bheavy.Draw(_spriteBatch);
+                            Thread.Sleep(200);
+                        }
+                        if (Bheavy._selected == true)
+                        {
+                            Bheavy.forwadmovement(Bheavy._direction);
+
+                            Bheavy.Draw(_spriteBatch);
+                            Thread.Sleep(200);
+                        }
+                        if (Bheavy._selected == true)
+                        {
+                            Bheavy.forwadmovement(Bheavy._direction);
+
+                            Bheavy.Draw(_spriteBatch);
+                            Thread.Sleep(200);
+                        }
+
+
+                    }
+                   else
+                   {
+
+                   }
                     
                 }
-                if (mouseState.LeftButton == ButtonState.Pressed && forwardbutton.Contains(mouseState.Position))
+                if (mouseState.LeftButton == ButtonState.Pressed && backbutton.Contains(mouseState.Position))
+                {
+                    if (Bheavy._selected == true)
+                    {
+                        Bheavy.backwardsmovement(Bheavy._direction);
+
+                        Bheavy.Draw(_spriteBatch);
+                        Thread.Sleep(200);
+                    }
+                    
+
+                }
+                if (mouseState.LeftButton == ButtonState.Pressed && leftbutton.Contains(mouseState.Position))
                 {
 
 
                 }
-                if (mouseState.LeftButton == ButtonState.Pressed && forwardbutton.Contains(mouseState.Position))
-                {
-
-
-                }
-                if (mouseState.LeftButton == ButtonState.Pressed && forwardbutton.Contains(mouseState.Position))
+                if (mouseState.LeftButton == ButtonState.Pressed && rightbutton.Contains(mouseState.Position))
                 {
 
 
@@ -492,6 +553,7 @@ namespace NEA3
                 Rmed2.Update(gameTime);
                 Rlight.Update(gameTime);
                 Rlight2.Update(gameTime);
+                _spriteBatch.End();
                 //selected fun
                
             }
@@ -620,10 +682,6 @@ namespace NEA3
                 
             }
             base.Draw(gameTime);
-        }
-        public void Redraw(GameTime gameTime)
-        {
-
         }
         public class Camera
         {

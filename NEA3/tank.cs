@@ -61,12 +61,12 @@ namespace NEA3
         public bool _selected;
         public bool[] Components1 = new bool[4] { true, true, true, true };  // components 1= engine  2= tracks 3=gun 4= ammo if all destroyed tank is destroyed  tracks can be repaired 
         public bool[] Crewmembers = new bool[4] { true, true, true, true }; // crew 1= driver 2= gunner 3= loader 4= commander commander can switch wiht any loader can switch with gunner
-        public tank(int x, int y, Direction direction, int armour, int acc, int speed, int penpower, int range, int movepoints, bool havefired, int type, bool player, int tankID, bool selected)
+        public tank(int X, int Y, Direction direction, int armour, int acc, int speed, int penpower, int range, int movepoints, bool havefired, int type, bool player, int tankID, bool selected)
         {
             _tankID = tankID;
             _direction = direction;
-            _x = x;
-            _y = y;
+            _x = X;
+            _y = Y;
             _player = player;
             _type = type;
             Location = new Vector2(0, 0);
@@ -90,12 +90,12 @@ namespace NEA3
                     Texture = Content.Load<Texture2D>(@"LightblueRF");
                     if (TankID == 4)
                     {
-                        Vector2 LBposition = new Vector2(0, 100); //positon of the rectangles for light tank 1
+                        Vector2 LBposition = new Vector2(X,Y); //positon of the rectangles for light tank 1
                         RBLight = new Rectangle((int)LBposition.X, (int)LBposition.Y, Texture.Width, Texture.Height); // actual retangle 
                     }
                     else if (TankID == 5)
                     {
-                        Vector2 LB2position = new Vector2(0, 360); //positon of the rectangles 
+                        Vector2 LB2position = new Vector2(X, Y); //positon of the rectangles 
                         RB2light = new Rectangle((int)LB2position.X, (int)LB2position.Y, Texture.Width, Texture.Height);
                     }
 
@@ -105,12 +105,12 @@ namespace NEA3
                     Texture = Content.Load<Texture2D>(@"LightredLF");
                     if (TankID == 4)
                     {
-                        Vector2 LRposition = new Vector2(635, 100);
+                        Vector2 LRposition = new Vector2(X,Y);
                         RRLight = new Rectangle((int)LRposition.X, (int)LRposition.Y, Texture.Width, Texture.Height);
                     }
                     else if (TankID == 5)
                     {
-                        Vector2 LR2position = new Vector2(620, 360);
+                        Vector2 LR2position = new Vector2(X,Y);
                         RR2light = new Rectangle((int)LR2position.X, (int)LR2position.Y, Texture.Width, Texture.Height);
                     }
                 }
@@ -123,12 +123,12 @@ namespace NEA3
                     Texture = Content.Load<Texture2D>(@"bluemediumRF");
                     if (TankID == 2)
                     {
-                        Vector2 MBposition = new Vector2(0, 225);
+                        Vector2 MBposition = new Vector2(X,Y);
                         RBMed = new Rectangle((int)MBposition.X, (int)MBposition.Y, Texture.Width, Texture.Height);
                     }
                     else if (TankID == 3)
                     {
-                        Vector2 MB2position = new Vector2(0, 315);
+                        Vector2 MB2position = new Vector2(X,Y);
                         RB2Med = new Rectangle((int)MB2position.X, (int)MB2position.Y, Texture.Width, Texture.Height);
                     }
                 }
@@ -137,12 +137,12 @@ namespace NEA3
                     Texture = Content.Load<Texture2D>(@"redmediumLF");
                     if (TankID == 3)
                     {
-                        Vector2 Mr2position = new Vector2(620, 315);
+                        Vector2 Mr2position = new Vector2(X,Y);
                         RR2Med = new Rectangle((int)Mr2position.X, (int)Mr2position.Y, Texture.Width, Texture.Height);
                     }
                     else if (TankID == 2)
                     {
-                        Vector2 MRposition = new Vector2(620, 225);
+                        Vector2 MRposition = new Vector2(X,Y);
                         RRMed = new Rectangle((int)MRposition.X, (int)MRposition.Y, Texture.Width, Texture.Height);
                     }
 
@@ -154,13 +154,13 @@ namespace NEA3
                 if (Player == true)
                 {
                     Texture = Content.Load<Texture2D>(@"blueheavyRF");
-                    Vector2 HBposition = new Vector2(0, 268);
+                    Vector2 HBposition = new Vector2(X,Y);
                     RBheavy = new Rectangle((int)HBposition.X, (int)HBposition.Y, Texture.Width, Texture.Height);
                 }
                 else if (Player == false)
                 {
                     Texture = Content.Load<Texture2D>(@"redheavyLF");
-                    Vector2 HRposition = new Vector2(610, 268);
+                    Vector2 HRposition = new Vector2(X,Y);
                     RRHeavy = new Rectangle((int)HRposition.X, (int)HRposition.Y, Texture.Width, Texture.Height);
                 }
 
@@ -169,11 +169,10 @@ namespace NEA3
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-            int _X = 0;
-            int _Y = 0;
+           
             if (Player == true)
             {
-                _X = 0;
+              
                 switch (Type, TankID)
                 {
                     case (3, 1):
@@ -190,11 +189,11 @@ namespace NEA3
                         spriteBatch.Draw(Texture, RB2Med, Color.White);
                         break;
                     case (1, 4):
-                        _Y = 100;
+                      
                         spriteBatch.Draw(Texture, RBLight, Color.White);
                         break;
                     case (1, 5):
-                        _Y = 400;
+                        
                         spriteBatch.Draw(Texture, RB2light, Color.White);
                         break;
 
@@ -202,7 +201,7 @@ namespace NEA3
             }
             if (Player == false)
             {
-                _X = 620;
+                
                 switch (Type, TankID)
                 {
                     case (3, 1):
@@ -385,13 +384,77 @@ namespace NEA3
             }
 
         }
-        public static void movement(Direction direction)
+        public void forwadmovement(Direction direction)
         {
-            if (direction == Direction.right)
-            {
-
+            if(((_x - 55 >= 0 || _x + 55 < 825) && (_y - 55 >= 0 && _y + 55 <= 550)) && _movementactionpoints > 0)
+            { 
+                if (direction == Direction.right)
+                {
+                    if(TankID == 1)
+                    {
+                        _x += 43;
+                        _movementactionpoints--;
+                    }
+                    else
+                    {
+                        _x += 55;
+                        _movementactionpoints--;
+                    }
+                
+                }
+                else if (direction == Direction.left)
+                {
+                    _x += -55;
+                    _movementactionpoints--;
+                }
+                else if (direction == Direction.up)
+                {
+                    _y += -55;
+                    _movementactionpoints--;
+                }
+                else if (direction == Direction.down)
+                {
+                    _y += 55;
+                    _movementactionpoints--;
+                }
             }
         }
+        public void backwardsmovement(Direction direction)
+        {
+            if (((_x > 0 || _x + 55 < 825) && (_y - 55 >= 0 || _y + 55 <= 550)) && _movementactionpoints > 0)
+            {
+                if (direction == Direction.right)
+                {
+                    if(TankID == 1)
+                    {
+                        _x += -43;
+                        _movementactionpoints--;
+                    }
+                    else
+                    {
+                        _x += -55;
+                        _movementactionpoints--;
+                    }
+                    
+                }
+                else if (direction == Direction.left)
+                {
+                    _x += 55;
+                    _movementactionpoints--;
+                }
+                else if (direction == Direction.up)
+                {
+                    _y += 55;
+                    _movementactionpoints--;
+                }
+                else if (direction == Direction.down)
+                {
+                    _y += 55;
+                    _movementactionpoints--;
+                }
+            }
+        }
+
         public static void turning()
         {
 
