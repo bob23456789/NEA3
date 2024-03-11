@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Reflection.Metadata;
 using Microsoft.Xna.Framework.Input;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static NEA3.tank;
 
 namespace NEA3
 {
@@ -25,7 +26,7 @@ namespace NEA3
         private Rectangle RRLight;
         private Rectangle RR2light;
         protected GraphicsDevice _graphicdevice;
-        
+
         public enum Direction
         {
             down,
@@ -35,7 +36,7 @@ namespace NEA3
         }
         private int _tankID;
         public int TankID { get { return _tankID; } }// unique identifer for each tank  will 1-5 with haevy beign 1 mediums being 2 & 3 light 5 and 5
-        public Direction _direction;
+        public Direction  _direction;
         private bool _player; // true = p1 false = p2
         public bool Player { get { return _player; } }
         private int _type; // 1 = light 2 = medium 3 = heavy 0 = dead
@@ -77,24 +78,24 @@ namespace NEA3
             _range = range;
             _movementactionpoints = movepoints;
             _havefired = havefired;
-           
+
         }
         public override void LoadContent(ContentManager Content)
         {
-            
+
             if (Type == 1)
             {
                 if (Player == true)
                 {
                     Texture = Content.Load<Texture2D>(@"LightblueRF");
-                    if(TankID == 4)
+                    if (TankID == 4)
                     {
                         Vector2 LBposition = new Vector2(0, 100); //positon of the rectangles for light tank 1
                         RBLight = new Rectangle((int)LBposition.X, (int)LBposition.Y, Texture.Width, Texture.Height); // actual retangle 
                     }
                     else if (TankID == 5)
                     {
-                        Vector2 LB2position = new Vector2(0, 400); //positon of the rectangles 
+                        Vector2 LB2position = new Vector2(0, 360); //positon of the rectangles 
                         RB2light = new Rectangle((int)LB2position.X, (int)LB2position.Y, Texture.Width, Texture.Height);
                     }
 
@@ -109,26 +110,26 @@ namespace NEA3
                     }
                     else if (TankID == 5)
                     {
-                        Vector2 LR2position = new Vector2(635, 400);
-                       RR2light = new Rectangle((int)LR2position.X, (int)LR2position.Y, Texture.Width, Texture.Height);
+                        Vector2 LR2position = new Vector2(620, 360);
+                        RR2light = new Rectangle((int)LR2position.X, (int)LR2position.Y, Texture.Width, Texture.Height);
                     }
                 }
 
             }
-            if (Type == 2 )
+            if (Type == 2)
             {
                 if (Player == true)
                 {
                     Texture = Content.Load<Texture2D>(@"bluemediumRF");
-                    if (TankID == 3)
+                    if (TankID == 2)
                     {
-                        Vector2 MB2position = new Vector2(320, 340);
-                        RBMed = new Rectangle((int)MB2position.X, (int)MB2position.Y, Texture.Width, Texture.Height);
+                        Vector2 MBposition = new Vector2(0, 225);
+                        RBMed = new Rectangle((int)MBposition.X, (int)MBposition.Y, Texture.Width, Texture.Height);
                     }
-                    else if (TankID == 2)
+                    else if (TankID == 3)
                     {
-                        Vector2 MBposition = new Vector2(-100, 200);
-                        RB2Med = new Rectangle((int)MBposition.X, (int)MBposition.Y, Texture.Width, Texture.Height);
+                        Vector2 MB2position = new Vector2(0, 315);
+                        RB2Med = new Rectangle((int)MB2position.X, (int)MB2position.Y, Texture.Width, Texture.Height);
                     }
                 }
                 else if (Player == false)
@@ -136,30 +137,30 @@ namespace NEA3
                     Texture = Content.Load<Texture2D>(@"redmediumLF");
                     if (TankID == 3)
                     {
-                        Vector2 Mr2position = new Vector2(620, 340);
+                        Vector2 Mr2position = new Vector2(620, 315);
                         RR2Med = new Rectangle((int)Mr2position.X, (int)Mr2position.Y, Texture.Width, Texture.Height);
                     }
                     else if (TankID == 2)
                     {
-                        Vector2 MRposition = new Vector2(620, 200);
+                        Vector2 MRposition = new Vector2(620, 225);
                         RRMed = new Rectangle((int)MRposition.X, (int)MRposition.Y, Texture.Width, Texture.Height);
                     }
-                    
+
                 }
 
             }
-            if (Type == 3 )
+            if (Type == 3)
             {
                 if (Player == true)
                 {
                     Texture = Content.Load<Texture2D>(@"blueheavyRF");
-                    Vector2 HBposition = new Vector2(0, 285);
+                    Vector2 HBposition = new Vector2(0, 268);
                     RBheavy = new Rectangle((int)HBposition.X, (int)HBposition.Y, Texture.Width, Texture.Height);
                 }
                 else if (Player == false)
                 {
                     Texture = Content.Load<Texture2D>(@"redheavyLF");
-                    Vector2 HRposition = new Vector2(610, 265);
+                    Vector2 HRposition = new Vector2(610, 268);
                     RRHeavy = new Rectangle((int)HRposition.X, (int)HRposition.Y, Texture.Width, Texture.Height);
                 }
 
@@ -172,25 +173,25 @@ namespace NEA3
             int _Y = 0;
             if (Player == true)
             {
-                 _X = 0;
+                _X = 0;
                 switch (Type, TankID)
                 {
                     case (3, 1):
-                        
+
                         spriteBatch.Draw(Texture, RBheavy, Color.White);
                         break;
                     case (2, 2):
-                        
-                        
+
+
                         spriteBatch.Draw(Texture, RBMed, Color.White);
                         break;
                     case (2, 3):
-                       
+
                         spriteBatch.Draw(Texture, RB2Med, Color.White);
                         break;
                     case (1, 4):
                         _Y = 100;
-                        spriteBatch.Draw(Texture, RBLight , Color.White);
+                        spriteBatch.Draw(Texture, RBLight, Color.White);
                         break;
                     case (1, 5):
                         _Y = 400;
@@ -205,24 +206,24 @@ namespace NEA3
                 switch (Type, TankID)
                 {
                     case (3, 1):
-                        
+
                         spriteBatch.Draw(Texture, RRHeavy, Color.White);
                         break;
                     case (2, 2):
-                       
-                        spriteBatch.Draw(Texture,RRMed, Color.White);
+
+                        spriteBatch.Draw(Texture, RRMed, Color.White);
                         break;
                     case (2, 3):
-                       
-                        spriteBatch.Draw(Texture,RR2Med, Color.White);
+
+                        spriteBatch.Draw(Texture, RR2Med, Color.White);
                         break;
                     case (1, 4):
-                      
-                        spriteBatch.Draw(Texture,RRLight, Color.White);
+
+                        spriteBatch.Draw(Texture, RRLight, Color.White);
                         break;
                     case (1, 5):
-                       
-                        spriteBatch.Draw(Texture,RR2light, Color.White);
+
+                        spriteBatch.Draw(Texture, RR2light, Color.White);
                         break;
 
 
@@ -242,10 +243,10 @@ namespace NEA3
         {
             if (Keyboard.GetState().IsKeyDown(Keys.D1))//when 1 is pressed this will select the heavy tank for whihc ever side it is 
             {
-                
-                if ( Game1.turn % 2 == 0 )//checks whos tunr it is 
+
+                if (Game1.turn % 2 == 0)//checks whos tunr it is 
                 {
-                    if(TankID == 1 )// makes sure its the hevay tank on blue team 
+                    if (TankID == 1)// makes sure its the hevay tank on blue team 
                     {
                         _selected = true;//sets selcted for that tank to true 
 
@@ -262,7 +263,7 @@ namespace NEA3
                         _selected = true;
 
                     }
-                    if ((TankID == 3 || TankID == 2 || TankID == 4 || TankID == 5) )
+                    if ((TankID == 3 || TankID == 2 || TankID == 4 || TankID == 5))
                     {
                         _selected = false;
                     }
@@ -272,7 +273,7 @@ namespace NEA3
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.D2))
             {
-                if (Game1.turn % 2 == 0 )//checks whos tunr it is 
+                if (Game1.turn % 2 == 0)//checks whos tunr it is 
                 {
                     if (TankID == 2 && Player == true)// makes sure its the hevay tank on blue team 
                     {
@@ -307,12 +308,12 @@ namespace NEA3
                         _selected = true;//sets selcted for that tank to true 
 
                     }
-                    if((TankID == 1 || TankID == 2 || TankID == 4 || TankID == 5))
+                    if ((TankID == 1 || TankID == 2 || TankID == 4 || TankID == 5))
                     {
                         _selected = false;//sets selected for other tanks to false 
                     }
                 }
-                else 
+                else
                 {
                     if (TankID == 3 && Player == false)
                     {
@@ -335,7 +336,7 @@ namespace NEA3
                         _selected = true;//sets selcted for that tank to true 
 
                     }
-                    if ((TankID == 1 || TankID == 2 || TankID == 3 || TankID == 5) )
+                    if ((TankID == 1 || TankID == 2 || TankID == 3 || TankID == 5))
                     {
                         _selected = false;//sets selected for other tanks to false 
                     }
@@ -347,7 +348,7 @@ namespace NEA3
                         _selected = true;
 
                     }
-                    if((TankID == 1 || TankID == 2 || TankID == 3 || TankID == 5))
+                    if ((TankID == 1 || TankID == 2 || TankID == 3 || TankID == 5))
                     {
                         _selected = false;
                     }
@@ -356,14 +357,14 @@ namespace NEA3
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.D5))
             {
-                if (Game1.turn % 2 == 0 )//checks whos tunr it is 
+                if (Game1.turn % 2 == 0)//checks whos tunr it is 
                 {
                     if (TankID == 5 && Player == true)// makes sure its the hevay tank on blue team 
                     {
                         _selected = true;//sets selcted for that tank to true 
 
                     }
-                    if((TankID == 1 || TankID == 2 || TankID == 4 || TankID == 3) )
+                    if ((TankID == 1 || TankID == 2 || TankID == 4 || TankID == 3))
                     {
                         _selected = false;//sets selected for other tanks to false 
                     }
@@ -375,16 +376,23 @@ namespace NEA3
                         _selected = true;
 
                     }
-                    if ((TankID == 1 || TankID == 2 || TankID == 4 || TankID == 3) )
+                    if ((TankID == 1 || TankID == 2 || TankID == 4 || TankID == 3))
                     {
                         _selected = false;
                     }
 
                 }
             }
-            
+
         }
-        public static void movement()
+        public static void movement(Direction direction)
+        {
+            if (direction == Direction.right)
+            {
+
+            }
+        }
+        public static void turning()
         {
 
         }
