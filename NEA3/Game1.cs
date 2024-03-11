@@ -481,40 +481,31 @@ namespace NEA3
                         {
                             Bmed.forwadmovement(Bmed._direction);
 
-                            Bheavy.Draw(_spriteBatch);
+                            Bmed.Draw(_spriteBatch);
                             Thread.Sleep(200);
                         }
-                        if (Bheavy._selected == true)
+                        if (Bmed2._selected == true)
                         {
-                            Bheavy.forwadmovement(Bheavy._direction);
+                            Bmed2.forwadmovement(Bmed2._direction);
 
-                            Bheavy.Draw(_spriteBatch);
+                            Bmed2.Draw(_spriteBatch);
                             Thread.Sleep(200);
                         }
-                        if (Bheavy._selected == true)
+                        if (Blight._selected == true)
                         {
-                            Bheavy.forwadmovement(Bheavy._direction);
+                            Blight.forwadmovement(Blight._direction);
 
-                            Bheavy.Draw(_spriteBatch);
+                            Blight.Draw(_spriteBatch);
                             Thread.Sleep(200);
                         }
-                        if (Bheavy._selected == true)
+                        if (Blight2._selected == true)
                         {
-                            Bheavy.forwadmovement(Bheavy._direction);
+                            Blight2.forwadmovement(Blight2._direction);
 
                             Bheavy.Draw(_spriteBatch);
                             Thread.Sleep(200);
                         }
-                        if (Bheavy._selected == true)
-                        {
-                            Bheavy.forwadmovement(Bheavy._direction);
-
-                            Bheavy.Draw(_spriteBatch);
-                            Thread.Sleep(200);
-                        }
-
-
-                    }
+                   }
                    else
                    {
 
@@ -523,14 +514,45 @@ namespace NEA3
                 }
                 if (mouseState.LeftButton == ButtonState.Pressed && backbutton.Contains(mouseState.Position))
                 {
-                    if (Bheavy._selected == true)
+                    if (turn % 2 == 0)
                     {
-                        Bheavy.backwardsmovement(Bheavy._direction);
+                        if (Bheavy._selected == true)
+                        {
+                            Bheavy.backwardsmovement(Bheavy._direction);
 
-                        Bheavy.Draw(_spriteBatch);
-                        Thread.Sleep(200);
+                            Bheavy.Draw(_spriteBatch);
+                            Thread.Sleep(200);
+                        }
+                        if (Bmed._selected == true)
+                        {
+                            Bmed.backwardsmovement(Bmed._direction);
+
+                            Bmed.Draw(_spriteBatch);
+                            Thread.Sleep(200);
+                        }
+                        if (Bmed2._selected == true)
+                        {
+                            Bmed2.backwardsmovement(Bmed2._direction);
+
+                            Bmed2.Draw(_spriteBatch);
+                            Thread.Sleep(200);
+                        }
+                        if (Blight._selected == true)
+                        {
+                            Blight.backwardsmovement(Blight._direction);
+
+                            Blight.Draw(_spriteBatch);
+                            Thread.Sleep(200);
+                        }
+                        if (Blight2._selected == true)
+                        {
+                            Blight2.backwardsmovement(Blight2._direction);
+
+                            Bheavy.Draw(_spriteBatch);
+                            Thread.Sleep(200);
+                        }
                     }
-                    
+                    else{ }
 
                 }
                 if (mouseState.LeftButton == ButtonState.Pressed && leftbutton.Contains(mouseState.Position))

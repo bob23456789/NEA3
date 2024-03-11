@@ -82,88 +82,345 @@ namespace NEA3
         }
         public override void LoadContent(ContentManager Content)
         {
-
-            if (Type == 1)
+            if (_direction == Direction.right)
             {
-                if (Player == true)
+                if (Type == 1)
                 {
-                    Texture = Content.Load<Texture2D>(@"LightblueRF");
-                    if (TankID == 4)
+                    if (Player == true)
                     {
-                        Vector2 LBposition = new Vector2(X,Y); //positon of the rectangles for light tank 1
-                        RBLight = new Rectangle((int)LBposition.X, (int)LBposition.Y, Texture.Width, Texture.Height); // actual retangle 
+                        Texture = Content.Load<Texture2D>(@"LightblueRF");
+                        if (TankID == 4)
+                        {
+                            Vector2 LBposition = new Vector2(X, Y); //positon of the rectangles for light tank 1
+                            RBLight = new Rectangle((int)LBposition.X, (int)LBposition.Y, Texture.Width, Texture.Height); // actual retangle 
+                        }
+                        else if (TankID == 5)
+                        {
+                            Vector2 LB2position = new Vector2(X, Y); //positon of the rectangles 
+                            RB2light = new Rectangle((int)LB2position.X, (int)LB2position.Y, Texture.Width, Texture.Height);
+                        }
+
                     }
-                    else if (TankID == 5)
+                    else if (Player == false)
                     {
-                        Vector2 LB2position = new Vector2(X, Y); //positon of the rectangles 
-                        RB2light = new Rectangle((int)LB2position.X, (int)LB2position.Y, Texture.Width, Texture.Height);
+                        Texture = Content.Load<Texture2D>(@"LightredRF");
+                        if (TankID == 4)
+                        {
+                            Vector2 LRposition = new Vector2(X, Y);
+                            RRLight = new Rectangle((int)LRposition.X, (int)LRposition.Y, Texture.Width, Texture.Height);
+                        }
+                        else if (TankID == 5)
+                        {
+                            Vector2 LR2position = new Vector2(X, Y);
+                            RR2light = new Rectangle((int)LR2position.X, (int)LR2position.Y, Texture.Width, Texture.Height);
+                        }
                     }
 
                 }
-                else if (Player == false)
+                if (Type == 2)
                 {
-                    Texture = Content.Load<Texture2D>(@"LightredLF");
-                    if (TankID == 4)
+                    if (Player == true)
                     {
-                        Vector2 LRposition = new Vector2(X,Y);
-                        RRLight = new Rectangle((int)LRposition.X, (int)LRposition.Y, Texture.Width, Texture.Height);
+                        Texture = Content.Load<Texture2D>(@"bluemediumRF");
+                        if (TankID == 2)
+                        {
+                            Vector2 MBposition = new Vector2(X, Y);
+                            RBMed = new Rectangle((int)MBposition.X, (int)MBposition.Y, Texture.Width, Texture.Height);
+                        }
+                        else if (TankID == 3)
+                        {
+                            Vector2 MB2position = new Vector2(X, Y);
+                            RB2Med = new Rectangle((int)MB2position.X, (int)MB2position.Y, Texture.Width, Texture.Height);
+                        }
                     }
-                    else if (TankID == 5)
+                    else if (Player == false)
                     {
-                        Vector2 LR2position = new Vector2(X,Y);
-                        RR2light = new Rectangle((int)LR2position.X, (int)LR2position.Y, Texture.Width, Texture.Height);
-                    }
-                }
+                        Texture = Content.Load<Texture2D>(@"redmediumRF");
+                        if (TankID == 3)
+                        {
+                            Vector2 Mr2position = new Vector2(X, Y);
+                            RR2Med = new Rectangle((int)Mr2position.X, (int)Mr2position.Y, Texture.Width, Texture.Height);
+                        }
+                        else if (TankID == 2)
+                        {
+                            Vector2 MRposition = new Vector2(X, Y);
+                            RRMed = new Rectangle((int)MRposition.X, (int)MRposition.Y, Texture.Width, Texture.Height);
+                        }
 
+                    }
+
+                }
+                if (Type == 3)
+                {
+                    if (Player == true)
+                    {
+                        Texture = Content.Load<Texture2D>(@"blueheavyRF");
+                        Vector2 HBposition = new Vector2(X, Y);
+                        RBheavy = new Rectangle((int)HBposition.X, (int)HBposition.Y, Texture.Width, Texture.Height);
+                    }
+                    else if (Player == false)
+                    {
+                        Texture = Content.Load<Texture2D>(@"redheavyRF");
+                        Vector2 HRposition = new Vector2(X, Y);
+                        RRHeavy = new Rectangle((int)HRposition.X, (int)HRposition.Y, Texture.Width, Texture.Height);
+                    }
+
+                }
             }
-            if (Type == 2)
+            if (_direction == Direction.left)
             {
-                if (Player == true)
+                if (Type == 1)
                 {
-                    Texture = Content.Load<Texture2D>(@"bluemediumRF");
-                    if (TankID == 2)
+                    if (Player == true)
                     {
-                        Vector2 MBposition = new Vector2(X,Y);
-                        RBMed = new Rectangle((int)MBposition.X, (int)MBposition.Y, Texture.Width, Texture.Height);
+                        Texture = Content.Load<Texture2D>(@"LightblueLF");
+                        if (TankID == 4)
+                        {
+                            Vector2 LBposition = new Vector2(X, Y); //positon of the rectangles for light tank 1
+                            RBLight = new Rectangle((int)LBposition.X, (int)LBposition.Y, Texture.Width, Texture.Height); // actual retangle 
+                        }
+                        else if (TankID == 5)
+                        {
+                            Vector2 LB2position = new Vector2(X, Y); //positon of the rectangles 
+                            RB2light = new Rectangle((int)LB2position.X, (int)LB2position.Y, Texture.Width, Texture.Height);
+                        }
+
                     }
-                    else if (TankID == 3)
+                    else if (Player == false)
                     {
-                        Vector2 MB2position = new Vector2(X,Y);
-                        RB2Med = new Rectangle((int)MB2position.X, (int)MB2position.Y, Texture.Width, Texture.Height);
-                    }
-                }
-                else if (Player == false)
-                {
-                    Texture = Content.Load<Texture2D>(@"redmediumLF");
-                    if (TankID == 3)
-                    {
-                        Vector2 Mr2position = new Vector2(X,Y);
-                        RR2Med = new Rectangle((int)Mr2position.X, (int)Mr2position.Y, Texture.Width, Texture.Height);
-                    }
-                    else if (TankID == 2)
-                    {
-                        Vector2 MRposition = new Vector2(X,Y);
-                        RRMed = new Rectangle((int)MRposition.X, (int)MRposition.Y, Texture.Width, Texture.Height);
+                        Texture = Content.Load<Texture2D>(@"LightredLF");
+                        if (TankID == 4)
+                        {
+                            Vector2 LRposition = new Vector2(X, Y);
+                            RRLight = new Rectangle((int)LRposition.X, (int)LRposition.Y, Texture.Width, Texture.Height);
+                        }
+                        else if (TankID == 5)
+                        {
+                            Vector2 LR2position = new Vector2(X, Y);
+                            RR2light = new Rectangle((int)LR2position.X, (int)LR2position.Y, Texture.Width, Texture.Height);
+                        }
                     }
 
                 }
+                if (Type == 2)
+                {
+                    if (Player == true)
+                    {
+                        Texture = Content.Load<Texture2D>(@"bluemediumLF");
+                        if (TankID == 2)
+                        {
+                            Vector2 MBposition = new Vector2(X, Y);
+                            RBMed = new Rectangle((int)MBposition.X, (int)MBposition.Y, Texture.Width, Texture.Height);
+                        }
+                        else if (TankID == 3)
+                        {
+                            Vector2 MB2position = new Vector2(X, Y);
+                            RB2Med = new Rectangle((int)MB2position.X, (int)MB2position.Y, Texture.Width, Texture.Height);
+                        }
+                    }
+                    else if (Player == false)
+                    {
+                        Texture = Content.Load<Texture2D>(@"redmediumLF");
+                        if (TankID == 3)
+                        {
+                            Vector2 Mr2position = new Vector2(X, Y);
+                            RR2Med = new Rectangle((int)Mr2position.X, (int)Mr2position.Y, Texture.Width, Texture.Height);
+                        }
+                        else if (TankID == 2)
+                        {
+                            Vector2 MRposition = new Vector2(X, Y);
+                            RRMed = new Rectangle((int)MRposition.X, (int)MRposition.Y, Texture.Width, Texture.Height);
+                        }
 
+                    }
+
+                }
+                if (Type == 3)
+                {
+                    if (Player == true)
+                    {
+                        Texture = Content.Load<Texture2D>(@"blueheavyLF");
+                        Vector2 HBposition = new Vector2(X, Y);
+                        RBheavy = new Rectangle((int)HBposition.X, (int)HBposition.Y, Texture.Width, Texture.Height);
+                    }
+                    else if (Player == false)
+                    {
+                        Texture = Content.Load<Texture2D>(@"redheavyLF");
+                        Vector2 HRposition = new Vector2(X, Y);
+                        RRHeavy = new Rectangle((int)HRposition.X, (int)HRposition.Y, Texture.Width, Texture.Height);
+                    }
+
+                }
             }
-            if (Type == 3)
+            if (_direction == Direction.up)
             {
-                if (Player == true)
+                if (Type == 1)
                 {
-                    Texture = Content.Load<Texture2D>(@"blueheavyRF");
-                    Vector2 HBposition = new Vector2(X,Y);
-                    RBheavy = new Rectangle((int)HBposition.X, (int)HBposition.Y, Texture.Width, Texture.Height);
-                }
-                else if (Player == false)
-                {
-                    Texture = Content.Load<Texture2D>(@"redheavyLF");
-                    Vector2 HRposition = new Vector2(X,Y);
-                    RRHeavy = new Rectangle((int)HRposition.X, (int)HRposition.Y, Texture.Width, Texture.Height);
-                }
+                    if (Player == true)
+                    {
+                        Texture = Content.Load<Texture2D>(@"LightblueUF");
+                        if (TankID == 4)
+                        {
+                            Vector2 LBposition = new Vector2(X, Y); //positon of the rectangles for light tank 1
+                            RBLight = new Rectangle((int)LBposition.X, (int)LBposition.Y, Texture.Width, Texture.Height); // actual retangle 
+                        }
+                        else if (TankID == 5)
+                        {
+                            Vector2 LB2position = new Vector2(X, Y); //positon of the rectangles 
+                            RB2light = new Rectangle((int)LB2position.X, (int)LB2position.Y, Texture.Width, Texture.Height);
+                        }
 
+                    }
+                    else if (Player == false)
+                    {
+                        Texture = Content.Load<Texture2D>(@"LightredUF");
+                        if (TankID == 4)
+                        {
+                            Vector2 LRposition = new Vector2(X, Y);
+                            RRLight = new Rectangle((int)LRposition.X, (int)LRposition.Y, Texture.Width, Texture.Height);
+                        }
+                        else if (TankID == 5)
+                        {
+                            Vector2 LR2position = new Vector2(X, Y);
+                            RR2light = new Rectangle((int)LR2position.X, (int)LR2position.Y, Texture.Width, Texture.Height);
+                        }
+                    }
+
+                }
+                if (Type == 2)
+                {
+                    if (Player == true)
+                    {
+                        Texture = Content.Load<Texture2D>(@"bluemediumUF");
+                        if (TankID == 2)
+                        {
+                            Vector2 MBposition = new Vector2(X, Y);
+                            RBMed = new Rectangle((int)MBposition.X, (int)MBposition.Y, Texture.Width, Texture.Height);
+                        }
+                        else if (TankID == 3)
+                        {
+                            Vector2 MB2position = new Vector2(X, Y);
+                            RB2Med = new Rectangle((int)MB2position.X, (int)MB2position.Y, Texture.Width, Texture.Height);
+                        }
+                    }
+                    else if (Player == false)
+                    {
+                        Texture = Content.Load<Texture2D>(@"redmediumUF");
+                        if (TankID == 3)
+                        {
+                            Vector2 Mr2position = new Vector2(X, Y);
+                            RR2Med = new Rectangle((int)Mr2position.X, (int)Mr2position.Y, Texture.Width, Texture.Height);
+                        }
+                        else if (TankID == 2)
+                        {
+                            Vector2 MRposition = new Vector2(X, Y);
+                            RRMed = new Rectangle((int)MRposition.X, (int)MRposition.Y, Texture.Width, Texture.Height);
+                        }
+
+                    }
+
+                }
+                if (Type == 3)
+                {
+                    if (Player == true)
+                    {
+                        Texture = Content.Load<Texture2D>(@"blueheavyUF");
+                        Vector2 HBposition = new Vector2(X, Y);
+                        RBheavy = new Rectangle((int)HBposition.X, (int)HBposition.Y, Texture.Width, Texture.Height);
+                    }
+                    else if (Player == false)
+                    {
+                        Texture = Content.Load<Texture2D>(@"redheavyUF");
+                        Vector2 HRposition = new Vector2(X, Y);
+                        RRHeavy = new Rectangle((int)HRposition.X, (int)HRposition.Y, Texture.Width, Texture.Height);
+                    }
+
+                }
+            }
+            if (_direction == Direction.down)
+            {
+                if (Type == 1)
+                {
+                    if (Player == true)
+                    {
+                        Texture = Content.Load<Texture2D>(@"LightblueDF");
+                        if (TankID == 4)
+                        {
+                            Vector2 LBposition = new Vector2(X, Y); //positon of the rectangles for light tank 1
+                            RBLight = new Rectangle((int)LBposition.X, (int)LBposition.Y, Texture.Width, Texture.Height); // actual retangle 
+                        }
+                        else if (TankID == 5)
+                        {
+                            Vector2 LB2position = new Vector2(X, Y); //positon of the rectangles 
+                            RB2light = new Rectangle((int)LB2position.X, (int)LB2position.Y, Texture.Width, Texture.Height);
+                        }
+
+                    }
+                    else if (Player == false)
+                    {
+                        Texture = Content.Load<Texture2D>(@"LightredDF");
+                        if (TankID == 4)
+                        {
+                            Vector2 LRposition = new Vector2(X, Y);
+                            RRLight = new Rectangle((int)LRposition.X, (int)LRposition.Y, Texture.Width, Texture.Height);
+                        }
+                        else if (TankID == 5)
+                        {
+                            Vector2 LR2position = new Vector2(X, Y);
+                            RR2light = new Rectangle((int)LR2position.X, (int)LR2position.Y, Texture.Width, Texture.Height);
+                        }
+                    }
+
+                }
+                if (Type == 2)
+                {
+                    if (Player == true)
+                    {
+                        Texture = Content.Load<Texture2D>(@"bluemediumDF");
+                        if (TankID == 2)
+                        {
+                            Vector2 MBposition = new Vector2(X, Y);
+                            RBMed = new Rectangle((int)MBposition.X, (int)MBposition.Y, Texture.Width, Texture.Height);
+                        }
+                        else if (TankID == 3)
+                        {
+                            Vector2 MB2position = new Vector2(X, Y);
+                            RB2Med = new Rectangle((int)MB2position.X, (int)MB2position.Y, Texture.Width, Texture.Height);
+                        }
+                    }
+                    else if (Player == false)
+                    {
+                        Texture = Content.Load<Texture2D>(@"redmediumDF");
+                        if (TankID == 3)
+                        {
+                            Vector2 Mr2position = new Vector2(X, Y);
+                            RR2Med = new Rectangle((int)Mr2position.X, (int)Mr2position.Y, Texture.Width, Texture.Height);
+                        }
+                        else if (TankID == 2)
+                        {
+                            Vector2 MRposition = new Vector2(X, Y);
+                            RRMed = new Rectangle((int)MRposition.X, (int)MRposition.Y, Texture.Width, Texture.Height);
+                        }
+
+                    }
+
+                }
+                if (Type == 3)
+                {
+                    if (Player == true)
+                    {
+                        Texture = Content.Load<Texture2D>(@"blueheavyDF");
+                        Vector2 HBposition = new Vector2(X, Y);
+                        RBheavy = new Rectangle((int)HBposition.X, (int)HBposition.Y, Texture.Width, Texture.Height);
+                    }
+                    else if (Player == false)
+                    {
+                        Texture = Content.Load<Texture2D>(@"redheavyDF");
+                        Vector2 HRposition = new Vector2(X, Y);
+                        RRHeavy = new Rectangle((int)HRposition.X, (int)HRposition.Y, Texture.Width, Texture.Height);
+                    }
+
+                }
             }
 
         }
@@ -397,25 +654,49 @@ namespace NEA3
                     }
                     else
                     {
-                        _x += 55;
+                        _x += 45;
                         _movementactionpoints--;
                     }
                 
                 }
                 else if (direction == Direction.left)
                 {
-                    _x += -55;
-                    _movementactionpoints--;
+                    if (TankID == 1)
+                    {
+                        _x += -43;
+                        _movementactionpoints--;
+                    }
+                    else
+                    {
+                        _x += -45;
+                        _movementactionpoints--;
+                    }
                 }
                 else if (direction == Direction.up)
                 {
-                    _y += -55;
-                    _movementactionpoints--;
+                    if (TankID == 1)
+                    {
+                        _y += -43;
+                        _movementactionpoints--;
+                    }
+                    else
+                    {
+                        _y += -45;
+                        _movementactionpoints--;
+                    }
                 }
                 else if (direction == Direction.down)
                 {
-                    _y += 55;
-                    _movementactionpoints--;
+                    if (TankID == 1)
+                    {
+                        _y += 43;
+                        _movementactionpoints--;
+                    }
+                    else
+                    {
+                        _y += 45;
+                        _movementactionpoints--;
+                    }
                 }
             }
         }
@@ -425,39 +706,85 @@ namespace NEA3
             {
                 if (direction == Direction.right)
                 {
-                    if(TankID == 1)
+                    if (TankID == 1)
                     {
                         _x += -43;
                         _movementactionpoints--;
                     }
                     else
                     {
-                        _x += -55;
+                        _x += -45;
                         _movementactionpoints--;
                     }
-                    
+
                 }
                 else if (direction == Direction.left)
                 {
-                    _x += 55;
-                    _movementactionpoints--;
+                    if (TankID == 1)
+                    {
+                        _x += 43;
+                        _movementactionpoints--;
+                    }
+                    else
+                    {
+                        _x += 45;
+                        _movementactionpoints--;
+                    }
                 }
                 else if (direction == Direction.up)
                 {
-                    _y += 55;
-                    _movementactionpoints--;
+                    if (TankID == 1)
+                    {
+                        _y += 43;
+                        _movementactionpoints--;
+                    }
+                    else
+                    {
+                        _y += 45;
+                        _movementactionpoints--;
+                    }
                 }
                 else if (direction == Direction.down)
                 {
-                    _y += 55;
-                    _movementactionpoints--;
+                    if (TankID == 1)
+                    {
+                        _y += -43;
+                        _movementactionpoints--;
+                    }
+                    else
+                    {
+                        _y += -45;
+                        _movementactionpoints--;
+                    }
                 }
             }
         }
 
-        public static void turning()
+        public void turning(Direction direction)
         {
+            if(Game1.turn % 2 == 0)
+            {
+                if (TankID == 1)
+                {
 
+                }
+                else if (TankID == 2)
+                {
+
+                }
+                else if (TankID == 3)
+                {
+
+                }
+                else if (TankID == 4)
+                {
+
+                }
+                else if (TankID == 5)
+                {
+
+                }
+            }
         }
         ////how game going to work
 
