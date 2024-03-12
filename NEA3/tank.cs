@@ -56,13 +56,14 @@ namespace NEA3
         public int X { get { return _x; } }
         private int _y;
         public int Y { get { return _y; } }
+        public bool _inrange;
         private int _movementactionpoints;// how many movement action it can do 
         public int Movactpoints { get { return _movementactionpoints; } }
         public bool _havefired;
         public bool _selected;
         public bool[] Components1 = new bool[4] { true, true, true, true };  // components 1= engine  2= tracks 3=gun 4= ammo if all destroyed tank is destroyed  tracks can be repaired 
         public bool[] Crewmembers = new bool[4] { true, true, true, true }; // crew 1= driver 2= gunner 3= loader 4= commander commander can switch wiht any loader can switch with gunner
-        public tank(int X, int Y, Direction direction, int armour, int acc, int speed, int penpower, int range, int movepoints, bool havefired, int type, bool player, int tankID, bool selected)
+        public tank(int X, int Y, Direction direction, int armour, int acc, int speed, int penpower, int range, int movepoints, bool havefired, int type, bool player, int tankID, bool selected, bool inrange)
         {
             _tankID = tankID;
             _direction = direction;
@@ -79,7 +80,7 @@ namespace NEA3
             _range = range;
             _movementactionpoints = movepoints;
             _havefired = havefired;
-
+            _inrange = inrange;
         }
         public override void LoadContent(ContentManager Content)
         {
@@ -435,24 +436,24 @@ namespace NEA3
                 {
                     case (3, 1):
 
-                        spriteBatch.Draw(Texture, RBheavy, Color.White);
+                        spriteBatch.Draw(Texture, RBheavy, Color.Red);
                         break;
                     case (2, 2):
 
 
-                        spriteBatch.Draw(Texture, RBMed, Color.White);
+                        spriteBatch.Draw(Texture, RBMed, Color.Red);
                         break;
                     case (2, 3):
 
-                        spriteBatch.Draw(Texture, RB2Med, Color.White);
+                        spriteBatch.Draw(Texture, RB2Med, Color.Red);
                         break;
                     case (1, 4):
                       
-                        spriteBatch.Draw(Texture, RBLight, Color.White);
+                        spriteBatch.Draw(Texture, RBLight, Color.Red);
                         break;
                     case (1, 5):
                         
-                        spriteBatch.Draw(Texture, RB2light, Color.White);
+                        spriteBatch.Draw(Texture, RB2light, Color.Red);
                         break;
 
                 }
@@ -464,23 +465,23 @@ namespace NEA3
                 {
                     case (3, 1):
 
-                        spriteBatch.Draw(Texture, RRHeavy, Color.White);
+                        spriteBatch.Draw(Texture, RRHeavy, Color.Red);
                         break;
                     case (2, 2):
 
-                        spriteBatch.Draw(Texture, RRMed, Color.White);
+                        spriteBatch.Draw(Texture, RRMed, Color.Red);
                         break;
                     case (2, 3):
 
-                        spriteBatch.Draw(Texture, RR2Med, Color.White);
+                        spriteBatch.Draw(Texture, RR2Med, Color.Red);
                         break;
                     case (1, 4):
 
-                        spriteBatch.Draw(Texture, RRLight, Color.White);
+                        spriteBatch.Draw(Texture, RRLight, Color.Red);
                         break;
                     case (1, 5):
 
-                        spriteBatch.Draw(Texture, RR2light, Color.White);
+                        spriteBatch.Draw(Texture, RR2light, Color.Red);
                         break;
 
 
@@ -648,7 +649,7 @@ namespace NEA3
             { 
                 if (direction == Direction.right)// chekcs direction of the tank as to know which coord to change 
                 {
-                    if(TankID == 1)//due to size of heavy tank has to have different change in x
+                    if(TankID == 1 || TankID == 5)//due to size of heavy tank has to have different change in x
                     {
                         _x += 43;//changes x coord
                         _movementactionpoints--;// removes movement point
@@ -662,7 +663,7 @@ namespace NEA3
                 }
                 else if (direction == Direction.left)
                 {
-                    if (TankID == 1)
+                    if (TankID == 1 || TankID == 5)
                     {
                         _x += -43;
                         _movementactionpoints--;
@@ -675,7 +676,7 @@ namespace NEA3
                 }
                 else if (direction == Direction.up)
                 {
-                    if (TankID == 1)
+                    if (TankID == 1 || TankID == 5)
                     {
                         _y += -43;
                         _movementactionpoints--;
@@ -688,7 +689,7 @@ namespace NEA3
                 }
                 else if (direction == Direction.down)
                 {
-                    if (TankID == 1)
+                    if (TankID == 1 || TankID == 5)
                     {
                         _y += 43;
                         _movementactionpoints--;
@@ -709,7 +710,7 @@ namespace NEA3
             {
                 if (direction == Direction.right)
                 {
-                    if (TankID == 1)
+                    if (TankID == 1 || TankID == 5)
                     {
                         _x += -43;
                         _movementactionpoints--;
@@ -723,7 +724,7 @@ namespace NEA3
                 }
                 else if (direction == Direction.left)
                 {
-                    if (TankID == 1)
+                    if (TankID == 1 || TankID == 5)
                     {
                         _x += 43;
                         _movementactionpoints--;
@@ -736,7 +737,7 @@ namespace NEA3
                 }
                 else if (direction == Direction.up)
                 {
-                    if (TankID == 1)
+                    if (TankID == 1 || TankID == 5)
                     {
                         _y += 43;
                         _movementactionpoints--;
@@ -749,7 +750,7 @@ namespace NEA3
                 }
                 else if (direction == Direction.down)
                 {
-                    if (TankID == 1)
+                    if (TankID == 1 || TankID == 5)
                     {
                         _y += -43;
                         _movementactionpoints--;
@@ -827,6 +828,15 @@ namespace NEA3
                 _movementactionpoints = 2;
             }
         }
+        public void inrangereset()
+        {
+            _inrange = false;
+        }
+        public void inrange(SpriteBatch spriteBatch)
+        {
+           
+        }
+       
         ////how game going to work
 
         //armour + pen power

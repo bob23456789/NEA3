@@ -356,24 +356,24 @@ namespace NEA3
                 }
 
                 //blue tanks
-                Bheavy = new tank(0, 268, tank.Direction.right, 75, 80, 1, 75, 5, 2, false, 3, true, 1, false);// x,y,direction,armour,acc,speed,penpower,range,movepoints,havefired,type,player,id 
+                Bheavy = new tank(0, 268, tank.Direction.right, 75, 80, 1, 75, 5, 2, false, 3, true, 1, false,false);// x,y,direction,armour,acc,speed,penpower,range,movepoints,havefired,type,player,id 
                 p1tanks.Add(Bheavy);
-                Bmed = new tank(0, 225, tank.Direction.right, 50, 70, 2, 50, 5, 3, false, 2, true, 2, false);
+                Bmed = new tank(0, 225, tank.Direction.right, 50, 70, 2, 50, 5, 3, false, 2, true, 2, false, false);
                 p1tanks.Add(Bmed);
-                Bmed2 = new tank(0, 315, tank.Direction.right, 50, 70, 2, 50, 5, 3, false, 2, true, 3, false);
+                Bmed2 = new tank(0, 315, tank.Direction.right, 50, 70, 2, 50, 5, 3, false, 2, true, 3, false, false);
                 p1tanks.Add(Bmed2);
-                Blight = new tank(0, 360, tank.Direction.right, 25, 60, 3, 25, 3, 5, false, 2, true, 4, false);
-                Blight2 = new tank(0, 360, tank.Direction.right, 25, 60, 3, 25, 3, 5, false, 1, true, 5, false);
+                Blight = new tank(0, 360, tank.Direction.right, 25, 60, 3, 25, 3, 5, false, 2, true, 4, false, false);
+                Blight2 = new tank(0, 360, tank.Direction.right, 25, 60, 3, 25, 3, 5, false, 1, true, 5, false, false);
                 p1tanks.Add(Blight2);
                 ////red tanks
-                Rheavy = new tank(610,268 , tank.Direction.left, 75, 80, 1, 75, 5, 2, false, 3, false, 1, false);// x,y,direction,armour,acc,speed,penpower,range,movepoints,havefired,type,player,id 
+                Rheavy = new tank(610,268 , tank.Direction.left, 75, 80, 1, 75, 5, 2, false, 3, false, 1, false, false);// x,y,direction,armour,acc,speed,penpower,range,movepoints,havefired,type,player,id 
                 p2tanks.Add(Rheavy);
-                Rmed = new tank(620, 225, tank.Direction.left, 50, 70, 2, 50, 5, 3, false, 2, false, 2, false);
+                Rmed = new tank(620, 225, tank.Direction.left, 50, 70, 2, 50, 5, 3, false, 2, false, 2, false, false);
                 p2tanks.Add(Rmed);
-                Rmed2 = new tank(620, 315, tank.Direction.left, 50, 70, 2, 50, 5, 3, false, 2, false, 3, false);
+                Rmed2 = new tank(620, 315, tank.Direction.left, 50, 70, 2, 50, 5, 3, false, 2, false, 3, false, false);
                 p2tanks.Add(Rmed2);
-                Rlight = new tank(620, 360, tank.Direction.left, 25, 60, 3, 25, 3, 5, false, 2, false, 4, false);
-                Rlight2 = new tank(620, 360, tank.Direction.left, 25, 60, 3, 25, 3, 5, false, 1, false, 5, false);
+                Rlight = new tank(620, 360, tank.Direction.left, 25, 60, 3, 25, 3, 5, false, 2, false, 4, false, false);
+                Rlight2 = new tank(620, 360, tank.Direction.left, 25, 60, 3, 25, 3, 5, false, 1, false, 5, false, false);
                 p2tanks.Add(Rlight2);
             }
             camera = new Camera(GraphicsDevice.Viewport, initialZoom, initialPosition);
@@ -507,7 +507,7 @@ namespace NEA3
                         {
                             if ((tilemap[(Rheavy.Y / 55), ((Rheavy.X + 43) / 55)] != 2) || (tilemap[(Rheavy.Y / 55), ((Rheavy.X - 43) / 55)] != 2) || (tilemap[((Rheavy.Y + 43) / 55), (Rheavy.X / 55)] != 2) || (tilemap[((Rheavy.Y - 43) / 55), (Rheavy.X / 55)] != 2))// checks ot see if theres a mountain in front
                             {
-                                Bheavy.forwadmovement(Rheavy._direction, _spriteBatch);//calls thetank movmnet method to move the tnak forwad
+                                Rheavy.forwadmovement(Rheavy._direction, _spriteBatch);//calls thetank movmnet method to move the tnak forwad
                                 Thread.Sleep(200);//sleep the program prevents spam clicking adn unintetionly clicking ten times when wanting to click once
                                 if (tilemap[(Rheavy.Y / 55), (Rheavy.X / 55)] == 1)
                                 {
@@ -517,7 +517,7 @@ namespace NEA3
                         }
                         else if (Rmed._selected == true)
                         {
-                            if ((tilemap[(Bmed.Y / 55), ((Rmed.X + 45) / 55)] != 2) || (tilemap[(Rmed.Y / 55), ((Rmed.X - 45) / 55)] != 2) || (tilemap[((Rmed.Y + 45) / 55), (Rmed.X / 55)] != 2) || (tilemap[((Rmed.Y - 45) / 55), (Rmed.X / 55)] != 2))// checks ot see if theres a mountain in front
+                            if ((tilemap[(Rmed.Y / 55), ((Rmed.X + 45) / 55)] != 2) || (tilemap[(Rmed.Y / 55), ((Rmed.X - 45) / 55)] != 2) || (tilemap[((Rmed.Y + 45) / 55), (Rmed.X / 55)] != 2) || (tilemap[((Rmed.Y - 45) / 55), (Rmed.X / 55)] != 2))// checks ot see if theres a mountain in front
                             {
                                 Rmed.forwadmovement(Rmed._direction, _spriteBatch);//calls thetank movmnet method to move the tnak forwad
                                 Thread.Sleep(200);//sleep the program prevents spam clicking adn unintetionly clicking ten times when wanting to click once
@@ -558,7 +558,7 @@ namespace NEA3
 
 
                         }
-                    }
+                   }
                     
                 }
                 if (mouseState.LeftButton == ButtonState.Pressed && backbutton.Contains(mouseState.Position))//sees if down button has been clikced does the smae as up button but moves selected tank backwards
@@ -621,7 +621,64 @@ namespace NEA3
 
                         }
                     }
-                    else{ }
+                    else
+                    {
+                        if (Rheavy._selected == true)//checks which tnak has been selected 
+                        {
+                            if ((tilemap[(Rheavy.Y / 55), ((Rheavy.X + 43) / 55)] != 2) || (tilemap[(Rheavy.Y / 55), ((Rheavy.X - 43) / 55)] != 2) || (tilemap[((Rheavy.Y + 43) / 55), (Rheavy.X / 55)] != 2) || (tilemap[((Rheavy.Y - 43) / 55), (Rheavy.X / 55)] != 2))// checks ot see if theres a mountain in front
+                            {
+                                Rheavy.backwardsmovement(Rheavy._direction, _spriteBatch);//calls thetank movmnet method to move the tnak forwad
+                                Thread.Sleep(200);//sleep the program prevents spam clicking adn unintetionly clicking ten times when wanting to click once
+                                if (tilemap[(Rheavy.Y / 55), (Rheavy.X / 55)] == 1)
+                                {
+                                    Rheavy.movingintoforest();
+                                }
+                            }
+                        }
+                        else if (Rmed._selected == true)
+                        {
+                            if ((tilemap[(Rmed.Y / 55), ((Rmed.X + 45) / 55)] != 2) || (tilemap[(Rmed.Y / 55), ((Rmed.X - 45) / 55)] != 2) || (tilemap[((Rmed.Y + 45) / 55), (Rmed.X / 55)] != 2) || (tilemap[((Rmed.Y - 45) / 55), (Rmed.X / 55)] != 2))// checks ot see if theres a mountain in front
+                            {
+                                Rmed.backwardsmovement(Rmed._direction, _spriteBatch);//calls thetank movmnet method to move the tnak forwad
+                                Thread.Sleep(200);//sleep the program prevents spam clicking adn unintetionly clicking ten times when wanting to click once
+                                if (tilemap[(Rmed.Y / 55), (Rmed.X / 55)] == 1)
+                                {
+                                    Rmed.movingintoforest();
+                                }
+                            }
+                        }
+                        else if (Rmed2._selected == true)
+                        {
+                            if ((tilemap[(Rmed2.Y / 55), ((Rmed2.X + 45) / 55)] != 2) || (tilemap[(Rmed2.Y / 55), ((Rmed2.X - 45) / 55)] != 2) || (tilemap[((Rmed2.Y + 45) / 55), (Rmed2.X / 55)] != 2) || (tilemap[((Rmed2.Y - 45) / 55), (Rmed2.X / 55)] != 2))// checks ot see if theres a mountain in front
+                            {
+                                Rmed2.backwardsmovement(Rmed2._direction, _spriteBatch);//calls thetank movmnet method to move the tnak forwad
+                                Thread.Sleep(200);//sleep the program prevents spam clicking adn unintetionly clicking ten times when wanting to click once
+                                if (tilemap[(Rmed2.Y / 55), (Rmed2.X / 55)] == 1)
+                                {
+                                    Rmed2.movingintoforest();
+                                }
+                            }
+                        }
+                        else if (Rlight._selected == true)
+                        {
+                            Rlight.backwardsmovement(Rlight._direction, _spriteBatch);
+                            Thread.Sleep(200);
+                        }
+                        else if (Rlight2._selected == true)
+                        {
+                            if ((tilemap[(Rlight2.Y / 55), ((Rlight2.X + 45) / 55)] != 2) || (tilemap[(Rlight2.Y / 55), ((Rlight2.X - 45) / 55)] != 2) || (tilemap[((Rlight2.Y + 45) / 55), (Rlight2.X / 55)] != 2) || (tilemap[((Rlight2.Y - 45) / 55), (Rlight2.X / 55)] != 2))// checks ot see if theres a mountain in front
+                            {
+                                Rlight2.backwardsmovement(Rlight2._direction, _spriteBatch);//calls thetank movmnet method to move the tnak forwad
+                                Thread.Sleep(200);//sleep the program prevents spam clicking adn unintetionly clicking ten times when wanting to click once
+                                if (tilemap[(Rlight2.Y / 55), (Rlight2.X / 55)] == 1)
+                                {
+                                    Rlight2.movingintoforest();
+                                }
+                            }
+
+
+                        }
+                    }
 
                 }
                 if (mouseState.LeftButton == ButtonState.Pressed && leftbutton.Contains(mouseState.Position))
@@ -656,7 +713,31 @@ namespace NEA3
                     }
                     else
                     {
-
+                        if (Rheavy._selected == true)//checks which tnak has been selected 
+                        {
+                            Rheavy.turningleft(Rheavy._direction, Content, _spriteBatch);//calls turning left method for tnaks
+                            Thread.Sleep(200);//sleep the program prevents spam clicking adn unintetionly clicking ten times when wanting to click once
+                        }
+                        else if (Rmed._selected == true)
+                        {
+                            Rmed.turningleft(Rmed._direction, Content, _spriteBatch);
+                            Thread.Sleep(200);
+                        }
+                        else if (Rmed2._selected == true)
+                        {
+                            Rmed2.turningleft(Rmed2._direction, Content, _spriteBatch);
+                            Thread.Sleep(200);
+                        }
+                        else if (Rlight._selected == true)
+                        {
+                            Rlight.turningleft(Rlight._direction, Content, _spriteBatch);
+                            Thread.Sleep(200);
+                        }
+                        else if (Rlight2._selected == true)
+                        {
+                            Rlight2.turningleft(Rlight2._direction, Content, _spriteBatch);
+                            Thread.Sleep(200);
+                        }
                     }
 
                 }
@@ -692,7 +773,31 @@ namespace NEA3
                     }
                     else
                     {
-
+                        if (Rheavy._selected == true)//checks which tnak has been selected 
+                        {
+                            Rheavy.turningright(Rheavy._direction, Content, _spriteBatch);//calls turning left method for tnaks
+                            Thread.Sleep(200);//sleep the program prevents spam clicking adn unintetionly clicking ten times when wanting to click once
+                        }
+                        else if (Rmed._selected == true)
+                        {
+                            Rmed.turningright(Rmed._direction, Content, _spriteBatch);
+                            Thread.Sleep(200);
+                        }
+                        else if (Rmed2._selected == true)
+                        {
+                            Rmed2.turningright(Rmed2._direction, Content, _spriteBatch);
+                            Thread.Sleep(200);
+                        }
+                        else if (Rlight._selected == true)
+                        {
+                            Rlight.turningright(Rlight._direction, Content, _spriteBatch);
+                            Thread.Sleep(200);
+                        }
+                        else if (Rlight2._selected == true)
+                        {
+                            Rlight2.turningright(Rlight2._direction, Content, _spriteBatch);
+                            Thread.Sleep(200);
+                        }
                     }
 
                 }
@@ -718,6 +823,7 @@ namespace NEA3
                     turncountwords = "Turn " + turn;
                     Thread.Sleep(250);
                 }
+                checkshot();
                 Bheavy.Update(gameTime);
                 Bmed.Update(gameTime);
                 Bmed2.Update(gameTime);
@@ -735,7 +841,675 @@ namespace NEA3
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             base.Update(gameTime);
         }
+        public void checkshot()
+        {
+            Bheavy.inrangereset();
+            Bmed.inrangereset();
+            Bmed2.inrangereset();
+            Blight2.inrangereset();
+            Rheavy.inrangereset();
+            Rmed.inrangereset();
+            Rmed2.inrangereset();
+            Rlight.inrangereset();
+            int xdifference = 0;
+            int ydifference = 0;
+            if (Game1.turn % 2 == 0)
+            { 
+               if(Bheavy._selected == true)
+               {
+                    if(Bheavy._direction == tank.Direction.right || Bheavy._direction == tank.Direction.left)
+                    {
+                        xdifference = Math.Abs(Bheavy.X - Rheavy.X);
+                        if(xdifference <= 290)
+                        {
+                            ydifference = Math.Abs(Bheavy.Y - Rheavy.Y);
+                            if(ydifference <= 130)
+                            {
+                                Rheavy._inrange = true;
+                            }
+                        }
+                        xdifference = Math.Abs(Bheavy.X - Rmed.X);
+                        if (xdifference <= 290)
+                        {
+                            ydifference = Math.Abs(Bheavy.Y - Rmed.Y);
+                            if (ydifference <= 130)
+                            {
+                                Rmed._inrange = true;
+                            }
+                        }
+                        xdifference = Math.Abs(Bheavy.X - Rmed2.X);
+                        if (xdifference <= 290)
+                        {
+                            ydifference = Math.Abs(Bheavy.Y - Rmed2.Y);
+                            if (ydifference <= 130)
+                            {
+                                Rmed2._inrange = true;
+                            }
+                        }
+                        xdifference = Math.Abs(Bheavy.X - Rlight2.X);
+                        if (xdifference <= 290)
+                        {
+                            ydifference = Math.Abs(Bheavy.Y - Rlight2.Y);
+                            if (ydifference <= 130)
+                            {
+                                Rlight2._inrange = true;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        ydifference = Math.Abs(Bheavy.Y - Rheavy.Y);
+                        if (ydifference <= 290)
+                        {
+                            xdifference = Math.Abs(Bheavy.X - Rheavy.X);
+                            if (xdifference <= 130)
+                            {
+                                Rheavy._inrange = true;
+                            }
+                        }
+                        ydifference = Math.Abs(Bheavy.Y - Rmed.Y);
+                        if (ydifference <= 290)
+                        {
+                            xdifference = Math.Abs(Bheavy.X - Rmed.X);
+                            if (xdifference <= 130)
+                            {
+                                Rmed._inrange = true;
+                            }
+                        }
+                        ydifference = Math.Abs(Bheavy.Y - Rmed2.Y);
+                        if (ydifference <= 290)
+                        {
+                            xdifference = Math.Abs(Bheavy.X - Rmed2.X);
+                            if (xdifference <= 130)
+                            {
+                                Rmed2._inrange = true;
+                            }
+                        }
+                        ydifference = Math.Abs(Bheavy.Y - Rlight2.Y);
+                        if (ydifference <= 290)
+                        {
+                            xdifference = Math.Abs(Bheavy.X - Rlight2.X);
+                            if (xdifference <= 130)
+                            {
+                                Rlight2._inrange = true;
+                            }
+                        }
+                    }
+               }
+               else if(Bmed._selected == true)
+               {
+                    if (Bmed._direction == tank.Direction.right || Bmed._direction == tank.Direction.left)
+                    {
+                        xdifference = Math.Abs(Bmed.X - Rheavy.X);
+                        if (xdifference <= 290)
+                        {
+                            ydifference = Math.Abs(Bmed.Y - Rheavy.Y);
+                            if (ydifference <= 130)
+                            {
+                                Rheavy._inrange = true;
+                            }
+                        }
+                        xdifference = Math.Abs(Bmed.X - Rmed.X);
+                        if (xdifference <= 290)
+                        {
+                            ydifference = Math.Abs(Bmed.Y - Rmed.Y);
+                            if (ydifference <= 130)
+                            {
+                                Rmed._inrange = true;
+                            }
+                        }
+                        xdifference = Math.Abs(Bmed.X - Rmed2.X);
+                        if (xdifference <= 290)
+                        {
+                            ydifference = Math.Abs(Bmed.Y - Rmed2.Y);
+                            if (ydifference <= 130)
+                            {
+                                Rmed2._inrange = true;
+                            }
+                        }
+                        xdifference = Math.Abs(Bmed.X - Rlight2.X);
+                        if (xdifference <= 290)
+                        {
+                            ydifference = Math.Abs(Bmed.Y - Rlight2.Y);
+                            if (ydifference <= 130)
+                            {
+                                Rlight2._inrange = true;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        ydifference = Math.Abs(Bmed.Y - Rheavy.Y);
+                        if (ydifference <= 290)
+                        {
+                            xdifference = Math.Abs(Bmed.X - Rheavy.X);
+                            if (xdifference <= 130)
+                            {
+                                Rheavy._inrange = true;
+                            }
+                        }
+                        ydifference = Math.Abs(Bmed.Y - Rmed.Y);
+                        if (ydifference <= 290)
+                        {
+                            xdifference = Math.Abs(Bmed.X - Rmed.X);
+                            if (xdifference <= 130)
+                            {
+                                Rmed._inrange = true;
+                            }
+                        }
+                        ydifference = Math.Abs(Bmed.Y - Rmed2.Y);
+                        if (ydifference <= 290)
+                        {
+                            xdifference = Math.Abs(Bmed.X - Rmed2.X);
+                            if (xdifference <= 130)
+                            {
+                                Rmed2._inrange = true;
+                            }
+                        }
+                        ydifference = Math.Abs(Bmed.Y - Rlight2.Y);
+                        if (ydifference <= 290)
+                        {
+                            xdifference = Math.Abs(Bmed.X - Rlight2.X);
+                            if (xdifference <= 130)
+                            {
+                                Rlight2._inrange = true;
+                            }
+                        }
+                    }
+                }
+               else if(Bmed2._selected == true)
+               {
+                    if (Bmed2._direction == tank.Direction.right || Bmed2._direction == tank.Direction.left)
+                    {
+                        xdifference = Math.Abs(Bmed2.X - Rheavy.X);
+                        if (xdifference <= 290)
+                        {
+                            ydifference = Math.Abs(Bmed2.Y - Rheavy.Y);
+                            if (ydifference <= 130)
+                            {
+                                Rheavy._inrange = true;
+                            }
+                        }
+                        xdifference = Math.Abs(Bmed2.X - Rmed.X);
+                        if (xdifference <= 290)
+                        {
+                            ydifference = Math.Abs(Bmed2.Y - Rmed.Y);
+                            if (ydifference <= 130)
+                            {
+                                Rmed._inrange = true;
+                            }
+                        }
+                        xdifference = Math.Abs(Bmed2.X - Rmed2.X);
+                        if (xdifference <= 290)
+                        {
+                            ydifference = Math.Abs(Bmed2.Y - Rmed2.Y);
+                            if (ydifference <= 130)
+                            {
+                                Rmed2._inrange = true;
+                            }
+                        }
+                        xdifference = Math.Abs(Bmed2.X - Rlight2.X);
+                        if (xdifference <= 290)
+                        {
+                            ydifference = Math.Abs(Bmed2.Y - Rlight2.Y);
+                            if (ydifference <= 130)
+                            {
+                                Rlight2._inrange = true;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        ydifference = Math.Abs(Bmed2.Y - Rheavy.Y);
+                        if (ydifference <= 290)
+                        {
+                            xdifference = Math.Abs(Bmed2.X - Rheavy.X);
+                            if (xdifference <= 130)
+                            {
+                                Rheavy._inrange = true;
+                            }
+                        }
+                        ydifference = Math.Abs(Bmed2.Y - Rmed.Y);
+                        if (ydifference <= 290)
+                        {
+                            xdifference = Math.Abs(Bmed2.X - Rmed.X);
+                            if (xdifference <= 130)
+                            {
+                                Rmed._inrange = true;
+                            }
+                        }
+                        ydifference = Math.Abs(Bmed2.Y - Rmed2.Y);
+                        if (ydifference <= 290)
+                        {
+                            xdifference = Math.Abs(Bmed2.X - Rmed2.X);
+                            if (xdifference <= 130)
+                            {
+                                Rmed2._inrange = true;
+                            }
+                        }
+                        ydifference = Math.Abs(Bmed2.Y - Rlight2.Y);
+                        if (ydifference <= 290)
+                        {
+                            xdifference = Math.Abs(Bmed2.X - Rlight2.X);
+                            if (xdifference <= 130)
+                            {
+                                Rlight2._inrange = true;
+                            }
+                        }
+                    }
+                }
+               else if (Blight2._selected == true)
+               {
+                    if (Blight2._direction == tank.Direction.right || Blight2._direction == tank.Direction.left)
+                    {
+                        xdifference = Math.Abs(Blight2.X - Rheavy.X);
+                        if (xdifference <= 290)
+                        {
+                            ydifference = Math.Abs(Blight2.Y - Rheavy.Y);
+                            if (ydifference <= 130)
+                            {
+                                Rheavy._inrange = true;
+                            }
+                        }
+                        xdifference = Math.Abs(Blight2.X - Rmed.X);
+                        if (xdifference <= 290)
+                        {
+                            ydifference = Math.Abs(Blight2.Y - Rmed.Y);
+                            if (ydifference <= 130)
+                            {
+                                Rmed._inrange = true;
+                            }
+                        }
+                        xdifference = Math.Abs(Blight2.X - Rmed2.X);
+                        if (xdifference <= 290)
+                        {
+                            ydifference = Math.Abs(Blight2.Y - Rmed2.Y);
+                            if (ydifference <= 130)
+                            {
+                                Rmed2._inrange = true;
+                            }
+                        }
+                        xdifference = Math.Abs(Blight2.X - Rlight2.X);
+                        if (xdifference <= 290)
+                        {
+                            ydifference = Math.Abs(Blight2.Y - Rlight2.Y);
+                            if (ydifference <= 130)
+                            {
+                                Rlight2._inrange = true;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        ydifference = Math.Abs(Blight2.Y - Rheavy.Y);
+                        if (ydifference <= 290)
+                        {
+                            xdifference = Math.Abs(Blight2.X - Rheavy.X);
+                            if (xdifference <= 130)
+                            {
+                                Rheavy._inrange = true;
+                            }
+                        }
+                        ydifference = Math.Abs(Blight2.Y - Rmed.Y);
+                        if (ydifference <= 290)
+                        {
+                            xdifference = Math.Abs(Blight2.X - Rmed.X);
+                            if (xdifference <= 130)
+                            {
+                                Rmed._inrange = true;
+                            }
+                        }
+                        ydifference = Math.Abs(Blight2.Y - Rmed2.Y);
+                        if (ydifference <= 290)
+                        {
+                            xdifference = Math.Abs(Blight2.X - Rmed2.X);
+                            if (xdifference <= 130)
+                            {
+                                Rmed2._inrange = true;
+                            }
+                        }
+                        ydifference = Math.Abs(Blight2.Y - Rlight2.Y);
+                        if (ydifference <= 290)
+                        {
+                            xdifference = Math.Abs(Blight2.X - Rlight2.X);
+                            if (xdifference <= 130)
+                            {
+                                Rlight2._inrange = true;
+                            }
+                        }
+                    }
+               }
 
+
+            }
+            else
+            {
+                if (Rheavy._selected == true)
+                {
+                    if (Rheavy._direction == tank.Direction.right || Rheavy._direction == tank.Direction.left)
+                    {
+                        xdifference = Math.Abs(Rheavy.X - Bheavy.X);
+                        if (xdifference <= 290)
+                        {
+                            ydifference = Math.Abs(Rheavy.Y - Bheavy.Y);
+                            if (ydifference <= 130)
+                            {
+                                Bheavy._inrange = true;
+                            }
+                        }
+                        xdifference = Math.Abs(Rheavy.X - Bmed.X);
+                        if (xdifference <= 290)
+                        {
+                            ydifference = Math.Abs(Rheavy.Y - Bmed.Y);
+                            if (ydifference <= 130)
+                            {
+                                Bmed._inrange = true;
+                            }
+                        }
+                        xdifference = Math.Abs(Rheavy.X - Bmed2.X);
+                        if (xdifference <= 290)
+                        {
+                            ydifference = Math.Abs(Rheavy.Y - Bmed2.Y);
+                            if (ydifference <= 130)
+                            {
+                                Bmed2._inrange = true;
+                            }
+                        }
+                        xdifference = Math.Abs(Rheavy.X - Blight2.X);
+                        if (xdifference <= 290)
+                        {
+                            ydifference = Math.Abs(Rheavy.Y - Blight2.Y);
+                            if (ydifference <= 130)
+                            {
+                                Blight2._inrange = true;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        ydifference = Math.Abs(Rheavy.Y - Bheavy.Y);
+                        if (ydifference <= 290)
+                        {
+                            xdifference = Math.Abs(Rheavy.X - Bheavy.X);
+                            if (xdifference <= 130)
+                            {
+                                Bheavy._inrange = true;
+                            }
+                        }
+                        ydifference = Math.Abs(Rheavy.Y - Bmed.Y);
+                        if (ydifference <= 290)
+                        {
+                            xdifference = Math.Abs(Rheavy.X - Bmed.X);
+                            if (xdifference <= 130)
+                            {
+                                Bmed._inrange = true;
+                            }
+                        }
+                        ydifference = Math.Abs(Rheavy.Y - Bmed2.Y);
+                        if (ydifference <= 290)
+                        {
+                            xdifference = Math.Abs(Rheavy.X - Bmed2.X);
+                            if (xdifference <= 130)
+                            {
+                                Bmed2._inrange = true;
+                            }
+                        }
+                        ydifference = Math.Abs(Rheavy.Y - Blight2.Y);
+                        if (ydifference <= 290)
+                        {
+                            xdifference = Math.Abs(Rheavy.X - Blight2.X);
+                            if (xdifference <= 130)
+                            {
+                                Blight2._inrange = true;
+                            }
+                        }
+                    }
+                }
+                else if (Rmed._selected == true)
+                {
+                    if (Rmed._direction == tank.Direction.right ||Rmed._direction == tank.Direction.left)
+                    {
+                        xdifference = Math.Abs(Rmed.X - Bheavy.X);
+                        if (xdifference <= 290)
+                        {
+                            ydifference = Math.Abs(Rmed.Y - Bheavy.Y);
+                            if (ydifference <= 130)
+                            {
+                                Bheavy._inrange = true;
+                            }
+                        }
+                        xdifference = Math.Abs(Rmed.X - Bmed.X);
+                        if (xdifference <= 290)
+                        {
+                            ydifference = Math.Abs(Rmed.Y - Bmed.Y);
+                            if (ydifference <= 130)
+                            {
+                                Bmed._inrange = true;
+                            }
+                        }
+                        xdifference = Math.Abs(Rmed.X - Bmed2.X);
+                        if (xdifference <= 290)
+                        {
+                            ydifference = Math.Abs(Bmed.Y - Bmed2.Y);
+                            if (ydifference <= 130)
+                            {
+                                Bmed2._inrange = true;
+                            }
+                        }
+                        xdifference = Math.Abs(Rmed.X - Blight2.X);
+                        if (xdifference <= 290)
+                        {
+                            ydifference = Math.Abs(Rmed.Y - Blight2.Y);
+                            if (ydifference <= 130)
+                            {
+                                Blight2._inrange = true;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        ydifference = Math.Abs(Rmed.Y - Bheavy.Y);
+                        if (ydifference <= 290)
+                        {
+                            xdifference = Math.Abs(Rmed.X - Bheavy.X);
+                            if (xdifference <= 130)
+                            {
+                                Bheavy._inrange = true;
+                            }
+                        }
+                        ydifference = Math.Abs(Rmed.Y - Bmed.Y);
+                        if (ydifference <= 290)
+                        {
+                            xdifference = Math.Abs(Rmed.X - Bmed.X);
+                            if (xdifference <= 130)
+                            {
+                                Bmed._inrange = true;
+                            }
+                        }
+                        ydifference = Math.Abs(Rmed.Y - Bmed2.Y);
+                        if (ydifference <= 290)
+                        {
+                            xdifference = Math.Abs(Rmed.X - Bmed2.X);
+                            if (xdifference <= 130)
+                            {
+                                Bmed2._inrange = true;
+                            }
+                        }
+                        ydifference = Math.Abs(Rmed.Y - Blight2.Y);
+                        if (ydifference <= 290)
+                        {
+                            xdifference = Math.Abs(Rmed.X - Blight2.X);
+                            if (xdifference <= 130)
+                            {
+                                Blight2._inrange = true;
+                            }
+                        }
+                    }
+                }
+                else if (Rmed2._selected == true)
+                {
+                    if (Rmed2._direction == tank.Direction.right || Rmed2._direction == tank.Direction.left)
+                    {
+                        xdifference = Math.Abs(Rmed2.X - Bheavy.X);
+                        if (xdifference <= 290)
+                        {
+                            ydifference = Math.Abs(Rmed2.Y - Bheavy.Y);
+                            if (ydifference <= 130)
+                            {
+                                Bheavy._inrange = true;
+                            }
+                        }
+                        xdifference = Math.Abs(Rmed2.X - Bmed.X);
+                        if (xdifference <= 290)
+                        {
+                            ydifference = Math.Abs(Rmed2.Y - Bmed.Y);
+                            if (ydifference <= 130)
+                            {
+                                Bmed._inrange = true;
+                            }
+                        }
+                        xdifference = Math.Abs(Rmed2.X - Bmed2.X);
+                        if (xdifference <= 290)
+                        {
+                            ydifference = Math.Abs(Rmed2.Y - Bmed2.Y);
+                            if (ydifference <= 130)
+                            {
+                                Bmed2._inrange = true;
+                            }
+                        }
+                        xdifference = Math.Abs(Rmed2.X - Blight2.X);
+                        if (xdifference <= 290)
+                        {
+                            ydifference = Math.Abs(Rmed2.Y - Blight2.Y);
+                            if (ydifference <= 130)
+                            {
+                                Blight2._inrange = true;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        ydifference = Math.Abs(Rmed2.Y - Bheavy.Y);
+                        if (ydifference <= 290)
+                        {
+                            xdifference = Math.Abs(Rmed2.X - Bheavy.X);
+                            if (xdifference <= 130)
+                            {
+                                Bheavy._inrange = true;
+                            }
+                        }
+                        ydifference = Math.Abs(Rmed2.Y - Bmed.Y);
+                        if (ydifference <= 290)
+                        {
+                            xdifference = Math.Abs(Rmed2.X - Bmed.X);
+                            if (xdifference <= 130)
+                            {
+                                Bmed._inrange = true;
+                            }
+                        }
+                        ydifference = Math.Abs(Rmed2.Y - Bmed2.Y);
+                        if (ydifference <= 290)
+                        {
+                            xdifference = Math.Abs(Rmed2.X - Bmed2.X);
+                            if (xdifference <= 130)
+                            {
+                                Bmed2._inrange = true;
+                            }
+                        }
+                        ydifference = Math.Abs(Rmed2.Y - Blight2.Y);
+                        if (ydifference <= 290)
+                        {
+                            xdifference = Math.Abs(Rmed2.X - Blight2.X);
+                            if (xdifference <= 130)
+                            {
+                                Blight2._inrange = true;
+                            }
+                        }
+                    }
+                }
+                else if (Rlight2._selected == true)
+                {
+                    if (Rlight2._direction == tank.Direction.right || Blight2._direction == tank.Direction.left)
+                    {
+                        xdifference = Math.Abs(Rlight2.X - Bheavy.X);
+                        if (xdifference <= 290)
+                        {
+                            ydifference = Math.Abs(Rlight2.Y - Bheavy.Y);
+                            if (ydifference <= 130)
+                            {
+                                Bheavy._inrange = true;
+                            }
+                        }
+                        xdifference = Math.Abs(Rlight2.X - Bmed.X);
+                        if (xdifference <= 290)
+                        {
+                            ydifference = Math.Abs(Rlight2.Y - Bmed.Y);
+                            if (ydifference <= 130)
+                            {
+                                Bmed._inrange = true;
+                            }
+                        }
+                        xdifference = Math.Abs(Rlight2.X - Bmed2.X);
+                        if (xdifference <= 290)
+                        {
+                            ydifference = Math.Abs(Rlight2.Y - Bmed2.Y);
+                            if (ydifference <= 130)
+                            {
+                                Bmed2._inrange = true;
+                            }
+                        }
+                        xdifference = Math.Abs(Rlight2.X - Blight2.X);
+                        if (xdifference <= 290)
+                        {
+                            ydifference = Math.Abs(Rlight2.Y - Blight2.Y);
+                            if (ydifference <= 130)
+                            {
+                                Blight2._inrange = true;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        ydifference = Math.Abs(Rlight2.Y - Bheavy.Y);
+                        if (ydifference <= 290)
+                        {
+                            xdifference = Math.Abs(Rlight2.X - Bheavy.X);
+                            if (xdifference <= 130)
+                            {
+                                Bheavy._inrange = true;
+                            }
+                        }
+                        ydifference = Math.Abs(Rlight2.Y - Bmed.Y);
+                        if (ydifference <= 290)
+                        {
+                            xdifference = Math.Abs(Rlight2.X - Bmed.X);
+                            if (xdifference <= 130)
+                            {
+                                Rmed._inrange = true;
+                            }
+                        }
+                        ydifference = Math.Abs(Rlight2.Y - Bmed2.Y);
+                        if (ydifference <= 290)
+                        {
+                            xdifference = Math.Abs(Rlight2.X - Bmed2.X);
+                            if (xdifference <= 130)
+                            {
+                                Bmed2._inrange = true;
+                            }
+                        }
+                        ydifference = Math.Abs(Rlight2.Y - Blight2.Y);
+                        if (ydifference <= 290)
+                        {
+                            xdifference = Math.Abs(Rlight2.X - Blight2.X);
+                            if (xdifference <= 130)
+                            {
+                                Blight2._inrange = true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
         protected override void Draw(GameTime gameTime)
         {
             const int selx = 710;// where the imagees of the selted tanks will be drawn
