@@ -700,6 +700,7 @@ namespace NEA3
                     }
                 }
             }
+            
             Draw(spriteBatch);
         }
         public void backwardsmovement(Direction direction, SpriteBatch spriteBatch)//same as forward movement method but moves tanks bakcwards instead
@@ -767,19 +768,19 @@ namespace NEA3
         {
             if(direction == Direction.right)//finds oringal direction
             {
-                direction = Direction.up;//set direction depending on oringal direction
+                _direction = Direction.up;//set direction depending on oringal direction
             }
             else if (direction == Direction.up)
             {
-                direction = Direction.left;
+                _direction = Direction.left;
             }
             else if (direction == Direction.left)
             {
-                direction = Direction.down;
+                _direction = Direction.down;
             }
             else if (direction == Direction.down)
             {
-                direction = Direction.right;
+                _direction = Direction.right;
             }
             _movementactionpoints--;
             LoadContent(content);
@@ -789,23 +790,42 @@ namespace NEA3
         {
             if (direction == Direction.right)
             {
-                direction = Direction.down;
+                _direction = Direction.down;
             }
             else if (direction == Direction.up)
             {
-                direction = Direction.right;
+                _direction = Direction.right;
             }
             else if (direction == Direction.left)
             {
-                direction = Direction.up;
+                _direction = Direction.up;
             }
             else if (direction == Direction.down)
             {
-                direction = Direction.left;
+                _direction = Direction.left;
             }
             _movementactionpoints--;
             LoadContent(content);
             Draw(spriteBatch);
+        }
+        public void movingintoforest()
+        {
+            _movementactionpoints = 0;
+        }
+        public void resetmovpoints()
+        {
+            if(Type ==1)
+            {
+                _movementactionpoints = 5;
+            }
+            if(Type == 2)
+            {
+                _movementactionpoints = 3;
+            }
+            if(Type == 3)
+            {
+                _movementactionpoints = 2;
+            }
         }
         ////how game going to work
 

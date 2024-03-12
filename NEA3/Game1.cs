@@ -20,15 +20,14 @@ namespace NEA3
         private SpriteBatch _spriteBatch;
         const int tilesize = 55; // so i remember teh tile size
         //textures for terrain and ui 
-        Texture2D squareTexture, grassTexture, treesquaretexture, mountaintexutre, menuTexture, GUIsqauretexture, uparrowtexture, downarrowtexture, leftturntexture, rightturntexture ,selectedtextureHB , selectedtextureMB , selectedtextureLB, selectedtextureHR, selectedtextureMR, selectedtextureLR;
+        Texture2D squareTexture, grassTexture, treesquaretexture, mountaintexutre, menuTexture, GUIsqauretexture, uparrowtexture, downarrowtexture, leftturntexture, rightturntexture ,selectedtextureHB , selectedtextureMB , selectedtextureLB, selectedtextureHR, selectedtextureMR, selectedtextureLR, endturnbuttexture;
         private Texture2D buttonTexture;
         private SpriteFont myfontyfont;
-        private Rectangle buttonRectangle; // square which teh tecture will be put in
+        private Rectangle buttonRectangle ,endturnbutton; // square which teh tecture will be put in
         private Rectangle forwardbutton;
         private Rectangle backbutton;
         private Rectangle leftbutton;
         private Rectangle rightbutton;
-        //private Rectangle forwardbutton;
         //private Rectangle forwardbutton;
        public enum gamestate
         {
@@ -38,6 +37,7 @@ namespace NEA3
         }
         gamestate currentgamestate = gamestate.menue;
         string menuTitle = "War On Perliculum\n             Prime";
+        string turncountwords = "Turn " + turn;
         string Line = "";
         public static int turn = 0; // even = blue odd = red turn
         // objects
@@ -363,7 +363,6 @@ namespace NEA3
                 Bmed2 = new tank(0, 315, tank.Direction.right, 50, 70, 2, 50, 5, 3, false, 2, true, 3, false);
                 p1tanks.Add(Bmed2);
                 Blight = new tank(0, 360, tank.Direction.right, 25, 60, 3, 25, 3, 5, false, 2, true, 4, false);
-                p1tanks.Add(Blight);
                 Blight2 = new tank(0, 360, tank.Direction.right, 25, 60, 3, 25, 3, 5, false, 1, true, 5, false);
                 p1tanks.Add(Blight2);
                 ////red tanks
@@ -373,9 +372,8 @@ namespace NEA3
                 p2tanks.Add(Rmed);
                 Rmed2 = new tank(620, 315, tank.Direction.left, 50, 70, 2, 50, 5, 3, false, 2, false, 3, false);
                 p2tanks.Add(Rmed2);
-                Rlight = new tank(635, 360, tank.Direction.left, 25, 60, 3, 25, 3, 5, false, 2, false, 4, false);
-                p2tanks.Add(Rlight);
-                Rlight2 = new tank(635, 360, tank.Direction.left, 25, 60, 3, 25, 3, 5, false, 1, false, 5, false);
+                Rlight = new tank(620, 360, tank.Direction.left, 25, 60, 3, 25, 3, 5, false, 2, false, 4, false);
+                Rlight2 = new tank(620, 360, tank.Direction.left, 25, 60, 3, 25, 3, 5, false, 1, false, 5, false);
                 p2tanks.Add(Rlight2);
             }
             camera = new Camera(GraphicsDevice.Viewport, initialZoom, initialPosition);
@@ -389,30 +387,33 @@ namespace NEA3
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             
 
-                //tankinstalise(Bheavy, Bmed, Bmed2, Rmed, Rmed2, Blight, Blight2, Rlight, Rlight2, Rheavy, p1tanks, p2tanks);
-                grassTexture = Content.Load<Texture2D>("grass");//loads grass 
-                treesquaretexture = Content.Load<Texture2D>("tree");// loads tree tile
-                mountaintexutre = Content.Load<Texture2D>("maintain");
-                GUIsqauretexture = Content.Load<Texture2D>("blacksquare1");
-                uparrowtexture = Content.Load<Texture2D>("uparrow");
-                downarrowtexture = Content.Load<Texture2D>("downarrow");
-                leftturntexture = Content.Load<Texture2D>("leftturn");
-                rightturntexture = Content.Load<Texture2D>("rightturn");
-                selectedtextureHB = Content.Load<Texture2D>("blueheavyUF");
-                selectedtextureHR = Content.Load<Texture2D>("redheavyUF");
-                selectedtextureMB = Content.Load<Texture2D>("bluemediumUF");
-                selectedtextureMR = Content.Load<Texture2D>("redmediumUF");
-                selectedtextureLB = Content.Load<Texture2D>("LightblueUF");
-                selectedtextureLR = Content.Load<Texture2D>("LightredUF");
-                Vector2 fbposition = new Vector2(710,200);// gives postion for hidden rectangle around buttons
-                Vector2 bbposition = new Vector2(710, 250);
-                Vector2 lbposition = new Vector2(760, 250);
-                Vector2 rbposition = new Vector2(660, 250);
-                forwardbutton = new Rectangle((int)fbposition.X, (int)fbposition.Y, uparrowtexture.Width, uparrowtexture.Height);//foward button rectangle
-                backbutton = new Rectangle((int)bbposition.X, (int)bbposition.Y, downarrowtexture.Width, downarrowtexture.Height);
-                leftbutton = new Rectangle((int)lbposition.X, (int)lbposition.Y, leftturntexture.Width, leftturntexture.Height);
-                rightbutton = new Rectangle((int)rbposition.X, (int)rbposition.Y, rightturntexture.Width, rightturntexture.Height);
-           
+            //tankinstalise(Bheavy, Bmed, Bmed2, Rmed, Rmed2, Blight, Blight2, Rlight, Rlight2, Rheavy, p1tanks, p2tanks);
+            grassTexture = Content.Load<Texture2D>("grass");//loads grass 
+            treesquaretexture = Content.Load<Texture2D>("tree");// loads tree tile
+            mountaintexutre = Content.Load<Texture2D>("maintain");
+            GUIsqauretexture = Content.Load<Texture2D>("blacksquare1");
+            uparrowtexture = Content.Load<Texture2D>("uparrow");
+            downarrowtexture = Content.Load<Texture2D>("downarrow");
+            leftturntexture = Content.Load<Texture2D>("leftturn");
+            rightturntexture = Content.Load<Texture2D>("rightturn");
+            selectedtextureHB = Content.Load<Texture2D>("blueheavyUF");
+            selectedtextureHR = Content.Load<Texture2D>("redheavyUF");
+            selectedtextureMB = Content.Load<Texture2D>("bluemediumUF");
+            selectedtextureMR = Content.Load<Texture2D>("redmediumUF");
+            selectedtextureLB = Content.Load<Texture2D>("LightblueUF");
+            selectedtextureLR = Content.Load<Texture2D>("LightredUF");
+            endturnbuttexture = Content.Load<Texture2D>("endturnbutton");
+            Vector2 fbposition = new Vector2(710,200);// gives postion for hidden rectangle around buttons
+            Vector2 bbposition = new Vector2(710, 250);
+            Vector2 lbposition = new Vector2(760, 250);
+            Vector2 rbposition = new Vector2(660, 250);
+            Vector2 endbposition = new Vector2(710, 400);
+            forwardbutton = new Rectangle((int)fbposition.X, (int)fbposition.Y, uparrowtexture.Width, uparrowtexture.Height);//loading positon adn texture for forwad button
+            backbutton = new Rectangle((int)bbposition.X, (int)bbposition.Y, downarrowtexture.Width, downarrowtexture.Height);
+            leftbutton = new Rectangle((int)lbposition.X, (int)lbposition.Y, leftturntexture.Width, leftturntexture.Height);
+            rightbutton = new Rectangle((int)rbposition.X, (int)rbposition.Y, rightturntexture.Width, rightturntexture.Height);
+            endturnbutton = new Rectangle((int)endbposition.X, (int)endbposition.Y, endturnbuttexture.Width,endturnbuttexture.Height);
+
             if (currentgamestate == gamestate.menue)
             {
                 squareTexture = Content.Load<Texture2D>("menuscreen");
@@ -424,32 +425,6 @@ namespace NEA3
                 buttonRectangle = new Rectangle((int)position.X, (int)position.Y, buttonTexture.Width, buttonTexture.Height);
             }
             // TODO: use this.Content to load your game content here
-        }
-        static void tankinstalise(tank Bheavy ,tank Bmed, tank Bmed2 ,tank Rmed  , tank Rmed2, tank Blight, tank Blight2, tank Rlight, tank Rlight2, tank Rheavy, List<tank> p1tanks, List<tank> p2tanks)
-        {
-            //blue tanks
-            Bheavy = new tank(0, 275, tank.Direction.right, 75, 80, 1, 75, 5, 2, false, 3, true, 1, false);// x,y,direction,armour,acc,speed,penpower,range,movepoints,havefired,type,player,id 
-            p1tanks.Add(Bheavy);
-            Bmed = new tank(0, 220, tank.Direction.right, 50, 70, 2, 50, 5, 3, false, 2, true, 2, false);
-            p1tanks.Add(Bmed);
-            Bmed2 = new tank(0, 330, tank.Direction.right, 50, 70, 2, 50, 5, 3, false, 2, true, 3, false);
-            p1tanks.Add(Bmed2);
-            Blight = new tank(0, 170, tank.Direction.right, 25, 60, 3, 25, 3, 5, false, 2, true, 4, false);
-            p1tanks.Add(Blight);
-            Blight2 = new tank(0, 280, tank.Direction.right, 25, 60, 3, 25, 3, 5, false, 1, true, 5, false);
-            p1tanks.Add(Blight2);
-            //red tanks
-            Rheavy = new tank(825, 275, tank.Direction.right, 75, 80, 1, 75, 5, 2, false, 3, false, 1, false);// x,y,direction,armour,acc,speed,penpower,range,movepoints,havefired,type,player,id 
-            p2tanks.Add(Rheavy);
-            Rmed = new tank(825, 220, tank.Direction.right, 50, 70, 2, 50, 5, 3, false, 2, false, 2, false);
-            p2tanks.Add(Rmed);
-            Rmed2 = new tank(825, 230, tank.Direction.right, 50, 70, 2, 50, 5, 3, false, 2, false, 3, false);
-            p2tanks.Add(Rmed2);
-            Rlight = new tank(825, 170, tank.Direction.right, 25, 60, 3, 25, 3, 5, false, 2, false, 4, false);
-            p2tanks.Add(Rlight);
-            Rlight2 = new tank(825, 280, tank.Direction.right, 25, 60, 3, 25, 3, 5, false, 1, false, 5, false);
-            p2tanks.Add(Rlight2);
-            
         }
         protected override void Update(GameTime gameTime)
         {
@@ -472,18 +447,39 @@ namespace NEA3
                    {
                         if(Bheavy._selected == true)//checks which tnak has been selected 
                         {
-                            Bheavy.forwadmovement(Bheavy._direction ,_spriteBatch);//calls thetank movmnet method to move the tnak forwad
-                            Thread.Sleep(200);//sleep the program prevents spam clicking adn unintetionly clicking ten times when wanting to click once
+                            if ((tilemap[(Bheavy.Y / 55), ((Bheavy.X + 43) / 55)] != 2) || (tilemap[(Bheavy.Y / 55), ((Bheavy.X - 43) / 55)] != 2) || (tilemap[((Bheavy.Y + 43) / 55), (Bheavy.X / 55)] != 2) || (tilemap[((Bheavy.Y - 43) / 55), (Bheavy.X / 55)] != 2))// checks ot see if theres a mountain in front
+                            {
+                                Bheavy.forwadmovement(Bheavy._direction, _spriteBatch);//calls thetank movmnet method to move the tnak forwad
+                                Thread.Sleep(200);//sleep the program prevents spam clicking adn unintetionly clicking ten times when wanting to click once
+                                if (tilemap[(Bheavy.Y / 55), (Bheavy.X / 55)] == 1)
+                                {
+                                    Bheavy.movingintoforest();
+                                }
+                            }
                         }
                         else if (Bmed._selected == true)
                         {
-                            Bmed.forwadmovement(Bmed._direction,_spriteBatch);
-                            Thread.Sleep(200);
+                            if ((tilemap[(Bmed.Y / 55), ((Bmed.X + 45) / 55)] != 2) || (tilemap[(Bmed.Y / 55), ((Bmed.X - 45) / 55)] != 2) || (tilemap[((Bmed.Y + 45) / 55), (Bmed.X / 55)] != 2) || (tilemap[((Bmed.Y - 45) / 55), (Bmed.X / 55)] != 2))// checks ot see if theres a mountain in front
+                            {
+                                Bmed.forwadmovement(Bmed._direction, _spriteBatch);//calls thetank movmnet method to move the tnak forwad
+                                Thread.Sleep(200);//sleep the program prevents spam clicking adn unintetionly clicking ten times when wanting to click once
+                                if (tilemap[(Bmed.Y  / 55), (Bmed.X  / 55)] == 1)
+                                {
+                                    Bmed.movingintoforest();
+                                }
+                            }
                         }
                         else if (Bmed2._selected == true)
                         {
-                            Bmed2.forwadmovement(Bmed2._direction,_spriteBatch);
-                            Thread.Sleep(200);
+                            if ((tilemap[(Bmed2.Y / 55), ((Bmed2.X + 45) / 55)] != 2) || (tilemap[(Bmed2.Y / 55), ((Bmed2.X - 45) / 55)] != 2) || (tilemap[((Bmed2.Y + 45) / 55), (Bmed2.X / 55)] != 2) || (tilemap[((Bmed2.Y - 45) / 55), (Bmed2.X / 55)] != 2))// checks ot see if theres a mountain in front
+                            {
+                                Bmed2.forwadmovement(Bmed2._direction, _spriteBatch);//calls thetank movmnet method to move the tnak forwad
+                                Thread.Sleep(200);//sleep the program prevents spam clicking adn unintetionly clicking ten times when wanting to click once
+                                if (tilemap[(Bmed2.Y  / 55), (Bmed2.X / 55)] == 1)
+                                {
+                                    Bmed2.movingintoforest();
+                                }
+                            }
                         }
                         else if (Blight._selected == true)
                         {
@@ -492,34 +488,118 @@ namespace NEA3
                         }
                         else if (Blight2._selected == true)
                         {
-                            Blight2.forwadmovement(Blight2._direction,_spriteBatch);
-                            Thread.Sleep(200);
+                            if ((tilemap[(Blight2.Y / 55), ((Blight2.X + 45) / 55)] != 2) || (tilemap[(Blight2.Y / 55), ((Blight2.X - 45) / 55)] != 2) || (tilemap[((Blight2.Y + 45) / 55), ( Blight2.X / 55)] != 2) || (tilemap[((Blight2.Y - 45) / 55), (Blight2.X / 55)] != 2))// checks ot see if theres a mountain in front
+                            {
+                                Blight2.forwadmovement(Blight2._direction, _spriteBatch);//calls thetank movmnet method to move the tnak forwad
+                                Thread.Sleep(200);//sleep the program prevents spam clicking adn unintetionly clicking ten times when wanting to click once
+                                if (tilemap[(Blight2.Y / 55), (Blight2.X/55)] == 1)
+                                {
+                                    Blight2.movingintoforest();
+                                }
+                            }
+                            
+
                         }
                    }
                    else
                    {
+                        if (Rheavy._selected == true)//checks which tnak has been selected 
+                        {
+                            if ((tilemap[(Rheavy.Y / 55), ((Rheavy.X + 43) / 55)] != 2) || (tilemap[(Rheavy.Y / 55), ((Rheavy.X - 43) / 55)] != 2) || (tilemap[((Rheavy.Y + 43) / 55), (Rheavy.X / 55)] != 2) || (tilemap[((Rheavy.Y - 43) / 55), (Rheavy.X / 55)] != 2))// checks ot see if theres a mountain in front
+                            {
+                                Bheavy.forwadmovement(Rheavy._direction, _spriteBatch);//calls thetank movmnet method to move the tnak forwad
+                                Thread.Sleep(200);//sleep the program prevents spam clicking adn unintetionly clicking ten times when wanting to click once
+                                if (tilemap[(Rheavy.Y / 55), (Rheavy.X / 55)] == 1)
+                                {
+                                    Rheavy.movingintoforest();
+                                }
+                            }
+                        }
+                        else if (Rmed._selected == true)
+                        {
+                            if ((tilemap[(Bmed.Y / 55), ((Rmed.X + 45) / 55)] != 2) || (tilemap[(Rmed.Y / 55), ((Rmed.X - 45) / 55)] != 2) || (tilemap[((Rmed.Y + 45) / 55), (Rmed.X / 55)] != 2) || (tilemap[((Rmed.Y - 45) / 55), (Rmed.X / 55)] != 2))// checks ot see if theres a mountain in front
+                            {
+                                Rmed.forwadmovement(Rmed._direction, _spriteBatch);//calls thetank movmnet method to move the tnak forwad
+                                Thread.Sleep(200);//sleep the program prevents spam clicking adn unintetionly clicking ten times when wanting to click once
+                                if (tilemap[(Rmed.Y / 55), (Rmed.X / 55)] == 1)
+                                {
+                                    Rmed.movingintoforest();
+                                }
+                            }
+                        }
+                        else if (Rmed2._selected == true)
+                        {
+                            if ((tilemap[(Rmed2.Y / 55), ((Rmed2.X + 45) / 55)] != 2) || (tilemap[(Rmed2.Y / 55), ((Rmed2.X - 45) / 55)] != 2) || (tilemap[((Rmed2.Y + 45) / 55), (Rmed2.X / 55)] != 2) || (tilemap[((Rmed2.Y - 45) / 55), (Rmed2.X / 55)] != 2))// checks ot see if theres a mountain in front
+                            {
+                                Rmed2.forwadmovement(Rmed2._direction, _spriteBatch);//calls thetank movmnet method to move the tnak forwad
+                                Thread.Sleep(200);//sleep the program prevents spam clicking adn unintetionly clicking ten times when wanting to click once
+                                if (tilemap[(Rmed2.Y / 55), (Rmed2.X / 55)] == 1)
+                                {
+                                    Rmed2.movingintoforest();
+                                }
+                            }
+                        }
+                        else if (Rlight._selected == true)
+                        {
+                            Rlight.forwadmovement(Rlight._direction, _spriteBatch);
+                            Thread.Sleep(200);
+                        }
+                        else if (Rlight2._selected == true)
+                        {
+                            if ((tilemap[(Rlight2.Y / 55), ((Rlight2.X + 45) / 55)] != 2) || (tilemap[(Rlight2.Y / 55), ((Rlight2.X - 45) / 55)] != 2) || (tilemap[((Rlight2.Y + 45) / 55), (Rlight2.X / 55)] != 2) || (tilemap[((Rlight2.Y - 45) / 55), (Rlight2.X / 55)] != 2))// checks ot see if theres a mountain in front
+                            {
+                                Rlight2.forwadmovement(Rlight2._direction, _spriteBatch);//calls thetank movmnet method to move the tnak forwad
+                                Thread.Sleep(200);//sleep the program prevents spam clicking adn unintetionly clicking ten times when wanting to click once
+                                if (tilemap[(Rlight2.Y / 55), (Rlight2.X / 55)] == 1)
+                                {
+                                    Rlight2.movingintoforest();
+                                }
+                            }
 
-                   }
+
+                        }
+                    }
                     
                 }
                 if (mouseState.LeftButton == ButtonState.Pressed && backbutton.Contains(mouseState.Position))//sees if down button has been clikced does the smae as up button but moves selected tank backwards
                 {
                     if (turn % 2 == 0)
                     {
-                        if (Bheavy._selected == true)
+                        if (Bheavy._selected == true)//checks which tnak has been selected 
                         {
-                            Bheavy.backwardsmovement(Bheavy._direction, _spriteBatch);
-                            Thread.Sleep(200);
+                            if ((tilemap[(Bheavy.Y / 55), ((Bheavy.X + 43) / 55)] != 2) || (tilemap[(Bheavy.Y / 55), ((Bheavy.X - 43) / 55)] != 2) || (tilemap[((Bheavy.Y + 43) / 55), (Bheavy.X / 55)] != 2) || (tilemap[((Bheavy.Y - 43) / 55), (Bheavy.X / 55)] != 2))// checks ot see if theres a mountain in front
+                            {
+                                Bheavy.backwardsmovement(Bheavy._direction, _spriteBatch);//calls thetank movmnet method to move the tnak forwad
+                                Thread.Sleep(200);//sleep the program prevents spam clicking adn unintetionly clicking ten times when wanting to click once
+                                if (tilemap[(Bheavy.Y / 55), (Bheavy.X / 55)] == 1)
+                                {
+                                    Bheavy.movingintoforest();
+                                }
+                            }
                         }
                         else if (Bmed._selected == true)
                         {
-                            Bmed.backwardsmovement(Bmed._direction, _spriteBatch);
-                            Thread.Sleep(200);
+                            if ((tilemap[(Bmed.Y / 55), ((Bmed.X + 45) / 55)] != 2) || (tilemap[(Bmed.Y / 55), ((Bmed.X - 45) / 55)] != 2) || (tilemap[((Bmed.Y + 45) / 55), (Bmed.X / 55)] != 2) || (tilemap[((Bmed.Y - 45) / 55), (Bmed.X / 55)] != 2))// checks ot see if theres a mountain in front
+                            {
+                                Bmed.backwardsmovement(Bmed._direction, _spriteBatch);//calls thetank movmnet method to move the tnak forwad
+                                Thread.Sleep(200);//sleep the program prevents spam clicking adn unintetionly clicking ten times when wanting to click once
+                                if (tilemap[(Bmed.Y / 55), (Bmed.X / 55)] == 1)
+                                {
+                                    Bmed.movingintoforest();
+                                }
+                            }
                         }
                         else if (Bmed2._selected == true)
                         {
-                            Bmed2.backwardsmovement(Bmed2._direction, _spriteBatch);
-                            Thread.Sleep(200);
+                            if ((tilemap[(Bmed2.Y / 55), ((Bmed2.X + 45) / 55)] != 2) || (tilemap[(Bmed2.Y / 55), ((Bmed2.X - 45) / 55)] != 2) || (tilemap[((Bmed2.Y + 45) / 55), (Bmed2.X / 55)] != 2) || (tilemap[((Bmed2.Y - 45) / 55), (Bmed2.X / 55)] != 2))// checks ot see if theres a mountain in front
+                            {
+                                Bmed2.backwardsmovement(Bmed2._direction, _spriteBatch);//calls thetank movmnet method to move the tnak forwad
+                                Thread.Sleep(200);//sleep the program prevents spam clicking adn unintetionly clicking ten times when wanting to click once
+                                if (tilemap[(Bmed2.Y / 55), (Bmed2.X / 55)] == 1)
+                                {
+                                    Bmed2.movingintoforest();
+                                }
+                            }
                         }
                         else if (Blight._selected == true)
                         {
@@ -528,8 +608,17 @@ namespace NEA3
                         }
                         else if (Blight2._selected == true)
                         {
-                            Blight2.backwardsmovement(Blight2._direction, _spriteBatch);
-                            Thread.Sleep(200);
+                            if ((tilemap[(Blight2.Y / 55), ((Blight2.X + 45) / 55)] != 2) || (tilemap[(Blight2.Y / 55), ((Blight2.X - 45) / 55)] != 2) || (tilemap[((Blight2.Y + 45) / 55), (Blight2.X / 55)] != 2) || (tilemap[((Blight2.Y - 45) / 55), (Blight2.X / 55)] != 2))// checks ot see if theres a mountain in front
+                            {
+                                Blight2.backwardsmovement(Blight2._direction, _spriteBatch);//calls thetank movmnet method to move the tnak forwad
+                                Thread.Sleep(200);//sleep the program prevents spam clicking adn unintetionly clicking ten times when wanting to click once
+                                if (tilemap[(Blight2.Y / 55), (Blight2.X / 55)] == 1)
+                                {
+                                    Blight2.movingintoforest();
+                                }
+                            }
+
+
                         }
                     }
                     else{ }
@@ -607,6 +696,28 @@ namespace NEA3
                     }
 
                 }
+                if(mouseState.LeftButton == ButtonState.Pressed && endturnbutton.Contains(mouseState.Position))
+                {
+                    if((turn+1) % 2 == 0)
+                    {
+                        Bheavy.resetmovpoints();
+                        Bmed.resetmovpoints();
+                        Bmed2.resetmovpoints();
+                        Blight2.resetmovpoints();
+                        Blight.resetmovpoints();
+                    }
+                    else if((turn+1) %2 != 0)
+                    {
+                        Rheavy.resetmovpoints();
+                        Rmed.resetmovpoints();
+                        Rmed2.resetmovpoints();
+                        Rlight2.resetmovpoints();
+                        Rlight.resetmovpoints();
+                    }
+                    turn++;
+                    turncountwords = "Turn " + turn;
+                    Thread.Sleep(250);
+                }
                 Bheavy.Update(gameTime);
                 Bmed.Update(gameTime);
                 Bmed2.Update(gameTime);
@@ -651,6 +762,10 @@ namespace NEA3
                 _spriteBatch.Draw(downarrowtexture, backbutton, Color.White);
                 _spriteBatch.Draw(leftturntexture, leftbutton, Color.White);
                 _spriteBatch.Draw(rightturntexture, rightbutton, Color.White);
+                _spriteBatch.Draw(endturnbuttexture, endturnbutton, Color.White);
+                Vector2 textMiddlePoint = myfontyfont.MeasureString(turncountwords) / 2;
+                Vector2 position = new Vector2(670,10);
+                _spriteBatch.DrawString(myfontyfont, turncountwords, position, Color.Black, 0, textMiddlePoint, 1.5f, SpriteEffects.None, 1.0f);
                 _spriteBatch.End();
                 currentgamestate = gamestate.playing;
             }
@@ -715,6 +830,10 @@ namespace NEA3
                 _spriteBatch.Draw(downarrowtexture, backbutton,  Color.White);
                 _spriteBatch.Draw(leftturntexture,leftbutton,  Color.White);
                 _spriteBatch.Draw(rightturntexture,rightbutton,  Color.White);
+                _spriteBatch.Draw(endturnbuttexture, endturnbutton, Color.White);
+                Vector2 textMiddlePoint = myfontyfont.MeasureString(turncountwords) / 2;
+                Vector2 position = new Vector2(720, 20);
+                _spriteBatch.DrawString(myfontyfont, turncountwords, position, Color.Black, 0, textMiddlePoint, 1.0f, SpriteEffects.None, 1.0f);
                 _spriteBatch.End();
                     _spriteBatch.Begin();
                     //selected fun
