@@ -641,16 +641,16 @@ namespace NEA3
             }
 
         }
-        public void forwadmovement(Direction direction)
+        public void forwadmovement(Direction direction) // method to move tanks forward
         {
-            if(((_x - 55 >= 0 || _x + 55 < 825) && (_y - 55 >= 0 && _y + 55 <= 550)) && _movementactionpoints > 0)
+            if(((_x - 55 >= 0 || _x + 55 < 825) && (_y - 55 >= 0 && _y + 55 <= 550)) && _movementactionpoints > 0)//makes sure they ahve enough movement points
             { 
-                if (direction == Direction.right)
+                if (direction == Direction.right)// chekcs direction of the tank as to know which coord to change 
                 {
-                    if(TankID == 1)
+                    if(TankID == 1)//due to size of heavy tank has to have different change in x
                     {
-                        _x += 43;
-                        _movementactionpoints--;
+                        _x += 43;//changes x coord
+                        _movementactionpoints--;// removes movement point
                     }
                     else
                     {
@@ -699,8 +699,9 @@ namespace NEA3
                     }
                 }
             }
+            Draw();
         }
-        public void backwardsmovement(Direction direction)
+        public void backwardsmovement(Direction direction)//same as forward movement method but moves tanks bakcwards instead
         {
             if (((_x > 0 || _x + 55 < 825) && (_y - 55 >= 0 || _y + 55 <= 550)) && _movementactionpoints > 0)
             {
@@ -758,33 +759,50 @@ namespace NEA3
                     }
                 }
             }
+            Draw();
         }
 
-        public void turning(Direction direction)
+        public void turningleft(Direction direction)//cahnges the direction of the tank  moving it 90 degrees anti clock wise
         {
-            if(Game1.turn % 2 == 0)
+            if(direction == Direction.right)//finds oringal direction
             {
-                if (TankID == 1)
-                {
-
-                }
-                else if (TankID == 2)
-                {
-
-                }
-                else if (TankID == 3)
-                {
-
-                }
-                else if (TankID == 4)
-                {
-
-                }
-                else if (TankID == 5)
-                {
-
-                }
+                direction = Direction.up;//set direction depending on oringal direction
             }
+            else if (direction == Direction.up)
+            {
+                direction = Direction.left;
+            }
+            else if (direction == Direction.left)
+            {
+                direction = Direction.down;
+            }
+            else if (direction == Direction.down)
+            {
+                direction = Direction.right;
+            }
+            _movementactionpoints--;
+        }
+        public void turningright(Direction direction)//same as last for turing 90 degrees clock wise
+        {
+            if (direction == Direction.right)
+            {
+                direction = Direction.down;
+            }
+            else if (direction == Direction.up)
+            {
+                direction = Direction.right;
+            }
+            else if (direction == Direction.left)
+            {
+                direction = Direction.up;
+            }
+            else if (direction == Direction.down)
+            {
+                direction = Direction.left;
+            }
+            _movementactionpoints--;
+            LoadContent();
+            Draw();
         }
         ////how game going to work
 

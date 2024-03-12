@@ -466,43 +466,33 @@ namespace NEA3
             {
                 
                 _spriteBatch.Begin();
-                if (mouseState.LeftButton == ButtonState.Pressed && forwardbutton.Contains(mouseState.Position))
+                if (mouseState.LeftButton == ButtonState.Pressed && forwardbutton.Contains(mouseState.Position))//up arrow movemnt button
                 {
-                   if(turn % 2 == 0)
+                   if(turn % 2 == 0)// sees whos turjn it is even turns are blue teams turn
                    {
-                        if(Bheavy._selected == true)
+                        if(Bheavy._selected == true)//checks which tnak has been selected 
                         {
-                            Bheavy.forwadmovement(Bheavy._direction);
-                            
-                            Bheavy.Draw(_spriteBatch);
-                            Thread.Sleep(200);
+                            Bheavy.forwadmovement(Bheavy._direction);//calls thetank movmnet method to move the tnak forwad
+                            Thread.Sleep(200);//sleep the program prevents spam clicking adn unintetionly clicking ten times when wanting to click once
                         }
-                        if (Bmed._selected == true)
+                        else if (Bmed._selected == true)
                         {
                             Bmed.forwadmovement(Bmed._direction);
-
-                            Bmed.Draw(_spriteBatch);
                             Thread.Sleep(200);
                         }
-                        if (Bmed2._selected == true)
+                        else if (Bmed2._selected == true)
                         {
                             Bmed2.forwadmovement(Bmed2._direction);
-
-                            Bmed2.Draw(_spriteBatch);
                             Thread.Sleep(200);
                         }
-                        if (Blight._selected == true)
+                        else if (Blight._selected == true)
                         {
                             Blight.forwadmovement(Blight._direction);
-
-                            Blight.Draw(_spriteBatch);
                             Thread.Sleep(200);
                         }
-                        if (Blight2._selected == true)
+                        else if (Blight2._selected == true)
                         {
                             Blight2.forwadmovement(Blight2._direction);
-
-                            Bheavy.Draw(_spriteBatch);
                             Thread.Sleep(200);
                         }
                    }
@@ -512,43 +502,33 @@ namespace NEA3
                    }
                     
                 }
-                if (mouseState.LeftButton == ButtonState.Pressed && backbutton.Contains(mouseState.Position))
+                if (mouseState.LeftButton == ButtonState.Pressed && backbutton.Contains(mouseState.Position))//sees if down button has been clikced does the smae as up button but moves selected tank backwards
                 {
                     if (turn % 2 == 0)
                     {
                         if (Bheavy._selected == true)
                         {
                             Bheavy.backwardsmovement(Bheavy._direction);
-
-                            Bheavy.Draw(_spriteBatch);
                             Thread.Sleep(200);
                         }
-                        if (Bmed._selected == true)
+                        else if (Bmed._selected == true)
                         {
                             Bmed.backwardsmovement(Bmed._direction);
-
-                            Bmed.Draw(_spriteBatch);
                             Thread.Sleep(200);
                         }
-                        if (Bmed2._selected == true)
+                        else if (Bmed2._selected == true)
                         {
                             Bmed2.backwardsmovement(Bmed2._direction);
-
-                            Bmed2.Draw(_spriteBatch);
                             Thread.Sleep(200);
                         }
-                        if (Blight._selected == true)
+                        else if (Blight._selected == true)
                         {
                             Blight.backwardsmovement(Blight._direction);
-
-                            Blight.Draw(_spriteBatch);
                             Thread.Sleep(200);
                         }
-                        if (Blight2._selected == true)
+                        else if (Blight2._selected == true)
                         {
                             Blight2.backwardsmovement(Blight2._direction);
-
-                            Bheavy.Draw(_spriteBatch);
                             Thread.Sleep(200);
                         }
                     }
@@ -557,12 +537,74 @@ namespace NEA3
                 }
                 if (mouseState.LeftButton == ButtonState.Pressed && leftbutton.Contains(mouseState.Position))
                 {
+                    if (turn % 2 == 0)// sees whos turjn it is even turns are blue teams turn
+                    {
+                        if (Bheavy._selected == true)//checks which tnak has been selected 
+                        {
+                            Bheavy.turningleft(Bheavy._direction);//calls turning left method for tnaks
+                            Thread.Sleep(200);//sleep the program prevents spam clicking adn unintetionly clicking ten times when wanting to click once
+                        }
+                        else if (Bmed._selected == true)
+                        {
+                            Bmed.turningleft(Bmed._direction);
+                            Thread.Sleep(200);
+                        }
+                        else if (Bmed2._selected == true)
+                        {
+                            Bmed2.turningleft(Bmed2._direction);
+                            Thread.Sleep(200);
+                        }
+                        else if (Blight._selected == true)
+                        {
+                            Blight.turningleft(Blight._direction);
+                            Thread.Sleep(200);
+                        }
+                        else if (Blight2._selected == true)
+                        {
+                            Blight2.turningleft(Blight2._direction);
+                            Thread.Sleep(200);
+                        }
+                    }
+                    else
+                    {
 
+                    }
 
                 }
                 if (mouseState.LeftButton == ButtonState.Pressed && rightbutton.Contains(mouseState.Position))
                 {
+                    if (turn % 2 == 0)// sees whos turjn it is even turns are blue teams turn
+                    {
+                        if (Bheavy._selected == true)//checks which tnak has been selected 
+                        {
+                            Bheavy.turningright(Bheavy._direction);//calls turning right method for tnaks
+                            Thread.Sleep(200);//sleep the program prevents spam clicking adn unintetionly clicking ten times when wanting to click once
+                        }
+                        else if (Bmed._selected == true)
+                        {
+                            Bmed.turningright(Bmed._direction);
+                            Thread.Sleep(200);
+                        }
+                        else if (Bmed2._selected == true)
+                        {
+                            Bmed2.turningright(Bmed2._direction);
+                            Thread.Sleep(200);
+                        }
+                        else if (Blight._selected == true)
+                        {
+                            Blight.turningright(Blight._direction);
+                            Thread.Sleep(200);
+                        }
+                        else if (Blight2._selected == true)
+                        {
+                            Blight2.turningright(Blight2._direction);
+                            Thread.Sleep(200);
+                        }
+                    }
+                    else
+                    {
 
+                    }
 
                 }
                 Bheavy.Update(gameTime);
