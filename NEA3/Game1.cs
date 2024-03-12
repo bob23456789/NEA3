@@ -472,27 +472,27 @@ namespace NEA3
                    {
                         if(Bheavy._selected == true)//checks which tnak has been selected 
                         {
-                            Bheavy.forwadmovement(Bheavy._direction);//calls thetank movmnet method to move the tnak forwad
+                            Bheavy.forwadmovement(Bheavy._direction ,_spriteBatch);//calls thetank movmnet method to move the tnak forwad
                             Thread.Sleep(200);//sleep the program prevents spam clicking adn unintetionly clicking ten times when wanting to click once
                         }
                         else if (Bmed._selected == true)
                         {
-                            Bmed.forwadmovement(Bmed._direction);
+                            Bmed.forwadmovement(Bmed._direction,_spriteBatch);
                             Thread.Sleep(200);
                         }
                         else if (Bmed2._selected == true)
                         {
-                            Bmed2.forwadmovement(Bmed2._direction);
+                            Bmed2.forwadmovement(Bmed2._direction,_spriteBatch);
                             Thread.Sleep(200);
                         }
                         else if (Blight._selected == true)
                         {
-                            Blight.forwadmovement(Blight._direction);
+                            Blight.forwadmovement(Blight._direction,_spriteBatch);
                             Thread.Sleep(200);
                         }
                         else if (Blight2._selected == true)
                         {
-                            Blight2.forwadmovement(Blight2._direction);
+                            Blight2.forwadmovement(Blight2._direction,_spriteBatch);
                             Thread.Sleep(200);
                         }
                    }
@@ -508,27 +508,27 @@ namespace NEA3
                     {
                         if (Bheavy._selected == true)
                         {
-                            Bheavy.backwardsmovement(Bheavy._direction);
+                            Bheavy.backwardsmovement(Bheavy._direction, _spriteBatch);
                             Thread.Sleep(200);
                         }
                         else if (Bmed._selected == true)
                         {
-                            Bmed.backwardsmovement(Bmed._direction);
+                            Bmed.backwardsmovement(Bmed._direction, _spriteBatch);
                             Thread.Sleep(200);
                         }
                         else if (Bmed2._selected == true)
                         {
-                            Bmed2.backwardsmovement(Bmed2._direction);
+                            Bmed2.backwardsmovement(Bmed2._direction, _spriteBatch);
                             Thread.Sleep(200);
                         }
                         else if (Blight._selected == true)
                         {
-                            Blight.backwardsmovement(Blight._direction);
+                            Blight.backwardsmovement(Blight._direction, _spriteBatch);
                             Thread.Sleep(200);
                         }
                         else if (Blight2._selected == true)
                         {
-                            Blight2.backwardsmovement(Blight2._direction);
+                            Blight2.backwardsmovement(Blight2._direction, _spriteBatch);
                             Thread.Sleep(200);
                         }
                     }
@@ -541,27 +541,27 @@ namespace NEA3
                     {
                         if (Bheavy._selected == true)//checks which tnak has been selected 
                         {
-                            Bheavy.turningleft(Bheavy._direction);//calls turning left method for tnaks
+                            Bheavy.turningleft(Bheavy._direction,Content, _spriteBatch);//calls turning left method for tnaks
                             Thread.Sleep(200);//sleep the program prevents spam clicking adn unintetionly clicking ten times when wanting to click once
                         }
                         else if (Bmed._selected == true)
                         {
-                            Bmed.turningleft(Bmed._direction);
+                            Bmed.turningleft(Bmed._direction, Content, _spriteBatch);
                             Thread.Sleep(200);
                         }
                         else if (Bmed2._selected == true)
                         {
-                            Bmed2.turningleft(Bmed2._direction);
+                            Bmed2.turningleft(Bmed2._direction, Content, _spriteBatch);
                             Thread.Sleep(200);
                         }
                         else if (Blight._selected == true)
                         {
-                            Blight.turningleft(Blight._direction);
+                            Blight.turningleft(Blight._direction, Content, _spriteBatch);
                             Thread.Sleep(200);
                         }
                         else if (Blight2._selected == true)
                         {
-                            Blight2.turningleft(Blight2._direction);
+                            Blight2.turningleft(Blight2._direction, Content, _spriteBatch);
                             Thread.Sleep(200);
                         }
                     }
@@ -577,27 +577,27 @@ namespace NEA3
                     {
                         if (Bheavy._selected == true)//checks which tnak has been selected 
                         {
-                            Bheavy.turningright(Bheavy._direction);//calls turning right method for tnaks
+                            Bheavy.turningright(Bheavy._direction, Content, _spriteBatch);//calls turning right method for tnaks
                             Thread.Sleep(200);//sleep the program prevents spam clicking adn unintetionly clicking ten times when wanting to click once
                         }
                         else if (Bmed._selected == true)
                         {
-                            Bmed.turningright(Bmed._direction);
+                            Bmed.turningright(Bmed._direction, Content, _spriteBatch);
                             Thread.Sleep(200);
                         }
                         else if (Bmed2._selected == true)
                         {
-                            Bmed2.turningright(Bmed2._direction);
+                            Bmed2.turningright(Bmed2._direction, Content, _spriteBatch);
                             Thread.Sleep(200);
                         }
                         else if (Blight._selected == true)
                         {
-                            Blight.turningright(Blight._direction);
+                            Blight.turningright(Blight._direction, Content, _spriteBatch);
                             Thread.Sleep(200);
                         }
                         else if (Blight2._selected == true)
                         {
-                            Blight2.turningright(Blight2._direction);
+                            Blight2.turningright(Blight2._direction, Content, _spriteBatch);
                             Thread.Sleep(200);
                         }
                     }

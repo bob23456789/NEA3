@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Input;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static NEA3.tank;
 
+
 namespace NEA3
 {
     internal class tank : Gameobject
@@ -641,7 +642,7 @@ namespace NEA3
             }
 
         }
-        public void forwadmovement(Direction direction) // method to move tanks forward
+        public void forwadmovement(Direction direction, SpriteBatch spriteBatch) // method to move tanks forward
         {
             if(((_x - 55 >= 0 || _x + 55 < 825) && (_y - 55 >= 0 && _y + 55 <= 550)) && _movementactionpoints > 0)//makes sure they ahve enough movement points
             { 
@@ -699,9 +700,9 @@ namespace NEA3
                     }
                 }
             }
-            Draw();
+            Draw(spriteBatch);
         }
-        public void backwardsmovement(Direction direction)//same as forward movement method but moves tanks bakcwards instead
+        public void backwardsmovement(Direction direction, SpriteBatch spriteBatch)//same as forward movement method but moves tanks bakcwards instead
         {
             if (((_x > 0 || _x + 55 < 825) && (_y - 55 >= 0 || _y + 55 <= 550)) && _movementactionpoints > 0)
             {
@@ -759,10 +760,10 @@ namespace NEA3
                     }
                 }
             }
-            Draw();
+            Draw(spriteBatch);
         }
 
-        public void turningleft(Direction direction)//cahnges the direction of the tank  moving it 90 degrees anti clock wise
+        public void turningleft(Direction direction, ContentManager content, SpriteBatch spriteBatch)//cahnges the direction of the tank  moving it 90 degrees anti clock wise
         {
             if(direction == Direction.right)//finds oringal direction
             {
@@ -781,8 +782,10 @@ namespace NEA3
                 direction = Direction.right;
             }
             _movementactionpoints--;
+            LoadContent(content);
+            Draw(spriteBatch);
         }
-        public void turningright(Direction direction)//same as last for turing 90 degrees clock wise
+        public void turningright(Direction direction,ContentManager content , SpriteBatch spriteBatch)//same as last for turing 90 degrees clock wise
         {
             if (direction == Direction.right)
             {
@@ -801,8 +804,8 @@ namespace NEA3
                 direction = Direction.left;
             }
             _movementactionpoints--;
-            LoadContent();
-            Draw();
+            LoadContent(content);
+            Draw(spriteBatch);
         }
         ////how game going to work
 
