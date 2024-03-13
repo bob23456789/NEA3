@@ -24,8 +24,8 @@ namespace NEA3
         public Rectangle RR2Med;
         public Rectangle RBLight;
         public Rectangle RB2light;
-         Rectangle RRLight;
-         Rectangle RR2light;
+        public Rectangle RRLight;
+        public Rectangle RR2light;
          GraphicsDevice _graphicdevice;
         public Color colour;
         
@@ -836,17 +836,30 @@ namespace NEA3
         }
         public void resetmovpoints()
         {
-            if(Type ==1)
+            if (Crewmembers[1] != false && Components1[1] != false && Components1[2] != false)
             {
-                _movementactionpoints = 5;
+
+                if (Type == 1)
+                {
+                    _movementactionpoints = 5;
+                    _havefired = false;
+                }
+                else if (Type == 2)
+                {
+                    _movementactionpoints = 3;
+                    _havefired = false;
+                }
+                else if (Type == 3)
+                {
+                    _movementactionpoints = 2;
+                    _havefired = false;
+                }
             }
-            if(Type == 2)
+            else
             {
-                _movementactionpoints = 3;
-            }
-            if(Type == 3)
-            {
-                _movementactionpoints = 2;
+                _movementactionpoints = 0;//carnt move if no dirver or engine
+                Components1[2] = true;//tracks being repaired
+                _havefired = false;
             }
         }//esets all points back to ma
         public void inrangereset()//reseats in rane varible to false
@@ -859,6 +872,18 @@ namespace NEA3
         {
             colour = newColor;
         }
+        public bool canshoot()
+        {
+            bool canshoot = true;
+            if (Components1[3] == false || Crewmembers[2] == false)
+            {
+                return canshoot;
+            }
+            else
+            {
+                return canshoot;
+            }
+        }//checks it has componets and crewmembers to shoot
         
        
         ////how game going to work
