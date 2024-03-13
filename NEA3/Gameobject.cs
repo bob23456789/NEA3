@@ -20,7 +20,7 @@ namespace NEA3
             //tankRectangle = new Rectangle((int)position.X, (int)position.Y, Texture.Width, Texture.Height);
         }
 
-        public virtual void Update(GameTime gameTime)
+        public virtual void Update(GameTime gameTime , SpriteBatch spriteBatch)
         {
         }
 

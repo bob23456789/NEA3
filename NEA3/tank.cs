@@ -27,7 +27,8 @@ namespace NEA3
         private Rectangle RRLight;
         private Rectangle RR2light;
         protected GraphicsDevice _graphicdevice;
-
+        public Color colour;
+        
         public enum Direction
         {
             down,
@@ -81,6 +82,7 @@ namespace NEA3
             _movementactionpoints = movepoints;
             _havefired = havefired;
             _inrange = inrange;
+            colour = Color.White;
         }
         public override void LoadContent(ContentManager Content)
         {
@@ -436,24 +438,24 @@ namespace NEA3
                 {
                     case (3, 1):
 
-                        spriteBatch.Draw(Texture, RBheavy, Color.Red);
+                        spriteBatch.Draw(Texture, RBheavy, colour);
                         break;
                     case (2, 2):
 
 
-                        spriteBatch.Draw(Texture, RBMed, Color.Red);
+                        spriteBatch.Draw(Texture, RBMed, colour);
                         break;
                     case (2, 3):
 
-                        spriteBatch.Draw(Texture, RB2Med, Color.Red);
+                        spriteBatch.Draw(Texture, RB2Med, colour);
                         break;
                     case (1, 4):
                       
-                        spriteBatch.Draw(Texture, RBLight, Color.Red);
+                        spriteBatch.Draw(Texture, RBLight,colour );
                         break;
                     case (1, 5):
                         
-                        spriteBatch.Draw(Texture, RB2light, Color.Red);
+                        spriteBatch.Draw(Texture, RB2light, colour);
                         break;
 
                 }
@@ -465,23 +467,23 @@ namespace NEA3
                 {
                     case (3, 1):
 
-                        spriteBatch.Draw(Texture, RRHeavy, Color.Red);
+                        spriteBatch.Draw(Texture, RRHeavy,colour );
                         break;
                     case (2, 2):
 
-                        spriteBatch.Draw(Texture, RRMed, Color.Red);
+                        spriteBatch.Draw(Texture, RRMed,colour );
                         break;
                     case (2, 3):
 
-                        spriteBatch.Draw(Texture, RR2Med, Color.Red);
+                        spriteBatch.Draw(Texture, RR2Med,colour );
                         break;
                     case (1, 4):
 
-                        spriteBatch.Draw(Texture, RRLight, Color.Red);
+                        spriteBatch.Draw(Texture, RRLight,colour );
                         break;
                     case (1, 5):
 
-                        spriteBatch.Draw(Texture, RR2light, Color.Red);
+                        spriteBatch.Draw(Texture, RR2light,colour);
                         break;
 
 
@@ -491,14 +493,25 @@ namespace NEA3
             }
 
         }
-        public override void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime , SpriteBatch spriteBatch)
         {
             MouseState mouseState = Mouse.GetState();
             Selected();
-            base.Update(gameTime);
+            if (_inrange == true)
+            {
+                changecolour(Color.Red);
+                Draw(spriteBatch);
+            }
+            if (_inrange == false)
+            {
+                changecolour(Color.White);
+                Draw(spriteBatch);
+            }
+            base.Update(gameTime,spriteBatch);
         }
         public void Selected()
         {
+            
             if (Keyboard.GetState().IsKeyDown(Keys.D1))//when 1 is pressed this will select the heavy tank for whihc ever side it is 
             {
 
@@ -770,18 +783,22 @@ namespace NEA3
             if(direction == Direction.right)//finds oringal direction
             {
                 _direction = Direction.up;//set direction depending on oringal direction
+                _movementactionpoints--;
             }
             else if (direction == Direction.up)
             {
                 _direction = Direction.left;
+                _movementactionpoints--;
             }
             else if (direction == Direction.left)
             {
                 _direction = Direction.down;
+                _movementactionpoints--;
             }
             else if (direction == Direction.down)
             {
                 _direction = Direction.right;
+                _movementactionpoints--;
             }
             _movementactionpoints--;
             LoadContent(content);
@@ -792,24 +809,28 @@ namespace NEA3
             if (direction == Direction.right)
             {
                 _direction = Direction.down;
+                _movementactionpoints--;
             }
             else if (direction == Direction.up)
             {
                 _direction = Direction.right;
+                _movementactionpoints--;
             }
             else if (direction == Direction.left)
             {
                 _direction = Direction.up;
+                _movementactionpoints--;
             }
             else if (direction == Direction.down)
             {
                 _direction = Direction.left;
+                _movementactionpoints--;
             }
             _movementactionpoints--;
             LoadContent(content);
             Draw(spriteBatch);
         }
-        public void movingintoforest()
+        public void movingintoforest()//removes all move points
         {
             _movementactionpoints = 0;
         }
@@ -827,14 +848,20 @@ namespace NEA3
             {
                 _movementactionpoints = 2;
             }
-        }
-        public void inrangereset()
+        }//esets all points back to ma
+        public void inrangereset()//reseats in rane varible to false
         {
             _inrange = false;
+            
         }
-        public void inrange(SpriteBatch spriteBatch)
+       
+        public void changecolour(Color newColor)
         {
-           
+            colour = newColor;
+        }
+        public void shooting()
+        {
+
         }
        
         ////how game going to work

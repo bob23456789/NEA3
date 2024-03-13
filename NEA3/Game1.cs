@@ -20,10 +20,10 @@ namespace NEA3
         private SpriteBatch _spriteBatch;
         const int tilesize = 55; // so i remember teh tile size
         //textures for terrain and ui 
-        Texture2D squareTexture, grassTexture, treesquaretexture, mountaintexutre, menuTexture, GUIsqauretexture, uparrowtexture, downarrowtexture, leftturntexture, rightturntexture ,selectedtextureHB , selectedtextureMB , selectedtextureLB, selectedtextureHR, selectedtextureMR, selectedtextureLR, endturnbuttexture;
+        Texture2D squareTexture, grassTexture, treesquaretexture, mountaintexutre, menuTexture, GUIsqauretexture, uparrowtexture, downarrowtexture, leftturntexture, rightturntexture ,selectedtextureHB , selectedtextureMB , selectedtextureLB, selectedtextureHR, selectedtextureMR, selectedtextureLR, endturnbuttexture,rangefindertexture;
         private Texture2D buttonTexture;
         private SpriteFont myfontyfont;
-        private Rectangle buttonRectangle ,endturnbutton; // square which teh tecture will be put in
+        private Rectangle buttonRectangle ,endturnbutton,rangefinderbutton; // square which teh tecture will be put in
         private Rectangle forwardbutton;
         private Rectangle backbutton;
         private Rectangle leftbutton;
@@ -32,12 +32,13 @@ namespace NEA3
        public enum gamestate
         {
             menue,
-            loading, 
+            loading,//intemediate state been plain and menue screen 
             playing,
+            victory,
         }
         gamestate currentgamestate = gamestate.menue;
         string menuTitle = "War On Perliculum\n             Prime";
-        string turncountwords = "Turn " + turn;
+        string turncountwords = "Turn " + turn;//for the tun fon abve the black square 
         string Line = "";
         public static int turn = 0; // even = blue odd = red turn
         // objects
@@ -63,17 +64,7 @@ namespace NEA3
 
         public int[,] tilemap =
         {
-              //{0, 0, 0, 0, 0,0, 0, 0, 0, 0,0,0,0,0,0}, //  first 0 is x = 0 & y = 0 15 tiles across
-              //{0, 0, 0, 1, 1,0, 0, 0, 0, 0,0,0,0,0,0},
-              //{0, 0, 0, 0, 1,1, 0, 0, 0, 0,0,0,0,0,0},
-              //{0, 0, 0, 1, 1,1, 1, 0, 0, 0,0,0,0,0,0},
-              //{0, 0, 0, 0, 0,0, 1, 0, 0, 0,0,0,0,0,0},
-              //{0, 0, 0, 0, 0,0, 0, 0, 0, 0,0,0,0,0,0},// x = 0 y= 275
-              //{0, 0, 0, 0, 0,0, 0, 2, 0, 0,0,0,0,0,0},
-              //{0, 0, 0, 0, 0,0, 0, 2, 0, 0,0,0,0,0,0},
-              //{0, 0, 0, 0, 0,0, 2, 2, 0, 0,0,0,0,0,0},
-              //{0, 0, 0, 0, 0,0, 0, 0, 0, 0,0,0,0,0,0},
-              //{0, 0, 0, 0, 0,0, 0, 2, 0, 0,0,0,0,0,0},// last 0 is x = 825 & y= 550
+            //blank slate for teh amp to be generated
               {0, 0, 0, 0, 0,0, 0, 0, 0, 0,0,0,0,0,0}, //  first 0 is x = 0 & y = 0 15 tiles across not exact coord x = 15 tiles  y = 11
               {0, 0, 0, 0, 0,0, 0, 0, 0, 0,0,0,0,0,0},
               {0, 0, 0, 0, 0,0, 0, 0, 0, 0,0,0,0,0,0},
@@ -101,13 +92,13 @@ namespace NEA3
             if (currentgamestate == gamestate.menue)
             {
                 bool done = false;
-                int genplacemnetx = 0;// for map genration
-                int genplacemnety = 0;
-                int treetilecount = 0;
-                const int treetilemax = 10;
+                int genplacemnetx = 0;// for randoml picin x oord
+                int genplacemnety = 0;//dito for y cords
+                int treetilecount = 0;//counts how many tree tiles
+                const int treetilemax = 10;//max amoutn of trees
                 int moutaintilecount = 0;
                 const int mountaintilemax = 5;
-                int chanceplace = 0;
+                int chanceplace = 0;//te percenae chance tha a square will actully enerate in a tile
                 string[,] placedts =
                 {
                     { "-","-","-"},
@@ -358,22 +349,22 @@ namespace NEA3
                 //blue tanks
                 Bheavy = new tank(0, 268, tank.Direction.right, 75, 80, 1, 75, 5, 2, false, 3, true, 1, false,false);// x,y,direction,armour,acc,speed,penpower,range,movepoints,havefired,type,player,id 
                 p1tanks.Add(Bheavy);
-                Bmed = new tank(0, 225, tank.Direction.right, 50, 70, 2, 50, 5, 3, false, 2, true, 2, false, false);
+                Bmed = new tank(0, 225, tank.Direction.right, 50, 70, 2, 50, 4, 3, false, 2, true, 2, false, false);
                 p1tanks.Add(Bmed);
-                Bmed2 = new tank(0, 315, tank.Direction.right, 50, 70, 2, 50, 5, 3, false, 2, true, 3, false, false);
+                Bmed2 = new tank(0, 315, tank.Direction.right, 50, 70, 2, 50, 4, 3, false, 2, true, 3, false, false);
                 p1tanks.Add(Bmed2);
-                Blight = new tank(0, 360, tank.Direction.right, 25, 60, 3, 25, 3, 5, false, 2, true, 4, false, false);
-                Blight2 = new tank(0, 360, tank.Direction.right, 25, 60, 3, 25, 3, 5, false, 1, true, 5, false, false);
+                Blight = new tank(0, 360, tank.Direction.right, 25, 60, 3, 25, 2, 5, false, 2, true, 4, false, false);
+                Blight2 = new tank(0, 360, tank.Direction.right, 25, 60, 3, 25, 2, 5, false, 1, true, 5, false, false);
                 p1tanks.Add(Blight2);
                 ////red tanks
                 Rheavy = new tank(610,268 , tank.Direction.left, 75, 80, 1, 75, 5, 2, false, 3, false, 1, false, false);// x,y,direction,armour,acc,speed,penpower,range,movepoints,havefired,type,player,id 
                 p2tanks.Add(Rheavy);
-                Rmed = new tank(620, 225, tank.Direction.left, 50, 70, 2, 50, 5, 3, false, 2, false, 2, false, false);
+                Rmed = new tank(620, 225, tank.Direction.left, 50, 70, 2, 50, 4, 3, false, 2, false, 2, false, false);
                 p2tanks.Add(Rmed);
                 Rmed2 = new tank(620, 315, tank.Direction.left, 50, 70, 2, 50, 5, 3, false, 2, false, 3, false, false);
                 p2tanks.Add(Rmed2);
-                Rlight = new tank(620, 360, tank.Direction.left, 25, 60, 3, 25, 3, 5, false, 2, false, 4, false, false);
-                Rlight2 = new tank(620, 360, tank.Direction.left, 25, 60, 3, 25, 3, 5, false, 1, false, 5, false, false);
+                Rlight = new tank(620, 360, tank.Direction.left, 25, 60, 3, 25, 2, 5, false, 2, false, 4, false, false);
+                Rlight2 = new tank(620, 360, tank.Direction.left, 25, 60, 3, 25, 2, 5, false, 1, false, 5, false, false);
                 p2tanks.Add(Rlight2);
             }
             camera = new Camera(GraphicsDevice.Viewport, initialZoom, initialPosition);
@@ -403,17 +394,19 @@ namespace NEA3
             selectedtextureLB = Content.Load<Texture2D>("LightblueUF");
             selectedtextureLR = Content.Load<Texture2D>("LightredUF");
             endturnbuttexture = Content.Load<Texture2D>("endturnbutton");
+            rangefindertexture = Content.Load<Texture2D>("rangefind");
             Vector2 fbposition = new Vector2(710,200);// gives postion for hidden rectangle around buttons
             Vector2 bbposition = new Vector2(710, 250);
             Vector2 lbposition = new Vector2(760, 250);
             Vector2 rbposition = new Vector2(660, 250);
             Vector2 endbposition = new Vector2(710, 400);
+            Vector2 rangeposition = new Vector2(630, 400);
             forwardbutton = new Rectangle((int)fbposition.X, (int)fbposition.Y, uparrowtexture.Width, uparrowtexture.Height);//loading positon adn texture for forwad button
             backbutton = new Rectangle((int)bbposition.X, (int)bbposition.Y, downarrowtexture.Width, downarrowtexture.Height);
             leftbutton = new Rectangle((int)lbposition.X, (int)lbposition.Y, leftturntexture.Width, leftturntexture.Height);
             rightbutton = new Rectangle((int)rbposition.X, (int)rbposition.Y, rightturntexture.Width, rightturntexture.Height);
             endturnbutton = new Rectangle((int)endbposition.X, (int)endbposition.Y, endturnbuttexture.Width,endturnbuttexture.Height);
-
+            rangefinderbutton = new Rectangle((int)rangeposition.X, (int)rangeposition.Y,rangefindertexture.Width,rangefindertexture.Height);
             if (currentgamestate == gamestate.menue)
             {
                 squareTexture = Content.Load<Texture2D>("menuscreen");
@@ -801,9 +794,9 @@ namespace NEA3
                     }
 
                 }
-                if(mouseState.LeftButton == ButtonState.Pressed && endturnbutton.Contains(mouseState.Position))
+                if(mouseState.LeftButton == ButtonState.Pressed && endturnbutton.Contains(mouseState.Position))//when the end tunr buton is pessed
                 {
-                    if((turn+1) % 2 == 0)
+                    if((turn+1) % 2 == 0)// if the tun is goign to be even and thus blue teams tun then it resets he move of the blue team 
                     {
                         Bheavy.resetmovpoints();
                         Bmed.resetmovpoints();
@@ -823,17 +816,20 @@ namespace NEA3
                     turncountwords = "Turn " + turn;
                     Thread.Sleep(250);
                 }
-                checkshot();
-                Bheavy.Update(gameTime);
-                Bmed.Update(gameTime);
-                Bmed2.Update(gameTime);
-                Blight.Update(gameTime);
-                Blight2.Update(gameTime);
-                Rheavy.Update(gameTime);
-                Rmed.Update(gameTime);
-                Rmed2.Update(gameTime);
-                Rlight.Update(gameTime);
-                Rlight2.Update(gameTime);
+                if (mouseState.LeftButton == ButtonState.Pressed && rangefinderbutton.Contains(mouseState.Position))//when range find buon is clicke it checks which enermy tanks are witin ange of the selcted tank
+                {
+                    checkshot();
+                }
+                Bheavy.Update(gameTime,_spriteBatch);
+                Bmed.Update(gameTime, _spriteBatch);
+                Bmed2.Update(gameTime, _spriteBatch);
+                Blight.Update(gameTime, _spriteBatch);
+                Blight2.Update(gameTime, _spriteBatch);
+                Rheavy.Update(gameTime, _spriteBatch);
+                Rmed.Update(gameTime, _spriteBatch);
+                Rmed2.Update(gameTime, _spriteBatch);
+                Rlight.Update(gameTime, _spriteBatch);
+                Rlight2.Update(gameTime, _spriteBatch);
                 _spriteBatch.End();
                 //selected fun
                
@@ -841,35 +837,35 @@ namespace NEA3
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             base.Update(gameTime);
         }
-        public void checkshot()
+        public void checkshot()//chesks i an enermy ank is inrane
         {
-            Bheavy.inrangereset();
+            Bheavy.inrangereset();// resets he inrange varible so that tanks stat shouldnt be in range don apear to be
             Bmed.inrangereset();
             Bmed2.inrangereset();
             Blight2.inrangereset();
             Rheavy.inrangereset();
             Rmed.inrangereset();
             Rmed2.inrangereset();
-            Rlight.inrangereset();
-            int xdifference = 0;
-            int ydifference = 0;
-            if (Game1.turn % 2 == 0)
+            Rlight2.inrangereset();
+            int xdifference = 0;// chekcs the ange alon x axis
+            int ydifference = 0;//dito bu fo y axis
+            if (Game1.turn % 2 == 0)//if even un onl hekcs blue team 
             { 
-               if(Bheavy._selected == true)
+               if(Bheavy._selected == true)// strin of if staments checks hich tank is sleted so it knwos which one to compare
                {
-                    if(Bheavy._direction == tank.Direction.right || Bheavy._direction == tank.Direction.left)
+                    if(Bheavy._direction == tank.Direction.right || Bheavy._direction == tank.Direction.left)//checks the dietion tank is facing so knows if it needs to compare range o x or y axis
                     {
-                        xdifference = Math.Abs(Bheavy.X - Rheavy.X);
-                        if(xdifference <= 290)
+                        xdifference = Math.Abs(Bheavy.X - Rheavy.X);//fidning diference
+                        if(xdifference <= (Bheavy.Range * 55))//difference comparedd to rane
                         {
-                            ydifference = Math.Abs(Bheavy.Y - Rheavy.Y);
+                            ydifference = Math.Abs(Bheavy.Y - Rheavy.Y);//checks that is witin ie conin so a block either side fo the one the tank is faciin
                             if(ydifference <= 130)
                             {
-                                Rheavy._inrange = true;
+                                Rheavy._inrange = true;//if the tank is in range sets that tanks inrange to bein true
                             }
                         }
                         xdifference = Math.Abs(Bheavy.X - Rmed.X);
-                        if (xdifference <= 290)
+                        if (xdifference <= (Bheavy.Range * 55))
                         {
                             ydifference = Math.Abs(Bheavy.Y - Rmed.Y);
                             if (ydifference <= 130)
@@ -878,7 +874,7 @@ namespace NEA3
                             }
                         }
                         xdifference = Math.Abs(Bheavy.X - Rmed2.X);
-                        if (xdifference <= 290)
+                        if (xdifference <= (Bheavy.Range * 55))
                         {
                             ydifference = Math.Abs(Bheavy.Y - Rmed2.Y);
                             if (ydifference <= 130)
@@ -887,7 +883,7 @@ namespace NEA3
                             }
                         }
                         xdifference = Math.Abs(Bheavy.X - Rlight2.X);
-                        if (xdifference <= 290)
+                        if (xdifference <= (Bheavy.Range * 55))
                         {
                             ydifference = Math.Abs(Bheavy.Y - Rlight2.Y);
                             if (ydifference <= 130)
@@ -899,7 +895,7 @@ namespace NEA3
                     else
                     {
                         ydifference = Math.Abs(Bheavy.Y - Rheavy.Y);
-                        if (ydifference <= 290)
+                        if (ydifference <= (Bheavy.Range * 55))
                         {
                             xdifference = Math.Abs(Bheavy.X - Rheavy.X);
                             if (xdifference <= 130)
@@ -908,7 +904,7 @@ namespace NEA3
                             }
                         }
                         ydifference = Math.Abs(Bheavy.Y - Rmed.Y);
-                        if (ydifference <= 290)
+                        if (ydifference <= (Bheavy.Range * 55))
                         {
                             xdifference = Math.Abs(Bheavy.X - Rmed.X);
                             if (xdifference <= 130)
@@ -917,7 +913,7 @@ namespace NEA3
                             }
                         }
                         ydifference = Math.Abs(Bheavy.Y - Rmed2.Y);
-                        if (ydifference <= 290)
+                        if (ydifference <= (Bheavy.Range * 55))
                         {
                             xdifference = Math.Abs(Bheavy.X - Rmed2.X);
                             if (xdifference <= 130)
@@ -926,7 +922,7 @@ namespace NEA3
                             }
                         }
                         ydifference = Math.Abs(Bheavy.Y - Rlight2.Y);
-                        if (ydifference <= 290)
+                        if (ydifference <= (Bheavy.Range * 55))
                         {
                             xdifference = Math.Abs(Bheavy.X - Rlight2.X);
                             if (xdifference <= 130)
@@ -941,16 +937,16 @@ namespace NEA3
                     if (Bmed._direction == tank.Direction.right || Bmed._direction == tank.Direction.left)
                     {
                         xdifference = Math.Abs(Bmed.X - Rheavy.X);
-                        if (xdifference <= 290)
+                        if (xdifference <= (Bmed.Range * 55))
                         {
                             ydifference = Math.Abs(Bmed.Y - Rheavy.Y);
-                            if (ydifference <= 130)
+                            if (ydifference <= (Bmed.Range * 55))
                             {
                                 Rheavy._inrange = true;
                             }
                         }
                         xdifference = Math.Abs(Bmed.X - Rmed.X);
-                        if (xdifference <= 290)
+                        if (xdifference <= (Bmed.Range * 55))
                         {
                             ydifference = Math.Abs(Bmed.Y - Rmed.Y);
                             if (ydifference <= 130)
@@ -959,7 +955,7 @@ namespace NEA3
                             }
                         }
                         xdifference = Math.Abs(Bmed.X - Rmed2.X);
-                        if (xdifference <= 290)
+                        if (xdifference <= (Bmed.Range * 55))
                         {
                             ydifference = Math.Abs(Bmed.Y - Rmed2.Y);
                             if (ydifference <= 130)
@@ -968,7 +964,7 @@ namespace NEA3
                             }
                         }
                         xdifference = Math.Abs(Bmed.X - Rlight2.X);
-                        if (xdifference <= 290)
+                        if (xdifference <= (Bmed.Range * 55))
                         {
                             ydifference = Math.Abs(Bmed.Y - Rlight2.Y);
                             if (ydifference <= 130)
@@ -980,7 +976,7 @@ namespace NEA3
                     else
                     {
                         ydifference = Math.Abs(Bmed.Y - Rheavy.Y);
-                        if (ydifference <= 290)
+                        if (ydifference <= (Bmed.Range * 55))
                         {
                             xdifference = Math.Abs(Bmed.X - Rheavy.X);
                             if (xdifference <= 130)
@@ -989,7 +985,7 @@ namespace NEA3
                             }
                         }
                         ydifference = Math.Abs(Bmed.Y - Rmed.Y);
-                        if (ydifference <= 290)
+                        if (ydifference <= (Bmed.Range * 55))
                         {
                             xdifference = Math.Abs(Bmed.X - Rmed.X);
                             if (xdifference <= 130)
@@ -998,7 +994,7 @@ namespace NEA3
                             }
                         }
                         ydifference = Math.Abs(Bmed.Y - Rmed2.Y);
-                        if (ydifference <= 290)
+                        if (ydifference <= (Bmed.Range * 55))
                         {
                             xdifference = Math.Abs(Bmed.X - Rmed2.X);
                             if (xdifference <= 130)
@@ -1007,7 +1003,7 @@ namespace NEA3
                             }
                         }
                         ydifference = Math.Abs(Bmed.Y - Rlight2.Y);
-                        if (ydifference <= 290)
+                        if (ydifference <= (Bmed.Range * 55))
                         {
                             xdifference = Math.Abs(Bmed.X - Rlight2.X);
                             if (xdifference <= 130)
@@ -1022,7 +1018,7 @@ namespace NEA3
                     if (Bmed2._direction == tank.Direction.right || Bmed2._direction == tank.Direction.left)
                     {
                         xdifference = Math.Abs(Bmed2.X - Rheavy.X);
-                        if (xdifference <= 290)
+                        if (xdifference <= (Bmed2.Range * 55))
                         {
                             ydifference = Math.Abs(Bmed2.Y - Rheavy.Y);
                             if (ydifference <= 130)
@@ -1031,7 +1027,7 @@ namespace NEA3
                             }
                         }
                         xdifference = Math.Abs(Bmed2.X - Rmed.X);
-                        if (xdifference <= 290)
+                        if (xdifference <= (Bmed2.Range * 55))
                         {
                             ydifference = Math.Abs(Bmed2.Y - Rmed.Y);
                             if (ydifference <= 130)
@@ -1040,7 +1036,7 @@ namespace NEA3
                             }
                         }
                         xdifference = Math.Abs(Bmed2.X - Rmed2.X);
-                        if (xdifference <= 290)
+                        if (xdifference <= (Bmed2.Range * 55))
                         {
                             ydifference = Math.Abs(Bmed2.Y - Rmed2.Y);
                             if (ydifference <= 130)
@@ -1049,7 +1045,7 @@ namespace NEA3
                             }
                         }
                         xdifference = Math.Abs(Bmed2.X - Rlight2.X);
-                        if (xdifference <= 290)
+                        if (xdifference <= (Bmed2.Range * 55))
                         {
                             ydifference = Math.Abs(Bmed2.Y - Rlight2.Y);
                             if (ydifference <= 130)
@@ -1061,7 +1057,7 @@ namespace NEA3
                     else
                     {
                         ydifference = Math.Abs(Bmed2.Y - Rheavy.Y);
-                        if (ydifference <= 290)
+                        if (ydifference <= (Bmed2.Range * 55))
                         {
                             xdifference = Math.Abs(Bmed2.X - Rheavy.X);
                             if (xdifference <= 130)
@@ -1070,7 +1066,7 @@ namespace NEA3
                             }
                         }
                         ydifference = Math.Abs(Bmed2.Y - Rmed.Y);
-                        if (ydifference <= 290)
+                        if (ydifference <= (Bmed2.Range * 55))
                         {
                             xdifference = Math.Abs(Bmed2.X - Rmed.X);
                             if (xdifference <= 130)
@@ -1079,7 +1075,7 @@ namespace NEA3
                             }
                         }
                         ydifference = Math.Abs(Bmed2.Y - Rmed2.Y);
-                        if (ydifference <= 290)
+                        if (ydifference <= (Bmed2.Range * 55))
                         {
                             xdifference = Math.Abs(Bmed2.X - Rmed2.X);
                             if (xdifference <= 130)
@@ -1088,7 +1084,7 @@ namespace NEA3
                             }
                         }
                         ydifference = Math.Abs(Bmed2.Y - Rlight2.Y);
-                        if (ydifference <= 290)
+                        if (ydifference <= (Bmed2.Range * 55))
                         {
                             xdifference = Math.Abs(Bmed2.X - Rlight2.X);
                             if (xdifference <= 130)
@@ -1103,7 +1099,7 @@ namespace NEA3
                     if (Blight2._direction == tank.Direction.right || Blight2._direction == tank.Direction.left)
                     {
                         xdifference = Math.Abs(Blight2.X - Rheavy.X);
-                        if (xdifference <= 290)
+                        if (xdifference <= (Blight2.Range * 55))
                         {
                             ydifference = Math.Abs(Blight2.Y - Rheavy.Y);
                             if (ydifference <= 130)
@@ -1112,7 +1108,7 @@ namespace NEA3
                             }
                         }
                         xdifference = Math.Abs(Blight2.X - Rmed.X);
-                        if (xdifference <= 290)
+                        if (xdifference <= (Blight2.Range * 55))
                         {
                             ydifference = Math.Abs(Blight2.Y - Rmed.Y);
                             if (ydifference <= 130)
@@ -1121,7 +1117,7 @@ namespace NEA3
                             }
                         }
                         xdifference = Math.Abs(Blight2.X - Rmed2.X);
-                        if (xdifference <= 290)
+                        if (xdifference <= (Blight2.Range * 55))
                         {
                             ydifference = Math.Abs(Blight2.Y - Rmed2.Y);
                             if (ydifference <= 130)
@@ -1130,7 +1126,7 @@ namespace NEA3
                             }
                         }
                         xdifference = Math.Abs(Blight2.X - Rlight2.X);
-                        if (xdifference <= 290)
+                        if (xdifference <= (Blight2.Range * 55))
                         {
                             ydifference = Math.Abs(Blight2.Y - Rlight2.Y);
                             if (ydifference <= 130)
@@ -1142,7 +1138,7 @@ namespace NEA3
                     else
                     {
                         ydifference = Math.Abs(Blight2.Y - Rheavy.Y);
-                        if (ydifference <= 290)
+                        if (ydifference <= (Blight2.Range * 55))
                         {
                             xdifference = Math.Abs(Blight2.X - Rheavy.X);
                             if (xdifference <= 130)
@@ -1151,7 +1147,7 @@ namespace NEA3
                             }
                         }
                         ydifference = Math.Abs(Blight2.Y - Rmed.Y);
-                        if (ydifference <= 290)
+                        if (ydifference <= (Blight2.Range * 55))
                         {
                             xdifference = Math.Abs(Blight2.X - Rmed.X);
                             if (xdifference <= 130)
@@ -1160,7 +1156,7 @@ namespace NEA3
                             }
                         }
                         ydifference = Math.Abs(Blight2.Y - Rmed2.Y);
-                        if (ydifference <= 290)
+                        if (ydifference <= (Blight2.Range * 55))
                         {
                             xdifference = Math.Abs(Blight2.X - Rmed2.X);
                             if (xdifference <= 130)
@@ -1169,7 +1165,7 @@ namespace NEA3
                             }
                         }
                         ydifference = Math.Abs(Blight2.Y - Rlight2.Y);
-                        if (ydifference <= 290)
+                        if (ydifference <= (Blight2.Range * 55))
                         {
                             xdifference = Math.Abs(Blight2.X - Rlight2.X);
                             if (xdifference <= 130)
@@ -1182,14 +1178,14 @@ namespace NEA3
 
 
             }
-            else
+            else//red teams checker
             {
                 if (Rheavy._selected == true)
                 {
                     if (Rheavy._direction == tank.Direction.right || Rheavy._direction == tank.Direction.left)
                     {
                         xdifference = Math.Abs(Rheavy.X - Bheavy.X);
-                        if (xdifference <= 290)
+                        if (xdifference <= (Rheavy.Range * 55))
                         {
                             ydifference = Math.Abs(Rheavy.Y - Bheavy.Y);
                             if (ydifference <= 130)
@@ -1198,7 +1194,7 @@ namespace NEA3
                             }
                         }
                         xdifference = Math.Abs(Rheavy.X - Bmed.X);
-                        if (xdifference <= 290)
+                        if (xdifference <= (Rheavy.Range * 55))
                         {
                             ydifference = Math.Abs(Rheavy.Y - Bmed.Y);
                             if (ydifference <= 130)
@@ -1207,7 +1203,7 @@ namespace NEA3
                             }
                         }
                         xdifference = Math.Abs(Rheavy.X - Bmed2.X);
-                        if (xdifference <= 290)
+                        if (xdifference <= (Rheavy.Range * 55))
                         {
                             ydifference = Math.Abs(Rheavy.Y - Bmed2.Y);
                             if (ydifference <= 130)
@@ -1216,7 +1212,7 @@ namespace NEA3
                             }
                         }
                         xdifference = Math.Abs(Rheavy.X - Blight2.X);
-                        if (xdifference <= 290)
+                        if (xdifference <= (Rheavy.Range * 55))
                         {
                             ydifference = Math.Abs(Rheavy.Y - Blight2.Y);
                             if (ydifference <= 130)
@@ -1228,7 +1224,7 @@ namespace NEA3
                     else
                     {
                         ydifference = Math.Abs(Rheavy.Y - Bheavy.Y);
-                        if (ydifference <= 290)
+                        if (ydifference <= (Rheavy.Range * 55))
                         {
                             xdifference = Math.Abs(Rheavy.X - Bheavy.X);
                             if (xdifference <= 130)
@@ -1237,7 +1233,7 @@ namespace NEA3
                             }
                         }
                         ydifference = Math.Abs(Rheavy.Y - Bmed.Y);
-                        if (ydifference <= 290)
+                        if (ydifference <= (Rheavy.Range * 55))
                         {
                             xdifference = Math.Abs(Rheavy.X - Bmed.X);
                             if (xdifference <= 130)
@@ -1246,7 +1242,7 @@ namespace NEA3
                             }
                         }
                         ydifference = Math.Abs(Rheavy.Y - Bmed2.Y);
-                        if (ydifference <= 290)
+                        if (ydifference <= (Rheavy.Range * 55))
                         {
                             xdifference = Math.Abs(Rheavy.X - Bmed2.X);
                             if (xdifference <= 130)
@@ -1255,7 +1251,7 @@ namespace NEA3
                             }
                         }
                         ydifference = Math.Abs(Rheavy.Y - Blight2.Y);
-                        if (ydifference <= 290)
+                        if (ydifference <= (Rheavy.Range * 55))
                         {
                             xdifference = Math.Abs(Rheavy.X - Blight2.X);
                             if (xdifference <= 130)
@@ -1270,7 +1266,7 @@ namespace NEA3
                     if (Rmed._direction == tank.Direction.right ||Rmed._direction == tank.Direction.left)
                     {
                         xdifference = Math.Abs(Rmed.X - Bheavy.X);
-                        if (xdifference <= 290)
+                        if (xdifference <= (Rmed.Range * 55))
                         {
                             ydifference = Math.Abs(Rmed.Y - Bheavy.Y);
                             if (ydifference <= 130)
@@ -1279,7 +1275,7 @@ namespace NEA3
                             }
                         }
                         xdifference = Math.Abs(Rmed.X - Bmed.X);
-                        if (xdifference <= 290)
+                        if (xdifference <= (Rmed.Range * 55))
                         {
                             ydifference = Math.Abs(Rmed.Y - Bmed.Y);
                             if (ydifference <= 130)
@@ -1288,7 +1284,7 @@ namespace NEA3
                             }
                         }
                         xdifference = Math.Abs(Rmed.X - Bmed2.X);
-                        if (xdifference <= 290)
+                        if (xdifference <= (Rmed.Range * 55))
                         {
                             ydifference = Math.Abs(Bmed.Y - Bmed2.Y);
                             if (ydifference <= 130)
@@ -1297,7 +1293,7 @@ namespace NEA3
                             }
                         }
                         xdifference = Math.Abs(Rmed.X - Blight2.X);
-                        if (xdifference <= 290)
+                        if (xdifference <= (Rmed.Range * 55))
                         {
                             ydifference = Math.Abs(Rmed.Y - Blight2.Y);
                             if (ydifference <= 130)
@@ -1309,7 +1305,7 @@ namespace NEA3
                     else
                     {
                         ydifference = Math.Abs(Rmed.Y - Bheavy.Y);
-                        if (ydifference <= 290)
+                        if (ydifference <= (Rmed.Range * 55))
                         {
                             xdifference = Math.Abs(Rmed.X - Bheavy.X);
                             if (xdifference <= 130)
@@ -1318,7 +1314,7 @@ namespace NEA3
                             }
                         }
                         ydifference = Math.Abs(Rmed.Y - Bmed.Y);
-                        if (ydifference <= 290)
+                        if (ydifference <= (Rmed.Range * 55))
                         {
                             xdifference = Math.Abs(Rmed.X - Bmed.X);
                             if (xdifference <= 130)
@@ -1327,7 +1323,7 @@ namespace NEA3
                             }
                         }
                         ydifference = Math.Abs(Rmed.Y - Bmed2.Y);
-                        if (ydifference <= 290)
+                        if (ydifference <= (Rmed.Range * 55))
                         {
                             xdifference = Math.Abs(Rmed.X - Bmed2.X);
                             if (xdifference <= 130)
@@ -1336,7 +1332,7 @@ namespace NEA3
                             }
                         }
                         ydifference = Math.Abs(Rmed.Y - Blight2.Y);
-                        if (ydifference <= 290)
+                        if (ydifference <= (Rmed.Range * 55))
                         {
                             xdifference = Math.Abs(Rmed.X - Blight2.X);
                             if (xdifference <= 130)
@@ -1351,7 +1347,7 @@ namespace NEA3
                     if (Rmed2._direction == tank.Direction.right || Rmed2._direction == tank.Direction.left)
                     {
                         xdifference = Math.Abs(Rmed2.X - Bheavy.X);
-                        if (xdifference <= 290)
+                        if (xdifference <= (Rmed2.Range * 55))
                         {
                             ydifference = Math.Abs(Rmed2.Y - Bheavy.Y);
                             if (ydifference <= 130)
@@ -1360,7 +1356,7 @@ namespace NEA3
                             }
                         }
                         xdifference = Math.Abs(Rmed2.X - Bmed.X);
-                        if (xdifference <= 290)
+                        if (xdifference <= (Rmed2.Range * 55))
                         {
                             ydifference = Math.Abs(Rmed2.Y - Bmed.Y);
                             if (ydifference <= 130)
@@ -1369,7 +1365,7 @@ namespace NEA3
                             }
                         }
                         xdifference = Math.Abs(Rmed2.X - Bmed2.X);
-                        if (xdifference <= 290)
+                        if (xdifference <= (Rmed2.Range * 55))
                         {
                             ydifference = Math.Abs(Rmed2.Y - Bmed2.Y);
                             if (ydifference <= 130)
@@ -1378,7 +1374,7 @@ namespace NEA3
                             }
                         }
                         xdifference = Math.Abs(Rmed2.X - Blight2.X);
-                        if (xdifference <= 290)
+                        if (xdifference <= (Rmed2.Range * 55))
                         {
                             ydifference = Math.Abs(Rmed2.Y - Blight2.Y);
                             if (ydifference <= 130)
@@ -1390,7 +1386,7 @@ namespace NEA3
                     else
                     {
                         ydifference = Math.Abs(Rmed2.Y - Bheavy.Y);
-                        if (ydifference <= 290)
+                        if (ydifference <= (Rmed2.Range * 55))
                         {
                             xdifference = Math.Abs(Rmed2.X - Bheavy.X);
                             if (xdifference <= 130)
@@ -1399,7 +1395,7 @@ namespace NEA3
                             }
                         }
                         ydifference = Math.Abs(Rmed2.Y - Bmed.Y);
-                        if (ydifference <= 290)
+                        if (ydifference <= (Rmed2.Range * 55))
                         {
                             xdifference = Math.Abs(Rmed2.X - Bmed.X);
                             if (xdifference <= 130)
@@ -1408,7 +1404,7 @@ namespace NEA3
                             }
                         }
                         ydifference = Math.Abs(Rmed2.Y - Bmed2.Y);
-                        if (ydifference <= 290)
+                        if (ydifference <= (Rmed2.Range * 55))
                         {
                             xdifference = Math.Abs(Rmed2.X - Bmed2.X);
                             if (xdifference <= 130)
@@ -1417,7 +1413,7 @@ namespace NEA3
                             }
                         }
                         ydifference = Math.Abs(Rmed2.Y - Blight2.Y);
-                        if (ydifference <= 290)
+                        if (ydifference <= (Rmed2.Range * 55))
                         {
                             xdifference = Math.Abs(Rmed2.X - Blight2.X);
                             if (xdifference <= 130)
@@ -1432,7 +1428,7 @@ namespace NEA3
                     if (Rlight2._direction == tank.Direction.right || Blight2._direction == tank.Direction.left)
                     {
                         xdifference = Math.Abs(Rlight2.X - Bheavy.X);
-                        if (xdifference <= 290)
+                        if (xdifference <= (Rlight2.Range * 55))
                         {
                             ydifference = Math.Abs(Rlight2.Y - Bheavy.Y);
                             if (ydifference <= 130)
@@ -1441,7 +1437,7 @@ namespace NEA3
                             }
                         }
                         xdifference = Math.Abs(Rlight2.X - Bmed.X);
-                        if (xdifference <= 290)
+                        if (xdifference <= (Rlight2.Range * 55))
                         {
                             ydifference = Math.Abs(Rlight2.Y - Bmed.Y);
                             if (ydifference <= 130)
@@ -1450,7 +1446,7 @@ namespace NEA3
                             }
                         }
                         xdifference = Math.Abs(Rlight2.X - Bmed2.X);
-                        if (xdifference <= 290)
+                        if (xdifference <= (Rlight2.Range * 55))
                         {
                             ydifference = Math.Abs(Rlight2.Y - Bmed2.Y);
                             if (ydifference <= 130)
@@ -1459,7 +1455,7 @@ namespace NEA3
                             }
                         }
                         xdifference = Math.Abs(Rlight2.X - Blight2.X);
-                        if (xdifference <= 290)
+                        if (xdifference <= (Rlight2.Range * 55))
                         {
                             ydifference = Math.Abs(Rlight2.Y - Blight2.Y);
                             if (ydifference <= 130)
@@ -1471,7 +1467,7 @@ namespace NEA3
                     else
                     {
                         ydifference = Math.Abs(Rlight2.Y - Bheavy.Y);
-                        if (ydifference <= 290)
+                        if (ydifference <= (Rlight2.Range * 55))
                         {
                             xdifference = Math.Abs(Rlight2.X - Bheavy.X);
                             if (xdifference <= 130)
@@ -1480,7 +1476,7 @@ namespace NEA3
                             }
                         }
                         ydifference = Math.Abs(Rlight2.Y - Bmed.Y);
-                        if (ydifference <= 290)
+                        if (ydifference <= (Rlight2.Range * 55))
                         {
                             xdifference = Math.Abs(Rlight2.X - Bmed.X);
                             if (xdifference <= 130)
@@ -1489,7 +1485,7 @@ namespace NEA3
                             }
                         }
                         ydifference = Math.Abs(Rlight2.Y - Bmed2.Y);
-                        if (ydifference <= 290)
+                        if (ydifference <= (Rlight2.Range * 55))
                         {
                             xdifference = Math.Abs(Rlight2.X - Bmed2.X);
                             if (xdifference <= 130)
@@ -1498,7 +1494,7 @@ namespace NEA3
                             }
                         }
                         ydifference = Math.Abs(Rlight2.Y - Blight2.Y);
-                        if (ydifference <= 290)
+                        if (ydifference <= (Rlight2.Range * 55))
                         {
                             xdifference = Math.Abs(Rlight2.X - Blight2.X);
                             if (xdifference <= 130)
@@ -1537,6 +1533,7 @@ namespace NEA3
                 _spriteBatch.Draw(leftturntexture, leftbutton, Color.White);
                 _spriteBatch.Draw(rightturntexture, rightbutton, Color.White);
                 _spriteBatch.Draw(endturnbuttexture, endturnbutton, Color.White);
+                _spriteBatch.Draw(rangefindertexture, rangefinderbutton, Color.White);
                 Vector2 textMiddlePoint = myfontyfont.MeasureString(turncountwords) / 2;
                 Vector2 position = new Vector2(670,10);
                 _spriteBatch.DrawString(myfontyfont, turncountwords, position, Color.Black, 0, textMiddlePoint, 1.5f, SpriteEffects.None, 1.0f);
@@ -1605,6 +1602,7 @@ namespace NEA3
                 _spriteBatch.Draw(leftturntexture,leftbutton,  Color.White);
                 _spriteBatch.Draw(rightturntexture,rightbutton,  Color.White);
                 _spriteBatch.Draw(endturnbuttexture, endturnbutton, Color.White);
+                _spriteBatch.Draw(rangefindertexture, rangefinderbutton, Color.White);
                 Vector2 textMiddlePoint = myfontyfont.MeasureString(turncountwords) / 2;
                 Vector2 position = new Vector2(720, 20);
                 _spriteBatch.DrawString(myfontyfont, turncountwords, position, Color.Black, 0, textMiddlePoint, 1.0f, SpriteEffects.None, 1.0f);
