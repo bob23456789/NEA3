@@ -16,17 +16,17 @@ namespace NEA3
 {
     internal class tank : Gameobject
     {
-        private Rectangle RBheavy; // Rectangle aroudn tanks 
-        private Rectangle RRHeavy;
-        private Rectangle RBMed;
-        private Rectangle RB2Med;
-        private Rectangle RRMed;
-        private Rectangle RR2Med;
-        private Rectangle RBLight;
-        private Rectangle RB2light;
-        private Rectangle RRLight;
-        private Rectangle RR2light;
-        protected GraphicsDevice _graphicdevice;
+        public Rectangle RBheavy; // Rectangle aroudn tanks 
+        public Rectangle RRHeavy;
+        public Rectangle RBMed;
+        public Rectangle RB2Med;
+        public Rectangle RRMed;
+        public Rectangle RR2Med;
+        public Rectangle RBLight;
+        public Rectangle RB2light;
+         Rectangle RRLight;
+         Rectangle RR2light;
+         GraphicsDevice _graphicdevice;
         public Color colour;
         
         public enum Direction
@@ -859,10 +859,7 @@ namespace NEA3
         {
             colour = newColor;
         }
-        public void shooting()
-        {
-
-        }
+        
        
         ////how game going to work
 

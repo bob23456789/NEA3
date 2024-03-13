@@ -23,7 +23,7 @@ namespace NEA3
         public virtual void Update(GameTime gameTime , SpriteBatch spriteBatch)
         {
         }
-
+        
         public virtual void Draw(SpriteBatch _spriteBatch)
         {
             _spriteBatch.Draw(Texture,Location,tankRectangle, Color.White);

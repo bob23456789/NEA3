@@ -54,10 +54,12 @@ namespace NEA3
         tank Rmed2;
         tank Rlight;
         tank Rlight2;
+        
         //lists
         List<tank> p1tanks = new List<tank>();
         List<tank> p2tanks = new List<tank>();
         //misc
+        bool rangecheck = false;
         float initialZoom = 0.8f;//sets inital zoom
         Vector2 initialPosition = new Vector2(0, 0); // sets initial position of camera
         static Random R = new Random();
@@ -849,7 +851,7 @@ namespace NEA3
             Rlight2.inrangereset();
             int xdifference = 0;// chekcs the ange alon x axis
             int ydifference = 0;//dito bu fo y axis
-            if (Game1.turn % 2 == 0)//if even un onl hekcs blue team 
+            if (Game1.turn % 2 == 0)//if even un onl hekcs blue team  the ifception begins here
             { 
                if(Bheavy._selected == true)// strin of if staments checks hich tank is sleted so it knwos which one to compare
                {
@@ -1504,6 +1506,64 @@ namespace NEA3
                         }
                     }
                 }
+            }
+        }
+        public void shooting()//have to do it in here doest work in the class
+        {
+            
+            MouseState mouseState = Mouse.GetState();
+            if ( turn % 2 == 0)//cheskc if blue tunr
+            {
+                if(Bheavy._selected == true && Bheavy._havefired == false)//checks whicih is selcted and fi its selected
+                {
+                    if(Keyboard.GetState().IsKeyDown(Keys.F) && Rheavy.RRHeavy.Contains(mouseState.Position))
+                    {
+                        if(Rheavy._inrange == true)
+                        {
+                            Bheavy._havefired = true;
+                            switch(Bheavy._direction,Rheavy._direction)
+                            {
+
+                                case (tank.Direction.right, tank.Direction.left)://front armour facing each other
+
+
+                                break;
+                                case (tank.Direction.right, tank.Direction.up)://side armour
+                                 
+                                
+                                break;
+                                case (tank.Direction.right, tank.Direction.down)://side armour
+
+                                break;
+                                case (tank.Direction.right, tank.Direction.right)://back armour
+
+
+                                break;
+                                
+                                case (tank.Direction.right, tank.Direction.up)://side armour
+
+
+                                    break;
+                                case (tank.Direction.right, tank.Direction.down)://side armour
+
+                                    break;
+                                case (tank.Direction.right, tank.Direction.right)://back armour
+
+
+                                    break;
+
+                            }
+                        }
+                    }
+                }
+                else
+                {
+
+                }
+            }
+            else
+            {
+
             }
         }
         protected override void Draw(GameTime gameTime)
