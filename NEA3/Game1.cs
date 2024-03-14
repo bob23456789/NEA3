@@ -22,7 +22,7 @@ namespace NEA3
         //textures for terrain and ui 
         Texture2D squareTexture, grassTexture, treesquaretexture, mountaintexutre, menuTexture, GUIsqauretexture, uparrowtexture, downarrowtexture, leftturntexture, rightturntexture ,selectedtextureHB , selectedtextureMB , selectedtextureLB, selectedtextureHR, selectedtextureMR, selectedtextureLR, endturnbuttexture,rangefindertexture;
         private Texture2D buttonTexture;
-        private SpriteFont myfontyfont;
+        private SpriteFont myfontyfont,movepointsfont,crewmmebersfont,componentsfont,firedfont;
         private Rectangle buttonRectangle ,endturnbutton,rangefinderbutton; // square which teh tecture will be put in
         private Rectangle forwardbutton;
         private Rectangle backbutton;
@@ -40,8 +40,8 @@ namespace NEA3
         string menuTitle = "War On Perliculum\n             Prime";
         string turncountwords = "Turn " + turn;//for the tun fon abve the black square 
         string Line = "";
-        string bluevic = "VICTORY\n     Blue team wins";
-        string redvic = "VICTORY\n     Red team wins";
+        string bluevic = "         VICTORY\n   Blue team wins";
+        string redvic = "          VICTORY\n    Red team wins";
         public static int turn = 0; // even = blue odd = red turn
         // objects
         Camera camera;
@@ -871,7 +871,9 @@ namespace NEA3
                 if (mouseState.LeftButton == ButtonState.Pressed && buttonRectangle.Contains(mouseState.Position))
                 {
                     currentgamestate = gamestate.menue;
+                    Thread.Sleep(200);
                     LoadContent();
+                    Initialize();
                 }
             }
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -1546,7 +1548,7 @@ namespace NEA3
                 }
             }
         }
-        public void shooting()//have to do it in here doest work in the class //// be prepared for yet another ifception   //GET THE ARRAYS WORKING EVERYTHING IS OFF BY 1
+        public void shooting()//have to do it in here doest work in the class //// be prepared for yet another ifception 
         {
             int chance = 0;//will eb used to determined if it hits and tehn if it pens the armour and any other percentage calcs
             MouseState mouseState = Mouse.GetState();
@@ -1968,7 +1970,7 @@ namespace NEA3
                     }
                     else if (Rmed.RRMed.Contains(mouseState.Position))
                     {
-                        if (Bheavy.Movactpoints < 3)
+                        if (Bheavy.Movactpoints < 2)
                         {
                             chance = R.Next(0, 101);
                             if (chance >= 60)//50% chance to hit
@@ -2103,7 +2105,7 @@ namespace NEA3
                     }
                     else if (Rmed2.RR2Med.Contains(mouseState.Position))
                     {
-                        if (Bheavy.Movactpoints < 3)
+                        if (Bheavy.Movactpoints < 2)
                         {
                             chance = R.Next(0, 101);
                             if (chance >= 60)//50% chance to hit
@@ -2241,7 +2243,7 @@ namespace NEA3
                         if (Blight2._inrange == true)
                         {
                             Bheavy._havefired = true;
-                            if (Bheavy.Movactpoints < 3)
+                            if (Bheavy.Movactpoints < 2)
                             {
                                 chance = R.Next(0, 101);
                                 if (chance >= 60)//50% chance to hit
@@ -2386,7 +2388,7 @@ namespace NEA3
                             Bmed._havefired = true;
                             if ((Bmed._direction == tank.Direction.right && Rheavy._direction == tank.Direction.left) || (Bmed._direction == tank.Direction.up && Rheavy._direction == tank.Direction.down) || (Bmed._direction == tank.Direction.right && Rheavy._direction == tank.Direction.left) || (Bmed._direction == tank.Direction.down && Rheavy._direction == tank.Direction.up) || (Bmed._direction == tank.Direction.right && Rmed._direction == tank.Direction.up) || (Bmed._direction == tank.Direction.right && Rmed._direction == tank.Direction.down) || (Bmed._direction == tank.Direction.left && Rmed._direction == tank.Direction.up) || (Bmed._direction == tank.Direction.left && Rmed._direction == tank.Direction.down) || (Bmed._direction == tank.Direction.up && Rmed._direction == tank.Direction.left) || (Bmed._direction == tank.Direction.up && Rmed._direction == tank.Direction.right) || (Bmed._direction == tank.Direction.down && Rmed._direction == tank.Direction.left) || (Bmed._direction == tank.Direction.down && Rmed._direction == tank.Direction.right))
                             {
-                                if (Bmed.Movactpoints < 5)
+                                if (Bmed.Movactpoints < 4)
                                 {
                                     chance = R.Next(0, 101);
                                     if (chance >= 60)//60% chance to hit
@@ -2492,7 +2494,7 @@ namespace NEA3
                                                 }
                                                 else if (chance > 75 && chance <= 100)// 25% chance to kill commander
                                                 {
-                                                    Rheavy.Crewmembers[4] = false;
+                                                    Rheavy.Crewmembers[3] = false;
                                                 }
                                             }
                                             else//means componets will be damged 
@@ -2500,19 +2502,19 @@ namespace NEA3
                                                 chance = R.Next(0, 101);
                                                 if (chance <= 25)
                                                 {
-                                                    Rheavy.Components1[3] = false;
+                                                    Rheavy.Components1[2] = false;
                                                 }
                                                 else if (chance > 25 && chance <= 50)
                                                 {
-                                                    Rheavy.Components1[1] = false;
+                                                    Rheavy.Components1[0] = false;
                                                 }
                                                 else if (chance > 50 && chance <= 75)
                                                 {
-                                                    Rheavy.Components1[2] = false;
+                                                    Rheavy.Components1[1] = false;
                                                 }
                                                 else if (chance > 75 && chance <= 100)
                                                 {
-                                                    Rheavy.Components1[4] = false;
+                                                    Rheavy.Components1[3] = false;
                                                 }
                                             }
                                         }
@@ -2521,7 +2523,7 @@ namespace NEA3
                             }
                             else
                             {
-                                if (Bmed.Movactpoints < 5)
+                                if (Bmed.Movactpoints < 4)
                                 {
                                     chance = R.Next(0, 101);
                                     if (chance >= 60)//50% chance to hit
@@ -2663,7 +2665,7 @@ namespace NEA3
                             Bmed._havefired = true;
                             if ((Bmed._direction == tank.Direction.right && Rmed._direction == tank.Direction.left) || (Bmed._direction == tank.Direction.left && Rmed._direction == tank.Direction.right) || (Bmed._direction == tank.Direction.up && Rmed._direction == tank.Direction.down) || (Bmed._direction == tank.Direction.down && Rmed._direction == tank.Direction.up))//front facing armour
                             {
-                                if (Bmed.Movactpoints < 3)
+                                if (Bmed.Movactpoints < 4)
                                 {
                                     chance = R.Next(0, 101);
                                     if (chance >= 60)//50% chance to hit
@@ -2798,7 +2800,7 @@ namespace NEA3
                             }
                             else//this is  more efficent way fo doeing the case statments this jsut realised not changeing heavy though far too much time 
                             {
-                                if (Bmed.Movactpoints < 3)
+                                if (Bmed.Movactpoints < 4)
                                 {
                                     chance = R.Next(0, 101);
                                     if (chance >= 60)//50% chance to hit
@@ -2937,10 +2939,10 @@ namespace NEA3
                     {
                         if (Rmed2._inrange == true)
                         {
-                            Bmed._havefired = true;
+                            Bmed2._havefired = true;
                             if ((Bmed._direction == tank.Direction.right && Rmed2._direction == tank.Direction.left) || (Bmed._direction == tank.Direction.left && Rmed2._direction == tank.Direction.right) || (Bmed._direction == tank.Direction.up && Rmed2._direction == tank.Direction.down) || (Bmed._direction == tank.Direction.down && Rmed2._direction == tank.Direction.up))//front facing armour
                             {
-                                if (Bmed.Movactpoints < 3)
+                                if (Bmed2.Movactpoints < 4)
                                 {
                                     chance = R.Next(0, 101);
                                     if (chance >= 60)//50% chance to hit
@@ -2954,33 +2956,33 @@ namespace NEA3
                                                 chance = R.Next(0, 101);//chooseing which one will die
                                                 if (chance <= 25)//25% to kill driver
                                                 {
-                                                    if (Rmed2.Crewmembers[4] == true)
-                                                    {
-                                                        Rmed2.Crewmembers[4] = false;// shows commmander swapping wiht driver
-                                                    }
-                                                    else
-                                                    {
-                                                        Rmed2.Crewmembers[1] = false;// tank can no longer drive
-                                                    }
-                                                }
-                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
-                                                {
-                                                    Rmed2.Crewmembers[3] = false;
-                                                }
-                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
-                                                {
                                                     if (Rmed2.Crewmembers[3] == true)
                                                     {
                                                         Rmed2.Crewmembers[3] = false;// shows commmander swapping wiht driver
                                                     }
                                                     else
                                                     {
-                                                        Rmed2.Crewmembers[2] = false;// tank can no longer drive
+                                                        Rmed2.Crewmembers[0] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                                {
+                                                    Rmed2.Crewmembers[2] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                                {
+                                                    if (Rmed2.Crewmembers[2] == true)
+                                                    {
+                                                        Rmed2.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Rmed2.Crewmembers[1] = false;// tank can no longer drive
                                                     }
                                                 }
                                                 else if (chance > 75 && chance <= 100)// 25% chance to kill commander
                                                 {
-                                                    Rmed2.Crewmembers[4] = false;
+                                                    Rmed2.Crewmembers[3] = false;
                                                 }
                                             }
                                             else//means componets will be damged 
@@ -2988,19 +2990,19 @@ namespace NEA3
                                                 chance = R.Next(0, 101);
                                                 if (chance <= 31)
                                                 {
-                                                    Rmed2.Components1[3] = false;
+                                                    Rmed2.Components1[2] = false;
                                                 }
                                                 else if (chance > 31 && chance <= 54)
                                                 {
-                                                    Rmed2.Components1[1] = false;
+                                                    Rmed2.Components1[0] = false;
                                                 }
                                                 else if (chance > 54 && chance <= 77)
                                                 {
-                                                    Rmed2.Components1[2] = false;
+                                                    Rmed2.Components1[1] = false;
                                                 }
                                                 else if (chance > 77 && chance <= 100)
                                                 {
-                                                    Rmed2.Components1[4] = false;
+                                                    Rmed2.Components1[3] = false;
                                                 }
                                             }
                                         }
@@ -3020,33 +3022,33 @@ namespace NEA3
                                                 chance = R.Next(0, 101);//chooseing which one will die
                                                 if (chance <= 25)//25% to kill driver
                                                 {
-                                                    if (Rmed2.Crewmembers[4] == true)
-                                                    {
-                                                        Rmed2.Crewmembers[4] = false;// shows commmander swapping wiht driver
-                                                    }
-                                                    else
-                                                    {
-                                                        Rmed2.Crewmembers[1] = false;// tank can no longer drive
-                                                    }
-                                                }
-                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
-                                                {
-                                                    Rmed2.Crewmembers[3] = false;
-                                                }
-                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
-                                                {
                                                     if (Rmed2.Crewmembers[3] == true)
                                                     {
                                                         Rmed2.Crewmembers[3] = false;// shows commmander swapping wiht driver
                                                     }
                                                     else
                                                     {
-                                                        Rmed2.Crewmembers[2] = false;// tank can no longer drive
+                                                        Rmed2.Crewmembers[0] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                                {
+                                                    Rmed2.Crewmembers[2] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                                {
+                                                    if (Rmed2.Crewmembers[2] == true)
+                                                    {
+                                                        Rmed2.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Rmed2.Crewmembers[1] = false;// tank can no longer drive
                                                     }
                                                 }
                                                 else if (chance > 75 && chance <= 100)// 25% chance to kill commander
                                                 {
-                                                    Rmed2.Crewmembers[4] = false;
+                                                    Rmed2.Crewmembers[3] = false;
                                                 }
                                             }
                                             else//means componets will be damged 
@@ -3054,19 +3056,19 @@ namespace NEA3
                                                 chance = R.Next(0, 101);
                                                 if (chance <= 31)
                                                 {
-                                                    Rmed2.Components1[3] = false;
+                                                    Rmed2.Components1[2] = false;
                                                 }
                                                 else if (chance > 31 && chance <= 54)
                                                 {
-                                                    Rmed2.Components1[1] = false;
+                                                    Rmed2.Components1[0] = false;
                                                 }
                                                 else if (chance > 54 && chance <= 77)
                                                 {
-                                                    Rmed2.Components1[2] = false;
+                                                    Rmed2.Components1[1] = false;
                                                 }
                                                 else if (chance > 77 && chance <= 100)
                                                 {
-                                                    Rmed2.Components1[4] = false;
+                                                    Rmed2.Components1[3] = false;
                                                 }
                                             }
                                         }
@@ -3075,7 +3077,7 @@ namespace NEA3
                             }
                             else//this is  more efficent way fo doeing the case statments this jsut realised not changeing heavy though far too much time 
                             {
-                                if (Bmed.Movactpoints < 3)
+                                if (Bmed.Movactpoints < 4)
                                 {
                                     chance = R.Next(0, 101);
                                     if (chance >= 60)//50% chance to hit
@@ -3089,33 +3091,33 @@ namespace NEA3
                                                 chance = R.Next(0, 101);//chooseing which one will die
                                                 if (chance <= 25)//25% to kill driver
                                                 {
-                                                    if (Rmed2.Crewmembers[4] == true)
-                                                    {
-                                                        Rmed2.Crewmembers[4] = false;// shows commmander swapping wiht driver
-                                                    }
-                                                    else
-                                                    {
-                                                        Rmed2.Crewmembers[1] = false;// tank can no longer drive
-                                                    }
-                                                }
-                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
-                                                {
-                                                    Rmed2.Crewmembers[3] = false;
-                                                }
-                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
-                                                {
                                                     if (Rmed2.Crewmembers[3] == true)
                                                     {
                                                         Rmed2.Crewmembers[3] = false;// shows commmander swapping wiht driver
                                                     }
                                                     else
                                                     {
-                                                        Rmed2.Crewmembers[2] = false;// tank can no longer drive
+                                                        Rmed2.Crewmembers[0] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                                {
+                                                    Rmed2.Crewmembers[2] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                                {
+                                                    if (Rmed2.Crewmembers[2] == true)
+                                                    {
+                                                        Rmed2.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Rmed2.Crewmembers[1] = false;// tank can no longer drive
                                                     }
                                                 }
                                                 else if (chance > 75 && chance <= 100)// 25% chance to kill commander
                                                 {
-                                                    Rmed2.Crewmembers[4] = false;
+                                                    Rmed2.Crewmembers[3] = false;
                                                 }
                                             }
                                             else//means componets will be damged 
@@ -3123,19 +3125,19 @@ namespace NEA3
                                                 chance = R.Next(0, 101);//chooseing which one will die
                                                 if (chance <= 25)
                                                 {
-                                                    Rmed2.Components1[2] = false;
+                                                    Rmed2.Components1[1] = false;
                                                 }
                                                 else if (chance > 25 && chance <= 50)
                                                 {
-                                                    Rmed2.Components1[4] = false;
+                                                    Rmed2.Components1[3] = false;
                                                 }
                                                 else if (chance > 50 && chance <= 75)
                                                 {
-                                                    Rmed2.Components1[3] = false;
+                                                    Rmed2.Components1[2] = false;
                                                 }
                                                 else if (chance > 75 && chance <= 100)
                                                 {
-                                                    Rmed2.Components1[1] = false;
+                                                    Rmed2.Components1[0] = false;
                                                 }
                                             }
                                         }
@@ -3155,13 +3157,13 @@ namespace NEA3
                                                 chance = R.Next(0, 101);//chooseing which one will die
                                                 if (chance <= 25)//25% to kill driver
                                                 {
-                                                    if (Rmed2.Crewmembers[4] == true)
+                                                    if (Rmed2.Crewmembers[3] == true)
                                                     {
-                                                        Rmed2.Crewmembers[4] = false;// shows commmander swapping wiht driver
+                                                        Rmed2.Crewmembers[3] = false;// shows commmander swapping wiht driver
                                                     }
                                                     else
                                                     {
-                                                        Rmed2.Crewmembers[1] = false;// tank can no longer drive
+                                                        Rmed2.Crewmembers[0] = false;// tank can no longer drive
                                                     }
                                                 }
                                                 else if (chance > 25 && chance <= 50)//25% chance to kill loader
@@ -3170,18 +3172,18 @@ namespace NEA3
                                                 }
                                                 else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
                                                 {
-                                                    if (Rmed2.Crewmembers[3] == true)
+                                                    if (Rmed2.Crewmembers[2] == true)
                                                     {
-                                                        Rmed2.Crewmembers[3] = false;// shows commmander swapping wiht driver
+                                                        Rmed2.Crewmembers[2] = false;// shows commmander swapping wiht driver
                                                     }
                                                     else
                                                     {
-                                                        Rmed2.Crewmembers[2] = false;// tank can no longer drive
+                                                        Rmed2.Crewmembers[1] = false;// tank can no longer drive
                                                     }
                                                 }
                                                 else if (chance > 75 && chance <= 100)// 25% chance to kill commander
                                                 {
-                                                    Rmed2.Crewmembers[4] = false;
+                                                    Rmed2.Crewmembers[3] = false;
                                                 }
                                             }
                                             else//means componets will be damged 
@@ -3189,19 +3191,19 @@ namespace NEA3
                                                 chance = R.Next(0, 101);//chooseing which one will die
                                                 if (chance <= 31)
                                                 {
-                                                    Rmed2.Components1[3] = false;
+                                                    Rmed2.Components1[2] = false;
                                                 }
                                                 else if (chance > 25 && chance <= 54)
                                                 {
-                                                    Rmed2.Components1[1] = false;
+                                                    Rmed2.Components1[0] = false;
                                                 }
                                                 else if (chance > 25 && chance <= 77)
                                                 {
-                                                    Rmed2.Components1[2] = false;
+                                                    Rmed2.Components1[1] = false;
                                                 }
                                                 else if (chance > 25 && chance <= 100)
                                                 {
-                                                    Rmed2.Components1[4] = false;
+                                                    Rmed2.Components1[3] = false;
                                                 }
                                             }
                                         }
@@ -3215,7 +3217,7 @@ namespace NEA3
                         if (Rlight2._inrange == true)
                         {
                             Bmed._havefired = true;
-                            if (Bmed.Movactpoints < 3)
+                            if (Bmed.Movactpoints < 4)
                             {
                                 chance = R.Next(0, 101);
                                 if (chance >= 60)//50% chance to hit
@@ -3229,33 +3231,33 @@ namespace NEA3
                                             chance = R.Next(0, 101);//chooseing which one will die
                                             if (chance <= 25)//25% to kill driver
                                             {
-                                                if (Rlight2.Crewmembers[4] == true)
-                                                {
-                                                    Rlight2.Crewmembers[4] = false;// shows commmander swapping wiht driver
-                                                }
-                                                else
-                                                {
-                                                    Rlight2.Crewmembers[1] = false;// tank can no longer drive
-                                                }
-                                            }
-                                            else if (chance > 25 && chance <= 50)//25% chance to kill loader
-                                            {
-                                                Rlight2.Crewmembers[3] = false;
-                                            }
-                                            else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
-                                            {
                                                 if (Rlight2.Crewmembers[3] == true)
                                                 {
                                                     Rlight2.Crewmembers[3] = false;// shows commmander swapping wiht driver
                                                 }
                                                 else
                                                 {
-                                                    Rlight2.Crewmembers[2] = false;// tank can no longer drive
+                                                    Rlight2.Crewmembers[0] = false;// tank can no longer drive
+                                                }
+                                            }
+                                            else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                            {
+                                                Rlight2.Crewmembers[2] = false;
+                                            }
+                                            else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                            {
+                                                if (Rlight2.Crewmembers[2] == true)
+                                                {
+                                                    Rlight2.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                }
+                                                else
+                                                {
+                                                    Rlight2.Crewmembers[1] = false;// tank can no longer drive
                                                 }
                                             }
                                             else if (chance > 75 && chance <= 100)// 25% chance to kill commander
                                             {
-                                                Rlight2.Crewmembers[4] = false;
+                                                Rlight2.Crewmembers[3] = false;
                                             }
                                         }
                                         else//means componets will be damged  
@@ -3263,19 +3265,19 @@ namespace NEA3
                                             chance = R.Next(0, 101);
                                             if (chance <= 25)//tank so small equal chance of hiting all compionets
                                             {
-                                                Rlight2.Components1[3] = false;
+                                                Rlight2.Components1[2] = false;
                                             }
                                             else if (chance > 25 && chance <= 50)
                                             {
-                                                Rlight2.Components1[1] = false;
+                                                Rlight2.Components1[0] = false;
                                             }
                                             else if (chance > 50 && chance <= 75)
                                             {
-                                                Rlight2.Components1[2] = false;
+                                                Rlight2.Components1[1] = false;
                                             }
                                             else if (chance > 75 && chance <= 100)
                                             {
-                                                Rlight2.Components1[4] = false;
+                                                Rlight2.Components1[3] = false;
                                             }
                                         }
                                     }
@@ -3295,33 +3297,33 @@ namespace NEA3
                                             chance = R.Next(0, 101);//chooseing which one will die
                                             if (chance <= 25)//25% to kill driver
                                             {
-                                                if (Rlight2.Crewmembers[4] == true)
-                                                {
-                                                    Rlight2.Crewmembers[4] = false;// shows commmander swapping wiht driver
-                                                }
-                                                else
-                                                {
-                                                    Rlight2.Crewmembers[1] = false;// tank can no longer drive
-                                                }
-                                            }
-                                            else if (chance > 25 && chance <= 50)//25% chance to kill loader
-                                            {
-                                                Rlight2.Crewmembers[3] = false;
-                                            }
-                                            else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
-                                            {
                                                 if (Rlight2.Crewmembers[3] == true)
                                                 {
                                                     Rlight2.Crewmembers[3] = false;// shows commmander swapping wiht driver
                                                 }
                                                 else
                                                 {
-                                                    Rlight2.Crewmembers[2] = false;// tank can no longer drive
+                                                    Rlight2.Crewmembers[0] = false;// tank can no longer drive
+                                                }
+                                            }
+                                            else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                            {
+                                                Rlight2.Crewmembers[2] = false;
+                                            }
+                                            else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                            {
+                                                if (Rlight2.Crewmembers[2] == true)
+                                                {
+                                                    Rlight2.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                }
+                                                else
+                                                {
+                                                    Rlight2.Crewmembers[1] = false;// tank can no longer drive
                                                 }
                                             }
                                             else if (chance > 75 && chance <= 100)// 25% chance to kill commander
                                             {
-                                                Rlight2.Crewmembers[4] = false;
+                                                Rlight2.Crewmembers[3] = false;
                                             }
                                         }
                                         else//means componets will be damged 
@@ -3329,30 +3331,24 @@ namespace NEA3
                                             chance = R.Next(0, 101);
                                             if (chance <= 31)
                                             {
-                                                Rlight2.Components1[3] = false;
+                                                Rlight2.Components1[2] = false;
                                             }
                                             else if (chance > 25 && chance <= 50)
                                             {
-                                                Rlight2.Components1[1] = false;
+                                                Rlight2.Components1[0] = false;
                                             }
                                             else if (chance > 50 && chance <= 75)
                                             {
-                                                Rlight2.Components1[2] = false;
+                                                Rlight2.Components1[1] = false;
                                             }
                                             else if (chance > 75 && chance <= 100)
                                             {
-                                                Rlight2.Components1[4] = false;
+                                                Rlight2.Components1[3] = false;
                                             }
                                         }
                                     }
                                 }
                             }
-
-
-
-
-
-
                         }
                     }
                 }
@@ -3365,7 +3361,7 @@ namespace NEA3
                             Bmed2._havefired = true;
                             if ((Bmed2._direction == tank.Direction.right && Rheavy._direction == tank.Direction.left) || (Bmed2._direction == tank.Direction.up && Rheavy._direction == tank.Direction.down) || (Bmed2._direction == tank.Direction.right && Rheavy._direction == tank.Direction.left) || (Bmed2._direction == tank.Direction.down && Rheavy._direction == tank.Direction.up) || (Bmed2._direction == tank.Direction.right && Rmed._direction == tank.Direction.up) || (Bmed2._direction == tank.Direction.right && Rmed._direction == tank.Direction.down) || (Bmed2._direction == tank.Direction.left && Rmed._direction == tank.Direction.up) || (Bmed2._direction == tank.Direction.left && Rmed._direction == tank.Direction.down) || (Bmed2._direction == tank.Direction.up && Rmed._direction == tank.Direction.left) || (Bmed2._direction == tank.Direction.up && Rmed._direction == tank.Direction.right) || (Bmed2._direction == tank.Direction.down && Rmed._direction == tank.Direction.left) || (Bmed2._direction == tank.Direction.down && Rmed._direction == tank.Direction.right))
                             {
-                                if (Bmed2.Movactpoints < 3)
+                                if (Bmed2.Movactpoints < 4)
                                 {
                                     chance = R.Next(0, 101);
                                     if (chance >= 60)//60% chance to hit
@@ -3379,33 +3375,33 @@ namespace NEA3
                                                 chance = R.Next(0, 101);//chooseing which one will die
                                                 if (chance <= 25)//25% to kill driver
                                                 {
-                                                    if (Rheavy.Crewmembers[4] == true)
-                                                    {
-                                                        Rheavy.Crewmembers[4] = false;// shows commmander swapping wiht driver
-                                                    }
-                                                    else
-                                                    {
-                                                        Rheavy.Crewmembers[1] = false;// tank can no longer drive
-                                                    }
-                                                }
-                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
-                                                {
-                                                    Rheavy.Crewmembers[3] = false;
-                                                }
-                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
-                                                {
                                                     if (Rheavy.Crewmembers[3] == true)
                                                     {
                                                         Rheavy.Crewmembers[3] = false;// shows commmander swapping wiht driver
                                                     }
                                                     else
                                                     {
-                                                        Rheavy.Crewmembers[2] = false;// tank can no longer drive
+                                                        Rheavy.Crewmembers[0] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                                {
+                                                    Rheavy.Crewmembers[2] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                                {
+                                                    if (Rheavy.Crewmembers[2] == true)
+                                                    {
+                                                        Rheavy.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Rheavy.Crewmembers[1] = false;// tank can no longer drive
                                                     }
                                                 }
                                                 else if (chance > 75 && chance <= 100)// 25% chance to kill commander
                                                 {
-                                                    Rheavy.Crewmembers[4] = false;
+                                                    Rheavy.Crewmembers[3] = false;
                                                 }
                                             }
                                             else//means componets will be damged 
@@ -3413,19 +3409,19 @@ namespace NEA3
                                                 chance = R.Next(0, 101);
                                                 if (chance <= 25)
                                                 {
-                                                    Rheavy.Components1[3] = false;
+                                                    Rheavy.Components1[2] = false;
                                                 }
                                                 else if (chance > 25 && chance <= 50)
                                                 {
-                                                    Rheavy.Components1[1] = false;
+                                                    Rheavy.Components1[0] = false;
                                                 }
                                                 else if (chance > 50 && chance <= 75)
                                                 {
-                                                    Rheavy.Components1[2] = false;
+                                                    Rheavy.Components1[1] = false;
                                                 }
                                                 else if (chance > 75 && chance <= 100)
                                                 {
-                                                    Rheavy.Components1[4] = false;
+                                                    Rheavy.Components1[3] = false;
                                                 }
                                             }
                                         }
@@ -3445,28 +3441,28 @@ namespace NEA3
                                                 chance = R.Next(0, 101);//chooseing which one will die
                                                 if (chance <= 25)//25% to kill driver
                                                 {
-                                                    if (Rheavy.Crewmembers[4] == true)
-                                                    {
-                                                        Rheavy.Crewmembers[4] = false;// shows commmander swapping wiht driver
-                                                    }
-                                                    else
-                                                    {
-                                                        Rheavy.Crewmembers[1] = false;// tank can no longer drive
-                                                    }
-                                                }
-                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
-                                                {
-                                                    Rheavy.Crewmembers[3] = false;
-                                                }
-                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
-                                                {
                                                     if (Rheavy.Crewmembers[3] == true)
                                                     {
                                                         Rheavy.Crewmembers[3] = false;// shows commmander swapping wiht driver
                                                     }
                                                     else
                                                     {
-                                                        Rheavy.Crewmembers[2] = false;// tank can no longer drive
+                                                        Rheavy.Crewmembers[0] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                                {
+                                                    Rheavy.Crewmembers[2] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                                {
+                                                    if (Rheavy.Crewmembers[2] == true)
+                                                    {
+                                                        Rheavy.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Rheavy.Crewmembers[1] = false;// tank can no longer drive
                                                     }
                                                 }
                                                 else if (chance > 75 && chance <= 100)// 25% chance to kill commander
@@ -3479,19 +3475,19 @@ namespace NEA3
                                                 chance = R.Next(0, 101);
                                                 if (chance <= 25)
                                                 {
-                                                    Rheavy.Components1[3] = false;
+                                                    Rheavy.Components1[2] = false;
                                                 }
                                                 else if (chance > 25 && chance <= 50)
                                                 {
-                                                    Rheavy.Components1[1] = false;
+                                                    Rheavy.Components1[0] = false;
                                                 }
                                                 else if (chance > 50 && chance <= 75)
                                                 {
-                                                    Rheavy.Components1[2] = false;
+                                                    Rheavy.Components1[1] = false;
                                                 }
                                                 else if (chance > 75 && chance <= 100)
                                                 {
-                                                    Rheavy.Components1[4] = false;
+                                                    Rheavy.Components1[3] = false;
                                                 }
                                             }
                                         }
@@ -3500,7 +3496,7 @@ namespace NEA3
                             }
                             else
                             {
-                                if (Bmed2.Movactpoints < 3)
+                                if (Bmed2.Movactpoints < 4)
                                 {
                                     chance = R.Next(0, 101);
                                     if (chance >= 60)//50% chance to hit
@@ -3514,33 +3510,33 @@ namespace NEA3
                                                 chance = R.Next(0, 101);//chooseing which one will die
                                                 if (chance <= 25)//25% to kill driver
                                                 {
-                                                    if (Rheavy.Crewmembers[4] == true)
-                                                    {
-                                                        Rheavy.Crewmembers[4] = false;// shows commmander swapping wiht driver
-                                                    }
-                                                    else
-                                                    {
-                                                        Rheavy.Crewmembers[1] = false;// tank can no longer drive
-                                                    }
-                                                }
-                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
-                                                {
-                                                    Rheavy.Crewmembers[3] = false;
-                                                }
-                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
-                                                {
                                                     if (Rheavy.Crewmembers[3] == true)
                                                     {
                                                         Rheavy.Crewmembers[3] = false;// shows commmander swapping wiht driver
                                                     }
                                                     else
                                                     {
-                                                        Rheavy.Crewmembers[2] = false;// tank can no longer drive
+                                                        Rheavy.Crewmembers[0] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                                {
+                                                    Rheavy.Crewmembers[2] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                                {
+                                                    if (Rheavy.Crewmembers[2] == true)
+                                                    {
+                                                        Rheavy.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Rheavy.Crewmembers[1] = false;// tank can no longer drive
                                                     }
                                                 }
                                                 else if (chance > 75 && chance <= 100)// 25% chance to kill commander
                                                 {
-                                                    Rheavy.Crewmembers[4] = false;
+                                                    Rheavy.Crewmembers[3] = false;
                                                 }
                                             }
                                             else//means componets will be damged 
@@ -3548,19 +3544,19 @@ namespace NEA3
                                                 chance = R.Next(0, 101);//chooseing which one will die
                                                 if (chance <= 49)
                                                 {
-                                                    Rheavy.Components1[1] = false;
+                                                    Rheavy.Components1[0] = false;
                                                 }
                                                 else if (chance > 49 && chance <= 66)
                                                 {
-                                                    Rheavy.Components1[2] = false;
+                                                    Rheavy.Components1[1] = false;
                                                 }
                                                 else if (chance > 66 && chance <= 83)
                                                 {
-                                                    Rheavy.Components1[3] = false;
+                                                    Rheavy.Components1[2] = false;
                                                 }
                                                 else if (chance > 83 && chance <= 100)
                                                 {
-                                                    Rheavy.Components1[4] = false;
+                                                    Rheavy.Components1[3] = false;
                                                 }
                                             }
                                         }
@@ -3580,33 +3576,33 @@ namespace NEA3
                                                 chance = R.Next(0, 101);//chooseing which one will die
                                                 if (chance <= 25)//25% to kill driver
                                                 {
-                                                    if (Rheavy.Crewmembers[4] == true)
-                                                    {
-                                                        Rheavy.Crewmembers[4] = false;// shows commmander swapping wiht driver
-                                                    }
-                                                    else
-                                                    {
-                                                        Rheavy.Crewmembers[1] = false;// tank can no longer drive
-                                                    }
-                                                }
-                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
-                                                {
-                                                    Rheavy.Crewmembers[3] = false;
-                                                }
-                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
-                                                {
                                                     if (Rheavy.Crewmembers[3] == true)
                                                     {
                                                         Rheavy.Crewmembers[3] = false;// shows commmander swapping wiht driver
                                                     }
                                                     else
                                                     {
-                                                        Rheavy.Crewmembers[2] = false;// tank can no longer drive
+                                                        Rheavy.Crewmembers[0] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                                {
+                                                    Rheavy.Crewmembers[2] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                                {
+                                                    if (Rheavy.Crewmembers[2] == true)
+                                                    {
+                                                        Rheavy.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Rheavy.Crewmembers[1] = false;// tank can no longer drive
                                                     }
                                                 }
                                                 else if (chance > 75 && chance <= 100)// 25% chance to kill commander
                                                 {
-                                                    Rheavy.Crewmembers[4] = false;
+                                                    Rheavy.Crewmembers[3] = false;
                                                 }
                                             }
                                             else//means componets will be damged 
@@ -3614,19 +3610,19 @@ namespace NEA3
                                                 chance = R.Next(0, 101);//chooseing which one will die
                                                 if (chance <= 49)
                                                 {
-                                                    Rheavy.Components1[1] = false;
+                                                    Rheavy.Components1[0] = false;
                                                 }
                                                 else if (chance > 49 && chance <= 66)
                                                 {
-                                                    Rheavy.Components1[2] = false;
+                                                    Rheavy.Components1[1] = false;
                                                 }
                                                 else if (chance > 66 && chance <= 83)
                                                 {
-                                                    Rheavy.Components1[3] = false;
+                                                    Rheavy.Components1[2] = false;
                                                 }
                                                 else if (chance > 83 && chance <= 100)
                                                 {
-                                                    Rheavy.Components1[4] = false;
+                                                    Rheavy.Components1[3] = false;
                                                 }
                                             }
                                         }
@@ -3642,7 +3638,7 @@ namespace NEA3
                             Bmed2._havefired = true;
                             if ((Bmed2._direction == tank.Direction.right && Rmed._direction == tank.Direction.left) || (Bmed2._direction == tank.Direction.left && Rmed._direction == tank.Direction.right) || (Bmed2._direction == tank.Direction.up && Rmed._direction == tank.Direction.down) || (Bmed2._direction == tank.Direction.down && Rmed._direction == tank.Direction.up))//front facing armour
                             {
-                                if (Bmed2.Movactpoints < 3)
+                                if (Bmed2.Movactpoints < 4)
                                 {
                                     chance = R.Next(0, 101);
                                     if (chance >= 60)//50% chance to hit
@@ -3656,13 +3652,13 @@ namespace NEA3
                                                 chance = R.Next(0, 101);//chooseing which one will die
                                                 if (chance <= 25)//25% to kill driver
                                                 {
-                                                    if (Rmed.Crewmembers[4] == true)
+                                                    if (Rmed.Crewmembers[3] == true)
                                                     {
-                                                        Rmed.Crewmembers[4] = false;// shows commmander swapping wiht driver
+                                                        Rmed.Crewmembers[3] = false;// shows commmander swapping wiht driver
                                                     }
                                                     else
                                                     {
-                                                        Rmed.Crewmembers[1] = false;// tank can no longer drive
+                                                        Rmed.Crewmembers[0] = false;// tank can no longer drive
                                                     }
                                                 }
                                                 else if (chance > 25 && chance <= 50)//25% chance to kill loader
@@ -3671,18 +3667,18 @@ namespace NEA3
                                                 }
                                                 else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
                                                 {
-                                                    if (Rmed.Crewmembers[3] == true)
+                                                    if (Rmed.Crewmembers[2] == true)
                                                     {
-                                                        Rmed.Crewmembers[3] = false;// shows commmander swapping wiht driver
+                                                        Rmed.Crewmembers[2] = false;// shows commmander swapping wiht driver
                                                     }
                                                     else
                                                     {
-                                                        Rmed.Crewmembers[2] = false;// tank can no longer drive
+                                                        Rmed.Crewmembers[1] = false;// tank can no longer drive
                                                     }
                                                 }
                                                 else if (chance > 75 && chance <= 100)// 25% chance to kill commander
                                                 {
-                                                    Rmed.Crewmembers[4] = false;
+                                                    Rmed.Crewmembers[3] = false;
                                                 }
                                             }
                                             else//means componets will be damged 
@@ -3690,19 +3686,19 @@ namespace NEA3
                                                 chance = R.Next(0, 101);
                                                 if (chance <= 31)
                                                 {
-                                                    Rmed.Components1[3] = false;
+                                                    Rmed.Components1[2] = false;
                                                 }
                                                 else if (chance > 31 && chance <= 54)
                                                 {
-                                                    Rmed.Components1[1] = false;
+                                                    Rmed.Components1[0] = false;
                                                 }
                                                 else if (chance > 54 && chance <= 77)
                                                 {
-                                                    Rmed.Components1[2] = false;
+                                                    Rmed.Components1[1] = false;
                                                 }
                                                 else if (chance > 77 && chance <= 100)
                                                 {
-                                                    Rmed.Components1[4] = false;
+                                                    Rmed.Components1[3] = false;
                                                 }
                                             }
                                         }
@@ -3722,33 +3718,33 @@ namespace NEA3
                                                 chance = R.Next(0, 101);//chooseing which one will die
                                                 if (chance <= 25)//25% to kill driver
                                                 {
-                                                    if (Rmed.Crewmembers[4] == true)
-                                                    {
-                                                        Rmed.Crewmembers[4] = false;// shows commmander swapping wiht driver
-                                                    }
-                                                    else
-                                                    {
-                                                        Rmed.Crewmembers[1] = false;// tank can no longer drive
-                                                    }
-                                                }
-                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
-                                                {
-                                                    Rmed.Crewmembers[3] = false;
-                                                }
-                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
-                                                {
                                                     if (Rmed.Crewmembers[3] == true)
                                                     {
                                                         Rmed.Crewmembers[3] = false;// shows commmander swapping wiht driver
                                                     }
                                                     else
                                                     {
-                                                        Rmed.Crewmembers[2] = false;// tank can no longer drive
+                                                        Rmed.Crewmembers[0] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                                {
+                                                    Rmed.Crewmembers[2] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                                {
+                                                    if (Rmed.Crewmembers[2] == true)
+                                                    {
+                                                        Rmed.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Rmed.Crewmembers[1] = false;// tank can no longer drive
                                                     }
                                                 }
                                                 else if (chance > 75 && chance <= 100)// 25% chance to kill commander
                                                 {
-                                                    Rmed.Crewmembers[4] = false;
+                                                    Rmed.Crewmembers[3] = false;
                                                 }
                                             }
                                             else//means componets will be damged 
@@ -3756,19 +3752,19 @@ namespace NEA3
                                                 chance = R.Next(0, 101);
                                                 if (chance <= 31)
                                                 {
-                                                    Rmed.Components1[3] = false;
+                                                    Rmed.Components1[2] = false;
                                                 }
                                                 else if (chance > 31 && chance <= 54)
                                                 {
-                                                    Rmed.Components1[1] = false;
+                                                    Rmed.Components1[0] = false;
                                                 }
                                                 else if (chance > 54 && chance <= 77)
                                                 {
-                                                    Rmed.Components1[2] = false;
+                                                    Rmed.Components1[1] = false;
                                                 }
                                                 else if (chance > 77 && chance <= 100)
                                                 {
-                                                    Rmed.Components1[4] = false;
+                                                    Rmed.Components1[3] = false;
                                                 }
                                             }
                                         }
@@ -3777,7 +3773,7 @@ namespace NEA3
                             }
                             else//this is  more efficent way fo doeing the case statments this jsut realised not changeing heavy though far too much time 
                             {
-                                if (Bmed2.Movactpoints < 3)
+                                if (Bmed2.Movactpoints < 4)
                                 {
                                     chance = R.Next(0, 101);
                                     if (chance >= 60)//50% chance to hit
@@ -3791,33 +3787,33 @@ namespace NEA3
                                                 chance = R.Next(0, 101);//chooseing which one will die
                                                 if (chance <= 25)//25% to kill driver
                                                 {
-                                                    if (Rmed.Crewmembers[4] == true)
-                                                    {
-                                                        Rmed.Crewmembers[4] = false;// shows commmander swapping wiht driver
-                                                    }
-                                                    else
-                                                    {
-                                                        Rmed.Crewmembers[1] = false;// tank can no longer drive
-                                                    }
-                                                }
-                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
-                                                {
-                                                    Rmed.Crewmembers[3] = false;
-                                                }
-                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
-                                                {
                                                     if (Rmed.Crewmembers[3] == true)
                                                     {
                                                         Rmed.Crewmembers[3] = false;// shows commmander swapping wiht driver
                                                     }
                                                     else
                                                     {
-                                                        Rmed.Crewmembers[2] = false;// tank can no longer drive
+                                                        Rmed.Crewmembers[0] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                                {
+                                                    Rmed.Crewmembers[2] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                                {
+                                                    if (Rmed.Crewmembers[2] == true)
+                                                    {
+                                                        Rmed.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Rmed.Crewmembers[1] = false;// tank can no longer drive
                                                     }
                                                 }
                                                 else if (chance > 75 && chance <= 100)// 25% chance to kill commander
                                                 {
-                                                    Rmed.Crewmembers[4] = false;
+                                                    Rmed.Crewmembers[3] = false;
                                                 }
                                             }
                                             else//means componets will be damged 
@@ -3825,19 +3821,19 @@ namespace NEA3
                                                 chance = R.Next(0, 101);//chooseing which one will die
                                                 if (chance <= 25)
                                                 {
-                                                    Rmed.Components1[2] = false;
+                                                    Rmed.Components1[1] = false;
                                                 }
                                                 else if (chance > 25 && chance <= 50)
                                                 {
-                                                    Rmed.Components1[4] = false;
+                                                    Rmed.Components1[3] = false;
                                                 }
                                                 else if (chance > 50 && chance <= 75)
                                                 {
-                                                    Rmed.Components1[3] = false;
+                                                    Rmed.Components1[2] = false;
                                                 }
                                                 else if (chance > 75 && chance <= 100)
                                                 {
-                                                    Rmed.Components1[1] = false;
+                                                    Rmed.Components1[0] = false;
                                                 }
                                             }
                                         }
@@ -3857,33 +3853,33 @@ namespace NEA3
                                                 chance = R.Next(0, 101);//chooseing which one will die
                                                 if (chance <= 25)//25% to kill driver
                                                 {
-                                                    if (Rmed.Crewmembers[4] == true)
-                                                    {
-                                                        Rmed.Crewmembers[4] = false;// shows commmander swapping wiht driver
-                                                    }
-                                                    else
-                                                    {
-                                                        Rmed.Crewmembers[1] = false;// tank can no longer drive
-                                                    }
-                                                }
-                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
-                                                {
-                                                    Rmed.Crewmembers[3] = false;
-                                                }
-                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
-                                                {
                                                     if (Rmed.Crewmembers[3] == true)
                                                     {
                                                         Rmed.Crewmembers[3] = false;// shows commmander swapping wiht driver
                                                     }
                                                     else
                                                     {
-                                                        Rmed.Crewmembers[2] = false;// tank can no longer drive
+                                                        Rmed.Crewmembers[0] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                                {
+                                                    Rmed.Crewmembers[2] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                                {
+                                                    if (Rmed.Crewmembers[2] == true)
+                                                    {
+                                                        Rmed.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Rmed.Crewmembers[1] = false;// tank can no longer drive
                                                     }
                                                 }
                                                 else if (chance > 75 && chance <= 100)// 25% chance to kill commander
                                                 {
-                                                    Rmed.Crewmembers[4] = false;
+                                                    Rmed.Crewmembers[3] = false;
                                                 }
                                             }
                                             else//means componets will be damged 
@@ -3891,19 +3887,19 @@ namespace NEA3
                                                 chance = R.Next(0, 101);//chooseing which one will die
                                                 if (chance <= 31)
                                                 {
-                                                    Rmed.Components1[3] = false;
+                                                    Rmed.Components1[2] = false;
                                                 }
                                                 else if (chance > 25 && chance <= 50)
                                                 {
-                                                    Rmed.Components1[1] = false;
+                                                    Rmed.Components1[0] = false;
                                                 }
                                                 else if (chance > 50 && chance <= 75)
                                                 {
-                                                    Rmed.Components1[2] = false;
+                                                    Rmed.Components1[1] = false;
                                                 }
                                                 else if (chance > 75 && chance <= 100)
                                                 {
-                                                    Rmed.Components1[4] = false;
+                                                    Rmed.Components1[3] = false;
                                                 }
                                             }
                                         }
@@ -3919,7 +3915,7 @@ namespace NEA3
                             Bmed2._havefired = true;
                             if ((Bmed2._direction == tank.Direction.right && Rmed2._direction == tank.Direction.left) || (Bmed2._direction == tank.Direction.left && Rmed2._direction == tank.Direction.right) || (Bmed2._direction == tank.Direction.up && Rmed2._direction == tank.Direction.down) || (Bmed2._direction == tank.Direction.down && Rmed2._direction == tank.Direction.up))//front facing armour
                             {
-                                if (Bmed2.Movactpoints < 3)
+                                if (Bmed2.Movactpoints < 4)
                                 {
                                     chance = R.Next(0, 101);
                                     if (chance >= 60)//50% chance to hit
@@ -3933,13 +3929,13 @@ namespace NEA3
                                                 chance = R.Next(0, 101);//chooseing which one will die
                                                 if (chance <= 25)//25% to kill driver
                                                 {
-                                                    if (Rmed2.Crewmembers[4] == true)
+                                                    if (Rmed2.Crewmembers[3] == true)
                                                     {
-                                                        Rmed2.Crewmembers[4] = false;// shows commmander swapping wiht driver
+                                                        Rmed2.Crewmembers[3] = false;// shows commmander swapping wiht driver
                                                     }
                                                     else
                                                     {
-                                                        Rmed2.Crewmembers[1] = false;// tank can no longer drive
+                                                        Rmed2.Crewmembers[0] = false;// tank can no longer drive
                                                     }
                                                 }
                                                 else if (chance > 25 && chance <= 50)//25% chance to kill loader
@@ -3948,18 +3944,18 @@ namespace NEA3
                                                 }
                                                 else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
                                                 {
-                                                    if (Rmed2.Crewmembers[3] == true)
+                                                    if (Rmed2.Crewmembers[2] == true)
                                                     {
-                                                        Rmed2.Crewmembers[3] = false;// shows commmander swapping wiht driver
+                                                        Rmed2.Crewmembers[2] = false;// shows commmander swapping wiht driver
                                                     }
                                                     else
                                                     {
-                                                        Rmed2.Crewmembers[2] = false;// tank can no longer drive
+                                                        Rmed2.Crewmembers[1] = false;// tank can no longer drive
                                                     }
                                                 }
                                                 else if (chance > 75 && chance <= 100)// 25% chance to kill commander
                                                 {
-                                                    Rmed2.Crewmembers[4] = false;
+                                                    Rmed2.Crewmembers[3] = false;
                                                 }
                                             }
                                             else//means componets will be damged 
@@ -3967,19 +3963,19 @@ namespace NEA3
                                                 chance = R.Next(0, 101);
                                                 if (chance <= 31)
                                                 {
-                                                    Rmed2.Components1[3] = false;
+                                                    Rmed2.Components1[2] = false;
                                                 }
                                                 else if (chance > 31 && chance <= 54)
                                                 {
-                                                    Rmed2.Components1[1] = false;
+                                                    Rmed2.Components1[0] = false;
                                                 }
                                                 else if (chance > 54 && chance <= 77)
                                                 {
-                                                    Rmed2.Components1[2] = false;
+                                                    Rmed2.Components1[1] = false;
                                                 }
                                                 else if (chance > 77 && chance <= 100)
                                                 {
-                                                    Rmed2.Components1[4] = false;
+                                                    Rmed2.Components1[3] = false;
                                                 }
                                             }
                                         }
@@ -3999,33 +3995,33 @@ namespace NEA3
                                                 chance = R.Next(0, 101);//chooseing which one will die
                                                 if (chance <= 25)//25% to kill driver
                                                 {
-                                                    if (Rmed2.Crewmembers[4] == true)
-                                                    {
-                                                        Rmed2.Crewmembers[4] = false;// shows commmander swapping wiht driver
-                                                    }
-                                                    else
-                                                    {
-                                                        Rmed2.Crewmembers[1] = false;// tank can no longer drive
-                                                    }
-                                                }
-                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
-                                                {
-                                                    Rmed2.Crewmembers[3] = false;
-                                                }
-                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
-                                                {
                                                     if (Rmed2.Crewmembers[3] == true)
                                                     {
                                                         Rmed2.Crewmembers[3] = false;// shows commmander swapping wiht driver
                                                     }
                                                     else
                                                     {
-                                                        Rmed2.Crewmembers[2] = false;// tank can no longer drive
+                                                        Rmed2.Crewmembers[0] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                                {
+                                                    Rmed2.Crewmembers[2] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                                {
+                                                    if (Rmed2.Crewmembers[2] == true)
+                                                    {
+                                                        Rmed2.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Rmed2.Crewmembers[1] = false;// tank can no longer drive
                                                     }
                                                 }
                                                 else if (chance > 75 && chance <= 100)// 25% chance to kill commander
                                                 {
-                                                    Rmed2.Crewmembers[4] = false;
+                                                    Rmed2.Crewmembers[3] = false;
                                                 }
                                             }
                                             else//means componets will be damged 
@@ -4033,28 +4029,28 @@ namespace NEA3
                                                 chance = R.Next(0, 101);
                                                 if (chance <= 31)
                                                 {
-                                                    Rmed2.Components1[3] = false;
+                                                    Rmed2.Components1[2] = false;
                                                 }
                                                 else if (chance > 31 && chance <= 54)
                                                 {
-                                                    Rmed2.Components1[1] = false;
+                                                    Rmed2.Components1[0] = false;
                                                 }
                                                 else if (chance > 54 && chance <= 77)
                                                 {
-                                                    Rmed2.Components1[2] = false;
+                                                    Rmed2.Components1[1] = false;
                                                 }
                                                 else if (chance > 77 && chance <= 100)
                                                 {
-                                                    Rmed2.Components1[4] = false;
+                                                    Rmed2.Components1[3] = false;
                                                 }
                                             }
                                         }
                                     }
                                 }
                             }
-                            else //this is  more efficent way fo doeing the case statments this jsut realised not changeing heavy though far too much time 
+                            else//this is  more efficent way fo doeing the case statments this jsut realised not changeing heavy though far too much time 
                             {
-                                if (Bmed2.Movactpoints < 3)
+                                if (Bmed2.Movactpoints < 4)
                                 {
                                     chance = R.Next(0, 101);
                                     if (chance >= 60)//50% chance to hit
@@ -4068,33 +4064,33 @@ namespace NEA3
                                                 chance = R.Next(0, 101);//chooseing which one will die
                                                 if (chance <= 25)//25% to kill driver
                                                 {
-                                                    if (Rmed2.Crewmembers[4] == true)
-                                                    {
-                                                        Rmed2.Crewmembers[4] = false;// shows commmander swapping wiht driver
-                                                    }
-                                                    else
-                                                    {
-                                                        Rmed2.Crewmembers[1] = false;// tank can no longer drive
-                                                    }
-                                                }
-                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
-                                                {
-                                                    Rmed2.Crewmembers[3] = false;
-                                                }
-                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
-                                                {
                                                     if (Rmed2.Crewmembers[3] == true)
                                                     {
                                                         Rmed2.Crewmembers[3] = false;// shows commmander swapping wiht driver
                                                     }
                                                     else
                                                     {
-                                                        Rmed2.Crewmembers[2] = false;// tank can no longer drive
+                                                        Rmed2.Crewmembers[0] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                                {
+                                                    Rmed2.Crewmembers[2] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                                {
+                                                    if (Rmed2.Crewmembers[2] == true)
+                                                    {
+                                                        Rmed2.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Rmed2.Crewmembers[1] = false;// tank can no longer drive
                                                     }
                                                 }
                                                 else if (chance > 75 && chance <= 100)// 25% chance to kill commander
                                                 {
-                                                    Rmed2.Crewmembers[4] = false;
+                                                    Rmed2.Crewmembers[3] = false;
                                                 }
                                             }
                                             else//means componets will be damged 
@@ -4102,19 +4098,19 @@ namespace NEA3
                                                 chance = R.Next(0, 101);//chooseing which one will die
                                                 if (chance <= 25)
                                                 {
-                                                    Rmed2.Components1[2] = false;
+                                                    Rmed2.Components1[1] = false;
                                                 }
                                                 else if (chance > 25 && chance <= 50)
                                                 {
-                                                    Rmed2.Components1[4] = false;
+                                                    Rmed2.Components1[3] = false;
                                                 }
                                                 else if (chance > 50 && chance <= 75)
                                                 {
-                                                    Rmed2.Components1[3] = false;
+                                                    Rmed2.Components1[2] = false;
                                                 }
                                                 else if (chance > 75 && chance <= 100)
                                                 {
-                                                    Rmed2.Components1[1] = false;
+                                                    Rmed2.Components1[0] = false;
                                                 }
                                             }
                                         }
@@ -4134,33 +4130,33 @@ namespace NEA3
                                                 chance = R.Next(0, 101);//chooseing which one will die
                                                 if (chance <= 25)//25% to kill driver
                                                 {
-                                                    if (Rmed2.Crewmembers[4] == true)
-                                                    {
-                                                        Rmed2.Crewmembers[4] = false;// shows commmander swapping wiht driver
-                                                    }
-                                                    else
-                                                    {
-                                                        Rmed2.Crewmembers[1] = false;// tank can no longer drive
-                                                    }
-                                                }
-                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
-                                                {
-                                                    Rmed2.Crewmembers[3] = false;
-                                                }
-                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
-                                                {
                                                     if (Rmed2.Crewmembers[3] == true)
                                                     {
                                                         Rmed2.Crewmembers[3] = false;// shows commmander swapping wiht driver
                                                     }
                                                     else
                                                     {
-                                                        Rmed2.Crewmembers[2] = false;// tank can no longer drive
+                                                        Rmed2.Crewmembers[0] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                                {
+                                                    Rmed2.Crewmembers[2] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                                {
+                                                    if (Rmed2.Crewmembers[2] == true)
+                                                    {
+                                                        Rmed2.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Rmed2.Crewmembers[1] = false;// tank can no longer drive
                                                     }
                                                 }
                                                 else if (chance > 75 && chance <= 100)// 25% chance to kill commander
                                                 {
-                                                    Rmed2.Crewmembers[4] = false;
+                                                    Rmed2.Crewmembers[3] = false;
                                                 }
                                             }
                                             else//means componets will be damged 
@@ -4168,19 +4164,19 @@ namespace NEA3
                                                 chance = R.Next(0, 101);//chooseing which one will die
                                                 if (chance <= 31)
                                                 {
-                                                    Rmed2.Components1[3] = false;
+                                                    Rmed2.Components1[2] = false;
                                                 }
-                                                else if (chance > 25 && chance <= 54)
+                                                else if (chance > 25 && chance <= 50)
+                                                {
+                                                    Rmed2.Components1[0] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)
                                                 {
                                                     Rmed2.Components1[1] = false;
                                                 }
-                                                else if (chance > 25 && chance <= 77)
+                                                else if (chance > 75 && chance <= 100)
                                                 {
-                                                    Rmed2.Components1[2] = false;
-                                                }
-                                                else if (chance > 25 && chance <= 100)
-                                                {
-                                                    Rmed2.Components1[4] = false;
+                                                    Rmed2.Components1[3] = false;
                                                 }
                                             }
                                         }
@@ -4193,8 +4189,8 @@ namespace NEA3
                     {
                         if (Rlight2._inrange == true)
                         {
-                            Bmed2._havefired = true;
-                            if (Bmed2.Movactpoints < 3)
+                           Bmed2._havefired = true;
+                            if (Bmed2.Movactpoints < 4)
                             {
                                 chance = R.Next(0, 101);
                                 if (chance >= 60)//50% chance to hit
@@ -4208,33 +4204,33 @@ namespace NEA3
                                             chance = R.Next(0, 101);//chooseing which one will die
                                             if (chance <= 25)//25% to kill driver
                                             {
-                                                if (Rlight2.Crewmembers[4] == true)
-                                                {
-                                                    Rlight2.Crewmembers[4] = false;// shows commmander swapping wiht driver
-                                                }
-                                                else
-                                                {
-                                                    Rlight2.Crewmembers[1] = false;// tank can no longer drive
-                                                }
-                                            }
-                                            else if (chance > 25 && chance <= 50)//25% chance to kill loader
-                                            {
-                                                Rlight2.Crewmembers[3] = false;
-                                            }
-                                            else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
-                                            {
                                                 if (Rlight2.Crewmembers[3] == true)
                                                 {
                                                     Rlight2.Crewmembers[3] = false;// shows commmander swapping wiht driver
                                                 }
                                                 else
                                                 {
-                                                    Rlight2.Crewmembers[2] = false;// tank can no longer drive
+                                                    Rlight2.Crewmembers[0] = false;// tank can no longer drive
+                                                }
+                                            }
+                                            else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                            {
+                                                Rlight2.Crewmembers[2] = false;
+                                            }
+                                            else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                            {
+                                                if (Rlight2.Crewmembers[2] == true)
+                                                {
+                                                    Rlight2.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                }
+                                                else
+                                                {
+                                                    Rlight2.Crewmembers[1] = false;// tank can no longer drive
                                                 }
                                             }
                                             else if (chance > 75 && chance <= 100)// 25% chance to kill commander
                                             {
-                                                Rlight2.Crewmembers[4] = false;
+                                                Rlight2.Crewmembers[3] = false;
                                             }
                                         }
                                         else//means componets will be damged  
@@ -4242,19 +4238,19 @@ namespace NEA3
                                             chance = R.Next(0, 101);
                                             if (chance <= 25)//tank so small equal chance of hiting all compionets
                                             {
-                                                Rlight2.Components1[3] = false;
+                                                Rlight2.Components1[2] = false;
                                             }
                                             else if (chance > 25 && chance <= 50)
                                             {
-                                                Rlight2.Components1[1] = false;
+                                                Rlight2.Components1[0] = false;
                                             }
                                             else if (chance > 50 && chance <= 75)
                                             {
-                                                Rlight2.Components1[2] = false;
+                                                Rlight2.Components1[1] = false;
                                             }
                                             else if (chance > 75 && chance <= 100)
                                             {
-                                                Rlight2.Components1[4] = false;
+                                                Rlight2.Components1[3] = false;
                                             }
                                         }
                                     }
@@ -4274,33 +4270,33 @@ namespace NEA3
                                             chance = R.Next(0, 101);//chooseing which one will die
                                             if (chance <= 25)//25% to kill driver
                                             {
-                                                if (Rlight2.Crewmembers[4] == true)
-                                                {
-                                                    Rlight2.Crewmembers[4] = false;// shows commmander swapping wiht driver
-                                                }
-                                                else
-                                                {
-                                                    Rlight2.Crewmembers[1] = false;// tank can no longer drive
-                                                }
-                                            }
-                                            else if (chance > 25 && chance <= 50)//25% chance to kill loader
-                                            {
-                                                Rlight2.Crewmembers[3] = false;
-                                            }
-                                            else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
-                                            {
                                                 if (Rlight2.Crewmembers[3] == true)
                                                 {
                                                     Rlight2.Crewmembers[3] = false;// shows commmander swapping wiht driver
                                                 }
                                                 else
                                                 {
-                                                    Rlight2.Crewmembers[2] = false;// tank can no longer drive
+                                                    Rlight2.Crewmembers[0] = false;// tank can no longer drive
+                                                }
+                                            }
+                                            else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                            {
+                                                Rlight2.Crewmembers[2] = false;
+                                            }
+                                            else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                            {
+                                                if (Rlight2.Crewmembers[2] == true)
+                                                {
+                                                    Rlight2.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                }
+                                                else
+                                                {
+                                                    Rlight2.Crewmembers[1] = false;// tank can no longer drive
                                                 }
                                             }
                                             else if (chance > 75 && chance <= 100)// 25% chance to kill commander
                                             {
-                                                Rlight2.Crewmembers[4] = false;
+                                                Rlight2.Crewmembers[3] = false;
                                             }
                                         }
                                         else//means componets will be damged 
@@ -4308,19 +4304,19 @@ namespace NEA3
                                             chance = R.Next(0, 101);
                                             if (chance <= 31)
                                             {
-                                                Rlight2.Components1[3] = false;
+                                                Rlight2.Components1[2] = false;
                                             }
                                             else if (chance > 25 && chance <= 50)
                                             {
-                                                Rlight2.Components1[1] = false;
+                                                Rlight2.Components1[0] = false;
                                             }
                                             else if (chance > 50 && chance <= 75)
                                             {
-                                                Rlight2.Components1[2] = false;
+                                                Rlight2.Components1[1] = false;
                                             }
                                             else if (chance > 75 && chance <= 100)
                                             {
-                                                Rlight2.Components1[4] = false;
+                                                Rlight2.Components1[3] = false;
                                             }
                                         }
                                     }
@@ -4337,7 +4333,7 @@ namespace NEA3
                         if (Rheavy._inrange == true)
                         {
                             Blight2._havefired = true;
-                            if ((Blight2._direction == tank.Direction.right && Rheavy._direction == tank.Direction.left) || (Blight2._direction == tank.Direction.up && Rheavy._direction == tank.Direction.down) || (Blight2._direction == tank.Direction.right && Rheavy._direction == tank.Direction.left) || (Blight2._direction == tank.Direction.down && Rheavy._direction == tank.Direction.up) || (Blight2._direction == tank.Direction.right && Rmed._direction == tank.Direction.up) || (Blight2._direction == tank.Direction.right && Rmed._direction == tank.Direction.down) || (Blight2._direction == tank.Direction.left && Rmed._direction == tank.Direction.up) || (Blight2._direction == tank.Direction.left && Rmed._direction == tank.Direction.down) || (Blight2._direction == tank.Direction.up && Rmed._direction == tank.Direction.left) || (Blight2._direction == tank.Direction.up && Rmed._direction == tank.Direction.right) || (Blight2._direction == tank.Direction.down && Rmed._direction == tank.Direction.left) || (Blight2._direction == tank.Direction.down && Rmed._direction == tank.Direction.right))
+                            if ((Blight2._direction == tank.Direction.right && Rheavy._direction == tank.Direction.left) || (Blight2._direction == tank.Direction.up && Rheavy._direction == tank.Direction.down) || (Blight2._direction == tank.Direction.right && Rheavy._direction == tank.Direction.left) || (Blight2._direction == tank.Direction.down && Rheavy._direction == tank.Direction.up) || (Blight2._direction == tank.Direction.right && Rheavy._direction == tank.Direction.up) || (Blight2._direction == tank.Direction.right && Rheavy._direction == tank.Direction.down) || (Blight2._direction == tank.Direction.left && Rheavy._direction == tank.Direction.up) || (Blight2._direction == tank.Direction.left && Rheavy._direction == tank.Direction.down) || (Blight2._direction == tank.Direction.up && Rheavy._direction == tank.Direction.left) || (Blight2._direction == tank.Direction.up && Rheavy._direction == tank.Direction.right) || (Blight2._direction == tank.Direction.down && Rheavy._direction == tank.Direction.left) || (Blight2._direction == tank.Direction.down && Rheavy._direction == tank.Direction.right))
                             {
                                 chance = R.Next(0, 101);
                                 if (chance >= 60)//60% chance to hit
@@ -4351,33 +4347,33 @@ namespace NEA3
                                             chance = R.Next(0, 101);//chooseing which one will die
                                             if (chance <= 25)//25% to kill driver
                                             {
-                                                if (Rheavy.Crewmembers[4] == true)
-                                                {
-                                                    Rheavy.Crewmembers[4] = false;// shows commmander swapping wiht driver
-                                                }
-                                                else
-                                                {
-                                                    Rheavy.Crewmembers[1] = false;// tank can no longer drive
-                                                }
-                                            }
-                                            else if (chance > 25 && chance <= 50)//25% chance to kill loader
-                                            {
-                                                Rheavy.Crewmembers[3] = false;
-                                            }
-                                            else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
-                                            {
                                                 if (Rheavy.Crewmembers[3] == true)
                                                 {
                                                     Rheavy.Crewmembers[3] = false;// shows commmander swapping wiht driver
                                                 }
                                                 else
                                                 {
-                                                    Rheavy.Crewmembers[2] = false;// tank can no longer drive
+                                                    Rheavy.Crewmembers[0] = false;// tank can no longer drive
+                                                }
+                                            }
+                                            else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                            {
+                                                Rheavy.Crewmembers[2] = false;
+                                            }
+                                            else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                            {
+                                                if (Rheavy.Crewmembers[2] == true)
+                                                {
+                                                    Rheavy.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                }
+                                                else
+                                                {
+                                                    Rheavy.Crewmembers[1] = false;// tank can no longer drive
                                                 }
                                             }
                                             else if (chance > 75 && chance <= 100)// 25% chance to kill commander
                                             {
-                                                Rheavy.Crewmembers[4] = false;
+                                                Rheavy.Crewmembers[3] = false;
                                             }
                                         }
                                         else//means componets will be damged 
@@ -4385,19 +4381,19 @@ namespace NEA3
                                             chance = R.Next(0, 101);
                                             if (chance <= 25)
                                             {
-                                                Rheavy.Components1[3] = false;
+                                                Rheavy.Components1[2] = false;
                                             }
                                             else if (chance > 25 && chance <= 50)
                                             {
-                                                Rheavy.Components1[1] = false;
+                                                Rheavy.Components1[0] = false;
                                             }
                                             else if (chance > 50 && chance <= 75)
                                             {
-                                                Rheavy.Components1[2] = false;
+                                                Rheavy.Components1[1] = false;
                                             }
                                             else if (chance > 75 && chance <= 100)
                                             {
-                                                Rheavy.Components1[4] = false;
+                                                Rheavy.Components1[3] = false;
                                             }
                                         }
                                     }
@@ -4419,33 +4415,33 @@ namespace NEA3
                                             chance = R.Next(0, 101);//chooseing which one will die
                                             if (chance <= 25)//25% to kill driver
                                             {
-                                                if (Rheavy.Crewmembers[4] == true)
-                                                {
-                                                    Rheavy.Crewmembers[4] = false;// shows commmander swapping wiht driver
-                                                }
-                                                else
-                                                {
-                                                    Rheavy.Crewmembers[1] = false;// tank can no longer drive
-                                                }
-                                            }
-                                            else if (chance > 25 && chance <= 50)//25% chance to kill loader
-                                            {
-                                                Rheavy.Crewmembers[3] = false;
-                                            }
-                                            else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
-                                            {
                                                 if (Rheavy.Crewmembers[3] == true)
                                                 {
                                                     Rheavy.Crewmembers[3] = false;// shows commmander swapping wiht driver
                                                 }
                                                 else
                                                 {
-                                                    Rheavy.Crewmembers[2] = false;// tank can no longer drive
+                                                    Rheavy.Crewmembers[0] = false;// tank can no longer drive
+                                                }
+                                            }
+                                            else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                            {
+                                                Rheavy.Crewmembers[2] = false;
+                                            }
+                                            else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                            {
+                                                if (Rheavy.Crewmembers[2] == true)
+                                                {
+                                                    Rheavy.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                }
+                                                else
+                                                {
+                                                    Rheavy.Crewmembers[1] = false;// tank can no longer drive
                                                 }
                                             }
                                             else if (chance > 75 && chance <= 100)// 25% chance to kill commander
                                             {
-                                                Rheavy.Crewmembers[4] = false;
+                                                Rheavy.Crewmembers[3] = false;
                                             }
                                         }
                                         else//means componets will be damged 
@@ -4494,33 +4490,33 @@ namespace NEA3
                                             chance = R.Next(0, 101);//chooseing which one will die
                                             if (chance <= 25)//25% to kill driver
                                             {
-                                                if (Rmed.Crewmembers[4] == true)
-                                                {
-                                                    Rmed.Crewmembers[4] = false;// shows commmander swapping wiht driver
-                                                }
-                                                else
-                                                {
-                                                    Rmed.Crewmembers[1] = false;// tank can no longer drive
-                                                }
-                                            }
-                                            else if (chance > 25 && chance <= 50)//25% chance to kill loader
-                                            {
-                                                Rmed.Crewmembers[3] = false;
-                                            }
-                                            else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
-                                            {
                                                 if (Rmed.Crewmembers[3] == true)
                                                 {
                                                     Rmed.Crewmembers[3] = false;// shows commmander swapping wiht driver
                                                 }
                                                 else
                                                 {
-                                                    Rmed.Crewmembers[2] = false;// tank can no longer drive
+                                                    Rmed.Crewmembers[0] = false;// tank can no longer drive
+                                                }
+                                            }
+                                            else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                            {
+                                                Rmed.Crewmembers[2] = false;
+                                            }
+                                            else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                            {
+                                                if (Rmed.Crewmembers[2] == true)
+                                                {
+                                                    Rmed.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                }
+                                                else
+                                                {
+                                                    Rmed.Crewmembers[1] = false;// tank can no longer drive
                                                 }
                                             }
                                             else if (chance > 75 && chance <= 100)// 25% chance to kill commander
                                             {
-                                                Rmed.Crewmembers[4] = false;
+                                                Rmed.Crewmembers[3] = false;
                                             }
                                         }
                                         else//means componets will be damged 
@@ -4528,19 +4524,19 @@ namespace NEA3
                                             chance = R.Next(0, 101);
                                             if (chance <= 31)
                                             {
-                                                Rmed.Components1[3] = false;
+                                                Rmed.Components1[2] = false;
                                             }
                                             else if (chance > 31 && chance <= 54)
                                             {
-                                                Rmed.Components1[1] = false;
+                                                Rmed.Components1[0] = false;
                                             }
                                             else if (chance > 54 && chance <= 77)
                                             {
-                                                Rmed.Components1[2] = false;
+                                                Rmed.Components1[1] = false;
                                             }
                                             else if (chance > 77 && chance <= 100)
                                             {
-                                                Rmed.Components1[4] = false;
+                                                Rmed.Components1[3] = false;
                                             }
                                         }
                                     }
@@ -4561,33 +4557,33 @@ namespace NEA3
                                             chance = R.Next(0, 101);//chooseing which one will die
                                             if (chance <= 25)//25% to kill driver
                                             {
-                                                if (Rmed.Crewmembers[4] == true)
-                                                {
-                                                    Rmed.Crewmembers[4] = false;// shows commmander swapping wiht driver
-                                                }
-                                                else
-                                                {
-                                                    Rmed.Crewmembers[1] = false;// tank can no longer drive
-                                                }
-                                            }
-                                            else if (chance > 25 && chance <= 50)//25% chance to kill loader
-                                            {
-                                                Rmed.Crewmembers[3] = false;
-                                            }
-                                            else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
-                                            {
                                                 if (Rmed.Crewmembers[3] == true)
                                                 {
                                                     Rmed.Crewmembers[3] = false;// shows commmander swapping wiht driver
                                                 }
                                                 else
                                                 {
-                                                    Rmed.Crewmembers[2] = false;// tank can no longer drive
+                                                    Rmed.Crewmembers[0] = false;// tank can no longer drive
+                                                }
+                                            }
+                                            else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                            {
+                                                Rmed.Crewmembers[2] = false;
+                                            }
+                                            else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                            {
+                                                if (Rmed.Crewmembers[2] == true)
+                                                {
+                                                    Rmed.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                }
+                                                else
+                                                {
+                                                    Rmed.Crewmembers[1] = false;// tank can no longer drive
                                                 }
                                             }
                                             else if (chance > 75 && chance <= 100)// 25% chance to kill commander
                                             {
-                                                Rmed.Crewmembers[4] = false;
+                                                Rmed.Crewmembers[3] = false;
                                             }
                                         }
                                         else//means componets will be damged 
@@ -4595,19 +4591,19 @@ namespace NEA3
                                             chance = R.Next(0, 101);//chooseing which one will die
                                             if (chance <= 25)
                                             {
-                                                Rmed.Components1[2] = false;
+                                                Rmed.Components1[1] = false;
                                             }
                                             else if (chance > 25 && chance <= 50)
                                             {
-                                                Rmed.Components1[4] = false;
+                                                Rmed.Components1[3] = false;
                                             }
                                             else if (chance > 50 && chance <= 75)
                                             {
-                                                Rmed.Components1[3] = false;
+                                                Rmed.Components1[2] = false;
                                             }
                                             else if (chance > 75 && chance <= 100)
                                             {
-                                                Rmed.Components1[1] = false;
+                                                Rmed.Components1[0] = false;
                                             }
                                         }
                                     }
@@ -4635,33 +4631,33 @@ namespace NEA3
                                             chance = R.Next(0, 101);//chooseing which one will die
                                             if (chance <= 25)//25% to kill driver
                                             {
-                                                if (Rmed2.Crewmembers[4] == true)
-                                                {
-                                                    Rmed2.Crewmembers[4] = false;// shows commmander swapping wiht driver
-                                                }
-                                                else
-                                                {
-                                                    Rmed2.Crewmembers[1] = false;// tank can no longer drive
-                                                }
-                                            }
-                                            else if (chance > 25 && chance <= 50)//25% chance to kill loader
-                                            {
-                                                Rmed2.Crewmembers[3] = false;
-                                            }
-                                            else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
-                                            {
                                                 if (Rmed2.Crewmembers[3] == true)
                                                 {
                                                     Rmed2.Crewmembers[3] = false;// shows commmander swapping wiht driver
                                                 }
                                                 else
                                                 {
-                                                    Rmed2.Crewmembers[2] = false;// tank can no longer drive
+                                                    Rmed2.Crewmembers[0] = false;// tank can no longer drive
+                                                }
+                                            }
+                                            else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                            {
+                                                Rmed2.Crewmembers[2] = false;
+                                            }
+                                            else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                            {
+                                                if (Rmed2.Crewmembers[2] == true)
+                                                {
+                                                    Rmed2.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                }
+                                                else
+                                                {
+                                                    Rmed2.Crewmembers[1] = false;// tank can no longer drive
                                                 }
                                             }
                                             else if (chance > 75 && chance <= 100)// 25% chance to kill commander
                                             {
-                                                Rmed2.Crewmembers[4] = false;
+                                                Rmed2.Crewmembers[3] = false;
                                             }
                                         }
                                         else//means componets will be damged 
@@ -4669,19 +4665,19 @@ namespace NEA3
                                             chance = R.Next(0, 101);
                                             if (chance <= 31)
                                             {
-                                                Rmed2.Components1[3] = false;
+                                                Rmed2.Components1[2] = false;
                                             }
                                             else if (chance > 31 && chance <= 54)
                                             {
-                                                Rmed2.Components1[1] = false;
+                                                Rmed2.Components1[0] = false;
                                             }
                                             else if (chance > 54 && chance <= 77)
                                             {
-                                                Rmed2.Components1[2] = false;
+                                                Rmed2.Components1[1] = false;
                                             }
                                             else if (chance > 77 && chance <= 100)
                                             {
-                                                Rmed2.Components1[4] = false;
+                                                Rmed2.Components1[3] = false;
                                             }
                                         }
                                     }
@@ -4702,33 +4698,33 @@ namespace NEA3
                                             chance = R.Next(0, 101);//chooseing which one will die
                                             if (chance <= 25)//25% to kill driver
                                             {
-                                                if (Rmed2.Crewmembers[4] == true)
-                                                {
-                                                    Rmed2.Crewmembers[4] = false;// shows commmander swapping wiht driver
-                                                }
-                                                else
-                                                {
-                                                    Rmed2.Crewmembers[1] = false;// tank can no longer drive
-                                                }
-                                            }
-                                            else if (chance > 25 && chance <= 50)//25% chance to kill loader
-                                            {
-                                                Rmed2.Crewmembers[3] = false;
-                                            }
-                                            else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
-                                            {
                                                 if (Rmed2.Crewmembers[3] == true)
                                                 {
                                                     Rmed2.Crewmembers[3] = false;// shows commmander swapping wiht driver
                                                 }
                                                 else
                                                 {
-                                                    Rmed2.Crewmembers[2] = false;// tank can no longer drive
+                                                    Rmed2.Crewmembers[0] = false;// tank can no longer drive
+                                                }
+                                            }
+                                            else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                            {
+                                                Rmed2.Crewmembers[2] = false;
+                                            }
+                                            else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                            {
+                                                if (Rmed2.Crewmembers[2] == true)
+                                                {
+                                                    Rmed2.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                }
+                                                else
+                                                {
+                                                    Rmed2.Crewmembers[1] = false;// tank can no longer drive
                                                 }
                                             }
                                             else if (chance > 75 && chance <= 100)// 25% chance to kill commander
                                             {
-                                                Rmed2.Crewmembers[4] = false;
+                                                Rmed2.Crewmembers[3] = false;
                                             }
                                         }
                                         else//means componets will be damged 
@@ -4736,19 +4732,19 @@ namespace NEA3
                                             chance = R.Next(0, 101);//chooseing which one will die
                                             if (chance <= 25)
                                             {
-                                                Rmed2.Components1[2] = false;
+                                                Rmed2.Components1[1] = false;
                                             }
                                             else if (chance > 25 && chance <= 50)
                                             {
-                                                Rmed2.Components1[4] = false;
+                                                Rmed2.Components1[3] = false;
                                             }
                                             else if (chance > 50 && chance <= 75)
                                             {
-                                                Rmed2.Components1[3] = false;
+                                                Rmed2.Components1[2] = false;
                                             }
                                             else if (chance > 75 && chance <= 100)
                                             {
-                                                Rmed2.Components1[1] = false;
+                                                Rmed2.Components1[0] = false;
                                             }
                                         }
                                     }
@@ -4762,7 +4758,7 @@ namespace NEA3
 
                         if (Rlight2._inrange == true)
                         {
-                            Bmed2._havefired = true;
+                            Blight2._havefired = true;
                             if ((Blight2._direction == tank.Direction.right && Rlight2._direction == tank.Direction.right) || (Blight2._direction == tank.Direction.left && Rlight2._direction == tank.Direction.left) || (Blight2._direction == tank.Direction.up && Rlight2._direction == tank.Direction.up) || (Blight2._direction == tank.Direction.down && Rlight2._direction == tank.Direction.down))
                             {
                                 chance = R.Next(0, 101);
@@ -4777,33 +4773,33 @@ namespace NEA3
                                             chance = R.Next(0, 101);//chooseing which one will die
                                             if (chance <= 25)//25% to kill driver
                                             {
-                                                if (Rlight2.Crewmembers[4] == true)
-                                                {
-                                                    Rlight2.Crewmembers[4] = false;// shows commmander swapping wiht driver
-                                                }
-                                                else
-                                                {
-                                                    Rlight2.Crewmembers[1] = false;// tank can no longer drive
-                                                }
-                                            }
-                                            else if (chance > 25 && chance <= 50)//25% chance to kill loader
-                                            {
-                                                Rlight2.Crewmembers[3] = false;
-                                            }
-                                            else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
-                                            {
                                                 if (Rlight2.Crewmembers[3] == true)
                                                 {
                                                     Rlight2.Crewmembers[3] = false;// shows commmander swapping wiht driver
                                                 }
                                                 else
                                                 {
-                                                    Rlight2.Crewmembers[2] = false;// tank can no longer drive
+                                                    Rlight2.Crewmembers[0] = false;// tank can no longer drive
+                                                }
+                                            }
+                                            else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                            {
+                                                Rlight2.Crewmembers[2] = false;
+                                            }
+                                            else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                            {
+                                                if (Rlight2.Crewmembers[2] == true)
+                                                {
+                                                    Rlight2.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                }
+                                                else
+                                                {
+                                                    Rlight2.Crewmembers[1] = false;// tank can no longer drive
                                                 }
                                             }
                                             else if (chance > 75 && chance <= 100)// 25% chance to kill commander
                                             {
-                                                Rlight2.Crewmembers[4] = false;
+                                                Rlight2.Crewmembers[3] = false;
                                             }
                                         }
                                         else//means componets will be damged  
@@ -4811,19 +4807,19 @@ namespace NEA3
                                             chance = R.Next(0, 101);
                                             if (chance <= 49)//tank so small equal chance of hiting all compionets
                                             {
-                                                Rlight2.Components1[3] = false;
+                                                Rlight2.Components1[2] = false;
                                             }
                                             else if (chance > 49 && chance <= 66)
                                             {
-                                                Rlight2.Components1[1] = false;
+                                                Rlight2.Components1[0] = false;
                                             }
                                             else if (chance > 66 && chance <= 83)
                                             {
-                                                Rlight2.Components1[2] = false;
+                                                Rlight2.Components1[1] = false;
                                             }
                                             else if (chance > 83 && chance <= 100)
                                             {
-                                                Rlight2.Components1[4] = false;
+                                                Rlight2.Components1[3] = false;
                                             }
                                         }
                                     }
@@ -4843,33 +4839,33 @@ namespace NEA3
                                             chance = R.Next(0, 101);//chooseing which one will die
                                             if (chance <= 25)//25% to kill driver
                                             {
-                                                if (Rlight2.Crewmembers[4] == true)
-                                                {
-                                                    Rlight2.Crewmembers[4] = false;// shows commmander swapping wiht driver
-                                                }
-                                                else
-                                                {
-                                                    Rlight2.Crewmembers[1] = false;// tank can no longer drive
-                                                }
-                                            }
-                                            else if (chance > 25 && chance <= 50)//25% chance to kill loader
-                                            {
-                                                Rlight2.Crewmembers[3] = false;
-                                            }
-                                            else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
-                                            {
                                                 if (Rlight2.Crewmembers[3] == true)
                                                 {
                                                     Rlight2.Crewmembers[3] = false;// shows commmander swapping wiht driver
                                                 }
                                                 else
                                                 {
-                                                    Rlight2.Crewmembers[2] = false;// tank can no longer drive
+                                                    Rlight2.Crewmembers[0] = false;// tank can no longer drive
+                                                }
+                                            }
+                                            else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                            {
+                                                Rlight2.Crewmembers[2] = false;
+                                            }
+                                            else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                            {
+                                                if (Rlight2.Crewmembers[2] == true)
+                                                {
+                                                    Rlight2.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                }
+                                                else
+                                                {
+                                                    Rlight2.Crewmembers[1] = false;// tank can no longer drive
                                                 }
                                             }
                                             else if (chance > 75 && chance <= 100)// 25% chance to kill commander
                                             {
-                                                Rlight2.Crewmembers[4] = false;
+                                                Rlight2.Crewmembers[3] = false;
                                             }
                                         }
                                         else//means componets will be damged  
@@ -4877,19 +4873,19 @@ namespace NEA3
                                             chance = R.Next(0, 101);
                                             if (chance <= 25)//tank so small equal chance of hiting all compionets
                                             {
-                                                Rlight2.Components1[3] = false;
+                                                Rlight2.Components1[2] = false;
                                             }
                                             else if (chance > 25 && chance <= 50)
                                             {
-                                                Rlight2.Components1[1] = false;
+                                                Rlight2.Components1[0] = false;
                                             }
                                             else if (chance > 50 && chance <= 75)
                                             {
-                                                Rlight2.Components1[2] = false;
+                                                Rlight2.Components1[1] = false;
                                             }
                                             else if (chance > 75 && chance <= 100)
                                             {
-                                                Rlight2.Components1[4] = false;
+                                                Rlight2.Components1[3] = false;
                                             }
                                         }
                                     }
@@ -4928,33 +4924,33 @@ namespace NEA3
                                                 chance = R.Next(0, 101);//chooseing which one will die
                                                 if (chance <= 25)//25% to kill driver
                                                 {
-                                                    if (Bheavy.Crewmembers[4] == true)
-                                                    {
-                                                        Bheavy.Crewmembers[4] = false;// shows commmander swapping wiht driver
-                                                    }
-                                                    else
-                                                    {
-                                                        Bheavy.Crewmembers[1] = false;// tank can no longer drive
-                                                    }
-                                                }
-                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
-                                                {
-                                                    Bheavy.Crewmembers[3] = false;
-                                                }
-                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
-                                                {
                                                     if (Bheavy.Crewmembers[3] == true)
                                                     {
                                                         Bheavy.Crewmembers[3] = false;// shows commmander swapping wiht driver
                                                     }
                                                     else
                                                     {
-                                                        Bheavy.Crewmembers[2] = false;// tank can no longer drive
+                                                        Bheavy.Crewmembers[0] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                                {
+                                                    Bheavy.Crewmembers[2] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                                {
+                                                    if (Bheavy.Crewmembers[2] == true)
+                                                    {
+                                                        Bheavy.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bheavy.Crewmembers[1] = false;// tank can no longer drive
                                                     }
                                                 }
                                                 else if (chance > 75 && chance <= 100)// 25% chance to kill commander
                                                 {
-                                                    Bheavy.Crewmembers[4] = false;
+                                                    Bheavy.Crewmembers[3] = false;
                                                 }
                                             }
                                             else//means componets will be damged 
@@ -4962,19 +4958,19 @@ namespace NEA3
                                                 chance = R.Next(0, 101);
                                                 if (chance <= 31)
                                                 {
-                                                    Bheavy.Components1[3] = false;
+                                                    Bheavy.Components1[2] = false;
                                                 }
                                                 else if (chance > 31 && chance <= 54)
                                                 {
-                                                    Bheavy.Components1[1] = false;
+                                                    Bheavy.Components1[0] = false;
                                                 }
                                                 else if (chance > 54 && chance <= 77)
                                                 {
-                                                    Bheavy.Components1[2] = false;
+                                                    Bheavy.Components1[1] = false;
                                                 }
                                                 else if (chance > 77 && chance <= 100)
                                                 {
-                                                    Bheavy.Components1[4] = false;
+                                                    Bheavy.Components1[3] = false;
                                                 }
                                             }
                                         }
@@ -4994,24 +4990,24 @@ namespace NEA3
                                                 chance = R.Next(0, 101);//chooseing which one will die
                                                 if (chance <= 25)//25% to kill driver
                                                 {
-                                                    if (Bheavy.Crewmembers[4] == true)
+                                                    if (Bheavy.Crewmembers[3] == true)
                                                     {
-                                                        Bheavy.Crewmembers[4] = false;// shows commmander swapping wiht driver
+                                                        Bheavy.Crewmembers[3] = false;// shows commmander swapping wiht driver
                                                     }
                                                     else
                                                     {
-                                                        Bheavy.Crewmembers[1] = false;// tank can no longer drive
+                                                        Bheavy.Crewmembers[0] = false;// tank can no longer drive
                                                     }
                                                 }
                                                 else if (chance > 25 && chance <= 50)//25% chance to kill loader
                                                 {
-                                                    Bheavy.Crewmembers[3] = false;
+                                                    Bheavy.Crewmembers[2] = false;
                                                 }
                                                 else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
                                                 {
-                                                    if (Bheavy.Crewmembers[3] == true)
+                                                    if (Bheavy.Crewmembers[2] == true)
                                                     {
-                                                        Bheavy.Crewmembers[3] = false;// shows commmander swapping wiht driver
+                                                        Bheavy.Crewmembers[2] = false;// shows commmander swapping wiht driver
                                                     }
                                                     else
                                                     {
@@ -5020,7 +5016,7 @@ namespace NEA3
                                                 }
                                                 else if (chance > 75 && chance <= 100)// 25% chance to kill commander
                                                 {
-                                                    Bheavy.Crewmembers[4] = false;
+                                                    Bheavy.Crewmembers[3] = false;
                                                 }
                                             }
                                             else//means componets will be damged 
@@ -5028,19 +5024,19 @@ namespace NEA3
                                                 chance = R.Next(0, 101);
                                                 if (chance <= 31)
                                                 {
-                                                    Bheavy.Components1[3] = false;
+                                                    Bheavy.Components1[2] = false;
                                                 }
                                                 else if (chance > 31 && chance <= 54)
                                                 {
-                                                    Bheavy.Components1[1] = false;
+                                                    Bheavy.Components1[0] = false;
                                                 }
                                                 else if (chance > 54 && chance <= 77)
                                                 {
-                                                    Bheavy.Components1[2] = false;
+                                                    Bheavy.Components1[1] = false;
                                                 }
                                                 else if (chance > 77 && chance <= 100)
                                                 {
-                                                    Bheavy.Components1[4] = false;
+                                                    Bheavy.Components1[3] = false;
                                                 }
                                             }
                                         }
@@ -5063,33 +5059,33 @@ namespace NEA3
                                                 chance = R.Next(0, 101);//chooseing which one will die
                                                 if (chance <= 25)//25% to kill driver
                                                 {
-                                                    if (Bheavy.Crewmembers[4] == true)
-                                                    {
-                                                        Bheavy.Crewmembers[4] = false;// shows commmander swapping wiht driver
-                                                    }
-                                                    else
-                                                    {
-                                                        Bheavy.Crewmembers[1] = false;// tank can no longer drive
-                                                    }
-                                                }
-                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
-                                                {
-                                                    Bheavy.Crewmembers[3] = false;
-                                                }
-                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
-                                                {
                                                     if (Bheavy.Crewmembers[3] == true)
                                                     {
                                                         Bheavy.Crewmembers[3] = false;// shows commmander swapping wiht driver
                                                     }
                                                     else
                                                     {
-                                                        Bheavy.Crewmembers[2] = false;// tank can no longer drive
+                                                        Bheavy.Crewmembers[0] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                                {
+                                                    Bheavy.Crewmembers[2] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                                {
+                                                    if (Bheavy.Crewmembers[2] == true)
+                                                    {
+                                                        Bheavy.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bheavy.Crewmembers[1] = false;// tank can no longer drive
                                                     }
                                                 }
                                                 else if (chance > 75 && chance <= 100)// 25% chance to kill commander
                                                 {
-                                                    Bheavy.Crewmembers[4] = false;
+                                                    Bheavy.Crewmembers[3] = false;
                                                 }
                                             }
                                             else//means componets will be damged 
@@ -5097,19 +5093,19 @@ namespace NEA3
                                                 chance = R.Next(0, 101);//chooseing which one will die
                                                 if (chance <= 49)
                                                 {
-                                                    Bheavy.Components1[1] = false;
+                                                    Bheavy.Components1[0] = false;
                                                 }
                                                 else if (chance > 49 && chance <= 66)
                                                 {
-                                                    Bheavy.Components1[2] = false;
+                                                    Bheavy.Components1[1] = false;
                                                 }
                                                 else if (chance > 66 && chance <= 83)
                                                 {
-                                                    Bheavy.Components1[3] = false;
+                                                    Bheavy.Components1[2] = false;
                                                 }
                                                 else if (chance > 83 && chance <= 100)
                                                 {
-                                                    Bheavy.Components1[4] = false;
+                                                    Bheavy.Components1[3] = false;
                                                 }
                                             }
                                         }
@@ -5129,33 +5125,33 @@ namespace NEA3
                                                 chance = R.Next(0, 101);//chooseing which one will die
                                                 if (chance <= 25)//25% to kill driver
                                                 {
-                                                    if (Bheavy.Crewmembers[4] == true)
-                                                    {
-                                                        Bheavy.Crewmembers[4] = false;// shows commmander swapping wiht driver
-                                                    }
-                                                    else
-                                                    {
-                                                        Bheavy.Crewmembers[1] = false;// tank can no longer drive
-                                                    }
-                                                }
-                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
-                                                {
-                                                    Bheavy.Crewmembers[3] = false;
-                                                }
-                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
-                                                {
                                                     if (Bheavy.Crewmembers[3] == true)
                                                     {
                                                         Bheavy.Crewmembers[3] = false;// shows commmander swapping wiht driver
                                                     }
                                                     else
                                                     {
-                                                        Bheavy.Crewmembers[2] = false;// tank can no longer drive
+                                                        Bheavy.Crewmembers[0] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                                {
+                                                    Bheavy.Crewmembers[2] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                                {
+                                                    if (Bheavy.Crewmembers[2] == true)
+                                                    {
+                                                        Bheavy.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bheavy.Crewmembers[1] = false;// tank can no longer drive
                                                     }
                                                 }
                                                 else if (chance > 75 && chance <= 100)// 25% chance to kill commander
                                                 {
-                                                    Bheavy.Crewmembers[4] = false;
+                                                    Bheavy.Crewmembers[3] = false;
                                                 }
                                             }
                                             else//means componets will be damged 
@@ -5163,19 +5159,19 @@ namespace NEA3
                                                 chance = R.Next(0, 101);//chooseing which one will die
                                                 if (chance <= 49)
                                                 {
-                                                    Bheavy.Components1[1] = false;
+                                                    Bheavy.Components1[0] = false;
                                                 }
                                                 else if (chance > 49 && chance <= 66)
                                                 {
-                                                    Bheavy.Components1[2] = false;
+                                                    Bheavy.Components1[1] = false;
                                                 }
                                                 else if (chance > 66 && chance <= 83)
                                                 {
-                                                    Bheavy.Components1[3] = false;
+                                                    Bheavy.Components1[2] = false;
                                                 }
                                                 else if (chance > 83 && chance <= 100)
                                                 {
-                                                    Bheavy.Components1[4] = false;
+                                                    Bheavy.Components1[3] = false;
                                                 }
                                             }
                                         }
@@ -5198,33 +5194,33 @@ namespace NEA3
                                                 chance = R.Next(0, 101);//chooseing which one will die
                                                 if (chance <= 25)//25% to kill driver
                                                 {
-                                                    if (Bheavy.Crewmembers[4] == true)
-                                                    {
-                                                        Bheavy.Crewmembers[4] = false;// shows commmander swapping wiht driver
-                                                    }
-                                                    else
-                                                    {
-                                                        Bheavy.Crewmembers[1] = false;// tank can no longer drive
-                                                    }
-                                                }
-                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
-                                                {
-                                                    Bheavy.Crewmembers[3] = false;
-                                                }
-                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
-                                                {
                                                     if (Bheavy.Crewmembers[3] == true)
                                                     {
                                                         Bheavy.Crewmembers[3] = false;// shows commmander swapping wiht driver
                                                     }
                                                     else
                                                     {
-                                                        Bheavy.Crewmembers[2] = false;// tank can no longer drive
+                                                        Bheavy.Crewmembers[0] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                                {
+                                                    Bheavy.Crewmembers[2] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                                {
+                                                    if (Bheavy.Crewmembers[2] == true)
+                                                    {
+                                                        Bheavy.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bheavy.Crewmembers[1] = false;// tank can no longer drive
                                                     }
                                                 }
                                                 else if (chance > 75 && chance <= 100)// 25% chance to kill commander
                                                 {
-                                                    Bheavy.Crewmembers[4] = false;
+                                                    Bheavy.Crewmembers[3] = false;
                                                 }
                                             }
                                             else//means componets will be damged 
@@ -5232,19 +5228,19 @@ namespace NEA3
                                                 chance = R.Next(0, 101);//chooseing which one will die
                                                 if (chance <= 30)
                                                 {
-                                                    Bheavy.Components1[2] = false;
+                                                    Bheavy.Components1[1] = false;
                                                 }
                                                 else if (chance > 30 && chance <= 60)
                                                 {
-                                                    Bheavy.Components1[4] = false;
+                                                    Bheavy.Components1[3] = false;
                                                 }
                                                 else if (chance > 60 && chance <= 80)
                                                 {
-                                                    Bheavy.Components1[3] = false;
+                                                    Bheavy.Components1[2] = false;
                                                 }
                                                 else if (chance > 80 && chance <= 100)
                                                 {
-                                                    Bheavy.Components1[1] = false;
+                                                    Bheavy.Components1[0] = false;
                                                 }
                                             }
                                         }
@@ -5264,13 +5260,13 @@ namespace NEA3
                                                 chance = R.Next(0, 101);//chooseing which one will die
                                                 if (chance <= 25)//25% to kill driver
                                                 {
-                                                    if (Bheavy.Crewmembers[4] == true)
+                                                    if (Bheavy.Crewmembers[3] == true)
                                                     {
-                                                        Bheavy.Crewmembers[4] = false;// shows commmander swapping wiht driver
+                                                        Bheavy.Crewmembers[3] = false;// shows commmander swapping wiht driver
                                                     }
                                                     else
                                                     {
-                                                        Bheavy.Crewmembers[1] = false;// tank can no longer drive
+                                                        Bheavy.Crewmembers[0] = false;// tank can no longer drive
                                                     }
                                                 }
                                                 else if (chance > 25 && chance <= 50)//25% chance to kill loader
@@ -5279,18 +5275,18 @@ namespace NEA3
                                                 }
                                                 else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
                                                 {
-                                                    if (Bheavy.Crewmembers[3] == true)
+                                                    if (Bheavy.Crewmembers[2] == true)
                                                     {
-                                                        Bheavy.Crewmembers[3] = false;// shows commmander swapping wiht driver
+                                                        Bheavy.Crewmembers[2] = false;// shows commmander swapping wiht driver
                                                     }
                                                     else
                                                     {
-                                                        Bheavy.Crewmembers[2] = false;// tank can no longer drive
+                                                        Bheavy.Crewmembers[1] = false;// tank can no longer drive
                                                     }
                                                 }
                                                 else if (chance > 75 && chance <= 100)// 25% chance to kill commander
                                                 {
-                                                    Bheavy.Crewmembers[4] = false;
+                                                    Bheavy.Crewmembers[3] = false;
                                                 }
                                             }
                                             else//means componets will be damged 
@@ -5298,19 +5294,19 @@ namespace NEA3
                                                 chance = R.Next(0, 101);//chooseing which one will die
                                                 if (chance <= 31)
                                                 {
-                                                    Bheavy.Components1[3] = false;
+                                                    Bheavy.Components1[2] = false;
                                                 }
                                                 else if (chance > 31 && chance <= 54)
                                                 {
-                                                    Bheavy.Components1[1] = false;
+                                                    Bheavy.Components1[0] = false;
                                                 }
                                                 else if (chance > 54 && chance <= 77)
                                                 {
-                                                    Bheavy.Components1[2] = false;
+                                                    Bheavy.Components1[1] = false;
                                                 }
                                                 else if (chance > 77 && chance <= 100)
                                                 {
-                                                    Bheavy.Components1[4] = false;
+                                                    Bheavy.Components1[3] = false;
                                                 }
                                             }
                                         }
@@ -5337,7 +5333,7 @@ namespace NEA3
                                         {
                                             if (Bmed.Crewmembers[3] == true)
                                             {
-                                                Bmed.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                Bmed.Crewmembers[3] = false;// shows commmander swapping wiht driver
                                             }
                                             else
                                             {
@@ -5352,11 +5348,11 @@ namespace NEA3
                                         {
                                             if (Bmed.Crewmembers[2] == true)
                                             {
-                                                Bmed.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                Bmed.Crewmembers[2] = false;
                                             }
                                             else
                                             {
-                                                Bmed.Crewmembers[1] = false;// tank can no longer drive
+                                                Bmed.Crewmembers[1] = false;
                                             }
                                         }
                                         else if (chance > 75 && chance <= 100)// 25% chance to kill commander
@@ -5403,7 +5399,7 @@ namespace NEA3
                                         {
                                             if (Bmed.Crewmembers[3] == true)
                                             {
-                                                Bmed.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                Bmed.Crewmembers[3] = false;// shows commmander swapping wiht driver
                                             }
                                             else
                                             {
@@ -5472,7 +5468,7 @@ namespace NEA3
                                         {
                                             if (Bmed2.Crewmembers[3] == true)
                                             {
-                                                Bmed2.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                Bmed2.Crewmembers[3] = false;// shows commmander swapping wiht driver
                                             }
                                             else
                                             {
@@ -5538,7 +5534,7 @@ namespace NEA3
                                         {
                                             if (Bmed2.Crewmembers[3] == true)
                                             {
-                                                Bmed2.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                Bmed2.Crewmembers[3] = false;// shows commmander swapping wiht driver
                                             }
                                             else
                                             {
@@ -5608,33 +5604,33 @@ namespace NEA3
                                             chance = R.Next(0, 101);//chooseing which one will die
                                             if (chance <= 25)//25% to kill driver
                                             {
-                                                if (Blight2.Crewmembers[4] == true)
-                                                {
-                                                    Blight2.Crewmembers[4] = false;// shows commmander swapping wiht driver
-                                                }
-                                                else
-                                                {
-                                                    Blight2.Crewmembers[1] = false;// tank can no longer drive
-                                                }
-                                            }
-                                            else if (chance > 25 && chance <= 50)//25% chance to kill loader
-                                            {
-                                                Blight2.Crewmembers[3] = false;
-                                            }
-                                            else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
-                                            {
                                                 if (Blight2.Crewmembers[3] == true)
                                                 {
                                                     Blight2.Crewmembers[3] = false;// shows commmander swapping wiht driver
                                                 }
                                                 else
                                                 {
-                                                    Blight2.Crewmembers[2] = false;// tank can no longer drive
+                                                    Blight2.Crewmembers[0] = false;// tank can no longer drive
+                                                }
+                                            }
+                                            else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                            {
+                                                Blight2.Crewmembers[2] = false;
+                                            }
+                                            else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                            {
+                                                if (Blight2.Crewmembers[2] == true)
+                                                {
+                                                    Blight2.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                }
+                                                else
+                                                {
+                                                    Blight2.Crewmembers[1] = false;// tank can no longer drive
                                                 }
                                             }
                                             else if (chance > 75 && chance <= 100)// 25% chance to kill commander
                                             {
-                                                Blight2.Crewmembers[4] = false;
+                                                Blight2.Crewmembers[3] = false;
                                             }
                                         }
                                         else//means componets will be damged  
@@ -5642,19 +5638,19 @@ namespace NEA3
                                             chance = R.Next(0, 101);
                                             if (chance <= 25)//tank so small equal chance of hiting all compionets
                                             {
-                                                Blight2.Components1[3] = false;
+                                                Blight2.Components1[2] = false;
                                             }
                                             else if (chance > 25 && chance <= 50)
                                             {
-                                                Blight2.Components1[1] = false;
+                                                Blight2.Components1[0] = false;
                                             }
                                             else if (chance > 50 && chance <= 75)
                                             {
-                                                Blight2.Components1[2] = false;
+                                                Blight2.Components1[1] = false;
                                             }
                                             else if (chance > 75 && chance <= 100)
                                             {
-                                                Blight2.Components1[4] = false;
+                                                Blight2.Components1[3] = false;
                                             }
                                         }
                                     }
@@ -5674,13 +5670,13 @@ namespace NEA3
                                             chance = R.Next(0, 101);//chooseing which one will die
                                             if (chance <= 25)//25% to kill driver
                                             {
-                                                if (Blight2.Crewmembers[4] == true)
+                                                if (Blight2.Crewmembers[3] == true)
                                                 {
-                                                    Blight2.Crewmembers[4] = false;// shows commmander swapping wiht driver
+                                                    Blight2.Crewmembers[3] = false;// shows commmander swapping wiht driver
                                                 }
                                                 else
                                                 {
-                                                    Blight2.Crewmembers[1] = false;// tank can no longer drive
+                                                    Blight2.Crewmembers[0] = false;// tank can no longer drive
                                                 }
                                             }
                                             else if (chance > 25 && chance <= 50)//25% chance to kill loader
@@ -5689,13 +5685,13 @@ namespace NEA3
                                             }
                                             else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
                                             {
-                                                if (Blight2.Crewmembers[3] == true)
+                                                if (Blight2.Crewmembers[2] == true)
                                                 {
-                                                    Blight2.Crewmembers[3] = false;// shows commmander swapping wiht driver
+                                                    Blight2.Crewmembers[2] = false;// shows commmander swapping wiht driver
                                                 }
                                                 else
                                                 {
-                                                    Blight2.Crewmembers[2] = false;// tank can no longer drive
+                                                    Blight2.Crewmembers[1] = false;// tank can no longer drive
                                                 }
                                             }
                                             else if (chance > 75 && chance <= 100)// 25% chance to kill commander
@@ -5708,19 +5704,19 @@ namespace NEA3
                                             chance = R.Next(0, 101);
                                             if (chance <= 31)
                                             {
-                                                Blight2.Components1[3] = false;
+                                                Blight2.Components1[2] = false;
                                             }
                                             else if (chance > 25 && chance <= 50)
                                             {
-                                                Blight2.Components1[1] = false;
+                                                Blight2.Components1[0] = false;
                                             }
                                             else if (chance > 50 && chance <= 75)
                                             {
-                                                Blight2.Components1[2] = false;
+                                                Blight2.Components1[1] = false;
                                             }
                                             else if (chance > 75 && chance <= 100)
                                             {
-                                                Blight2.Components1[4] = false;
+                                                Blight2.Components1[3] = false;
                                             }
                                         }
                                     }
@@ -5729,6 +5725,2525 @@ namespace NEA3
                         }
                     }
                 }
+                else if (Rmed._selected == true && Rmed._havefired == false && Rmed.canshoot() == true)
+                {
+                    if (Bheavy.RBheavy.Contains(mouseState.Position))
+                    {
+                        if (Bheavy._inrange == true)
+                        {
+                            Rmed._havefired = true;
+                            if ((Rmed._direction == tank.Direction.right && Bheavy._direction == tank.Direction.left) || (Rmed._direction == tank.Direction.up && Bheavy._direction == tank.Direction.down) || (Rmed._direction == tank.Direction.right && Bheavy._direction == tank.Direction.left) || (Rmed._direction == tank.Direction.down && Bheavy._direction == tank.Direction.up) || (Rmed._direction == tank.Direction.right && Rmed._direction == tank.Direction.up) || (Rmed._direction == tank.Direction.right && Rmed._direction == tank.Direction.down) || (Rmed._direction == tank.Direction.left && Rmed._direction == tank.Direction.up) || (Rmed._direction == tank.Direction.left && Rmed._direction == tank.Direction.down) || (Rmed._direction == tank.Direction.up && Rmed._direction == tank.Direction.left) || (Rmed._direction == tank.Direction.up && Rmed._direction == tank.Direction.right) || (Rmed._direction == tank.Direction.down && Rmed._direction == tank.Direction.left) || (Rmed._direction == tank.Direction.down && Rmed._direction == tank.Direction.right))
+                            {
+                                if (Rmed.Movactpoints < 4)
+                                {
+                                    chance = R.Next(0, 101);
+                                    if (chance >= 60)//60% chance to hit
+                                    {
+                                        chance = R.Next(0, 101);
+                                        if (chance <= 60)//60% cahnce to pen
+                                        {
+                                            chance = R.Next(1, 3);
+                                            if (chance == 1)//means crew meber will be killed
+                                            {
+                                                chance = R.Next(0, 101);//chooseing which one will die
+                                                if (chance <= 25)//25% to kill driver
+                                                {
+                                                    if (Bheavy.Crewmembers[3] == true)
+                                                    {
+                                                        Bheavy.Crewmembers[3] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bheavy.Crewmembers[0] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                                {
+                                                    Bheavy.Crewmembers[2] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                                {
+                                                    if (Bheavy.Crewmembers[2] == true)
+                                                    {
+                                                        Bheavy.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bheavy.Crewmembers[1] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 75 && chance <= 100)// 25% chance to kill commander
+                                                {
+                                                    Bheavy.Crewmembers[3] = false;
+                                                }
+                                            }
+                                            else//means componets will be damged 
+                                            {
+                                                chance = R.Next(0, 101);
+                                                if (chance <= 25)
+                                                {
+                                                    Bheavy.Components1[2] = false;
+                                                }
+                                                else if (chance > 25 && chance <= 50)
+                                                {
+                                                    Bheavy.Components1[0] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)
+                                                {
+                                                    Bheavy.Components1[1] = false;
+                                                }
+                                                else if (chance > 75 && chance <= 100)
+                                                {
+                                                    Bheavy.Components1[3] = false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    chance = R.Next(0, 101);
+                                    if (chance <= 70)//85% to hit
+                                    {
+                                        chance = R.Next(0, 101);
+                                        if (chance <= 60)//60% cahnce to pen
+                                        {
+                                            chance = R.Next(1, 3);
+                                            if (chance == 1)//means crew meber will be killed
+                                            {
+                                                chance = R.Next(0, 101);//chooseing which one will die
+                                                if (chance <= 25)//25% to kill driver
+                                                {
+                                                    if (Bheavy.Crewmembers[4] == true)
+                                                    {
+                                                        Bheavy.Crewmembers[4] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bheavy.Crewmembers[1] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                                {
+                                                    Bheavy.Crewmembers[3] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                                {
+                                                    if (Bheavy.Crewmembers[3] == true)
+                                                    {
+                                                        Bheavy.Crewmembers[3] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bheavy.Crewmembers[2] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 75 && chance <= 100)// 25% chance to kill commander
+                                                {
+                                                    Bheavy.Crewmembers[3] = false;
+                                                }
+                                            }
+                                            else//means componets will be damged 
+                                            {
+                                                chance = R.Next(0, 101);
+                                                if (chance <= 25)
+                                                {
+                                                    Bheavy.Components1[2] = false;
+                                                }
+                                                else if (chance > 25 && chance <= 50)
+                                                {
+                                                    Bheavy.Components1[0] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)
+                                                {
+                                                    Bheavy.Components1[1] = false;
+                                                }
+                                                else if (chance > 75 && chance <= 100)
+                                                {
+                                                    Bheavy.Components1[3] = false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                if (Rmed.Movactpoints < 4)
+                                {
+                                    chance = R.Next(0, 101);
+                                    if (chance >= 60)//50% chance to hit
+                                    {
+                                        chance = R.Next(0, 101);
+                                        if (chance <= 90)//90% cahnce to pen
+                                        {
+                                            chance = R.Next(1, 3);
+                                            if (chance == 1)//means crew meber will be killed
+                                            {
+                                                chance = R.Next(0, 101);//chooseing which one will die
+                                                if (chance <= 25)//25% to kill driver
+                                                {
+                                                    if (Bheavy.Crewmembers[3] == true)
+                                                    {
+                                                        Bheavy.Crewmembers[3] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bheavy.Crewmembers[0] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                                {
+                                                    Bheavy.Crewmembers[2] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                                {
+                                                    if (Bheavy.Crewmembers[2] == true)
+                                                    {
+                                                        Bheavy.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bheavy.Crewmembers[1] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 75 && chance <= 100)// 25% chance to kill commander
+                                                {
+                                                    Bheavy.Crewmembers[3] = false;
+                                                }
+                                            }
+                                            else//means componets will be damged 
+                                            {
+                                                chance = R.Next(0, 101);//chooseing which one will die
+                                                if (chance <= 49)
+                                                {
+                                                    Bheavy.Components1[0] = false;
+                                                }
+                                                else if (chance > 49 && chance <= 66)
+                                                {
+                                                    Bheavy.Components1[1] = false;
+                                                }
+                                                else if (chance > 66 && chance <= 83)
+                                                {
+                                                    Bheavy.Components1[2] = false;
+                                                }
+                                                else if (chance > 83 && chance <= 100)
+                                                {
+                                                    Bheavy.Components1[3] = false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    chance = R.Next(0, 101);
+                                    if (chance <= 70)//85% to hit
+                                    {
+                                        chance = R.Next(0, 101);
+                                        if (chance <= 90)//90% cahnce to pen
+                                        {
+                                            chance = R.Next(1, 3);
+                                            if (chance == 1)//means crew meber will be killed
+                                            {
+                                                chance = R.Next(0, 101);//chooseing which one will die
+                                                if (chance <= 25)//25% to kill driver
+                                                {
+                                                    if (Bheavy.Crewmembers[3] == true)
+                                                    {
+                                                        Bheavy.Crewmembers[3] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bheavy.Crewmembers[0] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                                {
+                                                    Bheavy.Crewmembers[2] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                                {
+                                                    if (Bheavy.Crewmembers[2] == true)
+                                                    {
+                                                        Bheavy.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bheavy.Crewmembers[1] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 75 && chance <= 100)// 25% chance to kill commander
+                                                {
+                                                    Bheavy.Crewmembers[3] = false;
+                                                }
+                                            }
+                                            else//means componets will be damged 
+                                            {
+                                                chance = R.Next(0, 101);//chooseing which one will die
+                                                if (chance <= 49)
+                                                {
+                                                    Bheavy.Components1[0] = false;
+                                                }
+                                                else if (chance > 49 && chance <= 66)
+                                                {
+                                                    Bheavy.Components1[1] = false;
+                                                }
+                                                else if (chance > 66 && chance <= 83)
+                                                {
+                                                    Bheavy.Components1[2] = false;
+                                                }
+                                                else if (chance > 83 && chance <= 100)
+                                                {
+                                                    Bheavy.Components1[3] = false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else if (Bmed.RBMed.Contains(mouseState.Position))
+                    {
+                        if (Bmed._inrange == true)
+                        {
+                            Rmed._havefired = true;
+                            if ((Rmed._direction == tank.Direction.right && Bmed._direction == tank.Direction.left) || (Rmed._direction == tank.Direction.left && Bmed._direction == tank.Direction.right) || (Rmed._direction == tank.Direction.up && Bmed._direction == tank.Direction.down) || (Rmed._direction == tank.Direction.down && Bmed._direction == tank.Direction.up))//front facing armour
+                            {
+                                if (Rmed.Movactpoints < 4)
+                                {
+                                    chance = R.Next(0, 101);
+                                    if (chance >= 60)//50% chance to hit
+                                    {
+                                        chance = R.Next(0, 101);
+                                        if (chance <= 60)//80% cahnce to pen
+                                        {
+                                            chance = R.Next(1, 3);
+                                            if (chance == 1)//means crew meber will be killed
+                                            {
+                                                chance = R.Next(0, 101);//chooseing which one will die
+                                                if (chance <= 25)//25% to kill driver
+                                                {
+                                                    if (Bmed.Crewmembers[3] == true)
+                                                    {
+                                                        Bmed.Crewmembers[3] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bmed.Crewmembers[0] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                                {
+                                                    Bmed.Crewmembers[2] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                                {
+                                                    if (Bmed.Crewmembers[2] == true)
+                                                    {
+                                                        Bmed.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bmed.Crewmembers[1] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 75 && chance <= 100)// 25% chance to kill commander
+                                                {
+                                                    Bmed.Crewmembers[3] = false;
+                                                }
+                                            }
+                                            else//means componets will be damged 
+                                            {
+                                                chance = R.Next(0, 101);
+                                                if (chance <= 31)
+                                                {
+                                                    Bmed.Components1[2] = false;
+                                                }
+                                                else if (chance > 31 && chance <= 54)
+                                                {
+                                                    Bmed.Components1[0] = false;
+                                                }
+                                                else if (chance > 54 && chance <= 77)
+                                                {
+                                                    Bmed.Components1[1] = false;
+                                                }
+                                                else if (chance > 77 && chance <= 100)
+                                                {
+                                                    Bmed.Components1[3] = false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    chance = R.Next(0, 101);
+                                    if (chance <= 70)//85% to hit
+                                    {
+                                        chance = R.Next(0, 101);
+                                        if (chance <= 60)//80% cahnce to pen
+                                        {
+                                            chance = R.Next(1, 3);
+                                            if (chance == 1)//means crew meber will be killed
+                                            {
+                                                chance = R.Next(0, 101);//chooseing which one will die
+                                                if (chance <= 25)//25% to kill driver
+                                                {
+                                                    if (Bmed.Crewmembers[3] == true)
+                                                    {
+                                                        Bmed.Crewmembers[3] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bmed.Crewmembers[0] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                                {
+                                                    Bmed.Crewmembers[2] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                                {
+                                                    if (Bmed.Crewmembers[2] == true)
+                                                    {
+                                                        Bmed.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bmed.Crewmembers[1] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 75 && chance <= 100)// 25% chance to kill commander
+                                                {
+                                                    Bmed.Crewmembers[3] = false;
+                                                }
+                                            }
+                                            else//means componets will be damged 
+                                            {
+                                                chance = R.Next(0, 101);
+                                                if (chance <= 31)
+                                                {
+                                                    Bmed.Components1[2] = false;
+                                                }
+                                                else if (chance > 31 && chance <= 54)
+                                                {
+                                                    Bmed.Components1[0] = false;
+                                                }
+                                                else if (chance > 54 && chance <= 77)
+                                                {
+                                                    Bmed.Components1[1] = false;
+                                                }
+                                                else if (chance > 77 && chance <= 100)
+                                                {
+                                                    Bmed.Components1[3] = false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            else//this is  more efficent way fo doeing the case statments this jsut realised not changeing heavy though far too much time 
+                            {
+                                if (Bmed.Movactpoints < 4)
+                                {
+                                    chance = R.Next(0, 101);
+                                    if (chance >= 60)//50% chance to hit
+                                    {
+                                        chance = R.Next(0, 101);
+                                        if (chance <= 80)//80% cahnce to pen
+                                        {
+                                            chance = R.Next(1, 3);
+                                            if (chance == 1)//means crew meber will be killed
+                                            {
+                                                chance = R.Next(0, 101);//chooseing which one will die
+                                                if (chance <= 25)//25% to kill driver
+                                                {
+                                                    if (Bmed.Crewmembers[3] == true)
+                                                    {
+                                                        Bmed.Crewmembers[3] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bmed.Crewmembers[0] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                                {
+                                                    Bmed.Crewmembers[2] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                                {
+                                                    if (Bmed.Crewmembers[2] == true)
+                                                    {
+                                                        Bmed.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bmed.Crewmembers[1] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 75 && chance <= 100)// 25% chance to kill commander
+                                                {
+                                                    Bmed.Crewmembers[3] = false;
+                                                }
+                                            }
+                                            else//means componets will be damged 
+                                            {
+                                                chance = R.Next(0, 101);//chooseing which one will die
+                                                if (chance <= 25)
+                                                {
+                                                    Bmed.Components1[1] = false;
+                                                }
+                                                else if (chance > 25 && chance <= 50)
+                                                {
+                                                    Bmed.Components1[3] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)
+                                                {
+                                                    Bmed.Components1[2] = false;
+                                                }
+                                                else if (chance > 75 && chance <= 100)
+                                                {
+                                                    Bmed.Components1[0] = false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    chance = R.Next(0, 101);
+                                    if (chance <= 70)//85% to hit
+                                    {
+                                        chance = R.Next(0, 101);
+                                        if (chance <= 80)//80% cahnce to pen
+                                        {
+                                            chance = R.Next(1, 3);
+                                            if (chance == 1)//means crew meber will be killed
+                                            {
+                                                chance = R.Next(0, 101);//chooseing which one will die
+                                                if (chance <= 25)//25% to kill driver
+                                                {
+                                                    if (Bmed.Crewmembers[3] == true)
+                                                    {
+                                                        Bmed.Crewmembers[3] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bmed.Crewmembers[0] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                                {
+                                                    Bmed.Crewmembers[2] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                                {
+                                                    if (Bmed.Crewmembers[2] == true)
+                                                    {
+                                                        Bmed.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bmed.Crewmembers[1] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 75 && chance <= 100)// 25% chance to kill commander
+                                                {
+                                                    Bmed.Crewmembers[3] = false;
+                                                }
+                                            }
+                                            else//means componets will be damged 
+                                            {
+                                                chance = R.Next(0, 101);//chooseing which one will die
+                                                if (chance <= 31)
+                                                {
+                                                    Bmed.Components1[2] = false;
+                                                }
+                                                else if (chance > 25 && chance <= 50)
+                                                {
+                                                    Bmed.Components1[0] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)
+                                                {
+                                                    Bmed.Components1[1] = false;
+                                                }
+                                                else if (chance > 75 && chance <= 100)
+                                                {
+                                                    Bmed.Components1[3] = false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else if (Bmed2.RB2Med.Contains(mouseState.Position))
+                    {
+                        if (Bmed2._inrange == true)
+                        {
+                            Rmed._havefired = true;
+                            if ((Rmed._direction == tank.Direction.right && Bmed2._direction == tank.Direction.left) || (Rmed._direction == tank.Direction.left && Bmed2._direction == tank.Direction.right) || (Rmed._direction == tank.Direction.up && Bmed2._direction == tank.Direction.down) || (Rmed._direction == tank.Direction.down && Bmed2._direction == tank.Direction.up))//front facing armour
+                            {
+                                if (Rmed.Movactpoints < 4)
+                                {
+                                    chance = R.Next(0, 101);
+                                    if (chance >= 60)//50% chance to hit
+                                    {
+                                        chance = R.Next(0, 101);
+                                        if (chance <= 60)//80% cahnce to pen
+                                        {
+                                            chance = R.Next(1, 3);
+                                            if (chance == 1)//means crew meber will be killed
+                                            {
+                                                chance = R.Next(0, 101);//chooseing which one will die
+                                                if (chance <= 25)//25% to kill driver
+                                                {
+                                                    if (Bmed2.Crewmembers[3] == true)
+                                                    {
+                                                        Bmed2.Crewmembers[3] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bmed2.Crewmembers[0] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                                {
+                                                    Bmed2.Crewmembers[2] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                                {
+                                                    if (Bmed2.Crewmembers[2] == true)
+                                                    {
+                                                        Bmed2.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bmed2.Crewmembers[1] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 75 && chance <= 100)// 25% chance to kill commander
+                                                {
+                                                    Bmed2.Crewmembers[3] = false;
+                                                }
+                                            }
+                                            else//means componets will be damged 
+                                            {
+                                                chance = R.Next(0, 101);
+                                                if (chance <= 31)
+                                                {
+                                                    Bmed2.Components1[2] = false;
+                                                }
+                                                else if (chance > 31 && chance <= 54)
+                                                {
+                                                    Bmed2.Components1[0] = false;
+                                                }
+                                                else if (chance > 54 && chance <= 77)
+                                                {
+                                                    Bmed2.Components1[1] = false;
+                                                }
+                                                else if (chance > 77 && chance <= 100)
+                                                {
+                                                    Bmed2.Components1[3] = false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    chance = R.Next(0, 101);
+                                    if (chance <= 70)//85% to hit
+                                    {
+                                        chance = R.Next(0, 101);
+                                        if (chance <= 60)//80% cahnce to pen
+                                        {
+                                            chance = R.Next(1, 3);
+                                            if (chance == 1)//means crew meber will be killed
+                                            {
+                                                chance = R.Next(0, 101);//chooseing which one will die
+                                                if (chance <= 25)//25% to kill driver
+                                                {
+                                                    if (Bmed2.Crewmembers[3] == true)
+                                                    {
+                                                        Bmed2.Crewmembers[3] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bmed2.Crewmembers[0] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                                {
+                                                    Bmed2.Crewmembers[2] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                                {
+                                                    if (Bmed2.Crewmembers[2] == true)
+                                                    {
+                                                        Bmed2.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bmed2.Crewmembers[1] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 75 && chance <= 100)// 25% chance to kill commander
+                                                {
+                                                    Bmed2.Crewmembers[3] = false;
+                                                }
+                                            }
+                                            else//means componets will be damged 
+                                            {
+                                                chance = R.Next(0, 101);
+                                                if (chance <= 31)
+                                                {
+                                                    Bmed2.Components1[2] = false;
+                                                }
+                                                else if (chance > 31 && chance <= 54)
+                                                {
+                                                    Bmed2.Components1[0] = false;
+                                                }
+                                                else if (chance > 54 && chance <= 77)
+                                                {
+                                                    Bmed2.Components1[1] = false;
+                                                }
+                                                else if (chance > 77 && chance <= 100)
+                                                {
+                                                    Bmed2.Components1[3] = false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            else//this is  more efficent way fo doeing the case statments this jsut realised not changeing heavy though far too much time 
+                            {
+                                if (Bmed2.Movactpoints < 4)
+                                {
+                                    chance = R.Next(0, 101);
+                                    if (chance >= 60)//50% chance to hit
+                                    {
+                                        chance = R.Next(0, 101);
+                                        if (chance <= 80)//80% cahnce to pen
+                                        {
+                                            chance = R.Next(1, 3);
+                                            if (chance == 1)//means crew meber will be killed
+                                            {
+                                                chance = R.Next(0, 101);//chooseing which one will die
+                                                if (chance <= 25)//25% to kill driver
+                                                {
+                                                    if (Bmed2.Crewmembers[3] == true)
+                                                    {
+                                                        Bmed2.Crewmembers[3] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bmed2.Crewmembers[0] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                                {
+                                                    Bmed2.Crewmembers[2] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                                {
+                                                    if (Bmed2.Crewmembers[2] == true)
+                                                    {
+                                                        Bmed2.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bmed2.Crewmembers[1] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 75 && chance <= 100)// 25% chance to kill commander
+                                                {
+                                                    Bmed2.Crewmembers[3] = false;
+                                                }
+                                            }
+                                            else//means componets will be damged 
+                                            {
+                                                chance = R.Next(0, 101);//chooseing which one will die
+                                                if (chance <= 25)
+                                                {
+                                                    Bmed2.Components1[1] = false;
+                                                }
+                                                else if (chance > 25 && chance <= 50)
+                                                {
+                                                    Bmed2.Components1[3] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)
+                                                {
+                                                    Bmed2.Components1[2] = false;
+                                                }
+                                                else if (chance > 75 && chance <= 100)
+                                                {
+                                                    Bmed2.Components1[0] = false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    chance = R.Next(0, 101);
+                                    if (chance <= 70)//85% to hit
+                                    {
+                                        chance = R.Next(0, 101);
+                                        if (chance <= 80)//80% cahnce to pen
+                                        {
+                                            chance = R.Next(1, 3);
+                                            if (chance == 1)//means crew meber will be killed
+                                            {
+                                                chance = R.Next(0, 101);//chooseing which one will die
+                                                if (chance <= 25)//25% to kill driver
+                                                {
+                                                    if (Bmed2.Crewmembers[3] == true)
+                                                    {
+                                                        Bmed2.Crewmembers[3] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bmed2.Crewmembers[0] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                                {
+                                                    Bmed2.Crewmembers[2] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                                {
+                                                    if (Bmed2.Crewmembers[2] == true)
+                                                    {
+                                                        Bmed2.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bmed2.Crewmembers[1] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 75 && chance <= 100)// 25% chance to kill commander
+                                                {
+                                                    Bmed2.Crewmembers[3] = false;
+                                                }
+                                            }
+                                            else//means componets will be damged 
+                                            {
+                                                chance = R.Next(0, 101);//chooseing which one will die
+                                                if (chance <= 31)
+                                                {
+                                                    Bmed2.Components1[2] = false;
+                                                }
+                                                else if (chance > 25 && chance <= 50)
+                                                {
+                                                    Bmed2.Components1[0] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)
+                                                {
+                                                    Bmed2.Components1[1] = false;
+                                                }
+                                                else if (chance > 75 && chance <= 100)
+                                                {
+                                                    Bmed2.Components1[3] = false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else if (Blight2.RB2light.Contains(mouseState.Position))//equal cahnce to hit on all the armour no need to know direction
+                    {
+                        if (Blight2._inrange == true)
+                        {
+                            Rmed._havefired = true;
+                            if (Rmed.Movactpoints < 4)
+                            {
+                                chance = R.Next(0, 101);
+                                if (chance >= 60)//50% chance to hit
+                                {
+                                    chance = R.Next(0, 101);
+                                    if (chance <= 90)//80% cahnce to pen
+                                    {
+                                        chance = R.Next(1, 3);
+                                        if (chance == 1)//means crew meber will be killed
+                                        {
+                                            chance = R.Next(0, 101);//chooseing which one will die
+                                            if (chance <= 25)//25% to kill driver
+                                            {
+                                                if (Blight2.Crewmembers[3] == true)
+                                                {
+                                                    Blight2.Crewmembers[3] = false;// shows commmander swapping wiht driver
+                                                }
+                                                else
+                                                {
+                                                    Blight2.Crewmembers[0] = false;// tank can no longer drive
+                                                }
+                                            }
+                                            else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                            {
+                                                Blight2.Crewmembers[2] = false;
+                                            }
+                                            else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                            {
+                                                if (Blight2.Crewmembers[2] == true)
+                                                {
+                                                    Blight2.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                }
+                                                else
+                                                {
+                                                    Blight2.Crewmembers[1] = false;// tank can no longer drive
+                                                }
+                                            }
+                                            else if (chance > 75 && chance <= 100)// 25% chance to kill commander
+                                            {
+                                                Blight2.Crewmembers[3] = false;
+                                            }
+                                        }
+                                        else//means componets will be damged  
+                                        {
+                                            chance = R.Next(0, 101);
+                                            if (chance <= 25)//tank so small equal chance of hiting all compionets
+                                            {
+                                                Blight2.Components1[2] = false;
+                                            }
+                                            else if (chance > 25 && chance <= 50)
+                                            {
+                                                Blight2.Components1[0] = false;
+                                            }
+                                            else if (chance > 50 && chance <= 75)
+                                            {
+                                                Blight2.Components1[1] = false;
+                                            }
+                                            else if (chance > 75 && chance <= 100)
+                                            {
+                                                Blight2.Components1[3] = false;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                chance = R.Next(0, 101);
+                                if (chance <= 70)//85% to hit
+                                {
+                                    chance = R.Next(0, 101);
+                                    if (chance <= 90)//80% cahnce to pen
+                                    {
+                                        chance = R.Next(1, 3);
+                                        if (chance == 1)//means crew meber will be killed
+                                        {
+                                            chance = R.Next(0, 101);//chooseing which one will die
+                                            if (chance <= 25)//25% to kill driver
+                                            {
+                                                if (Blight2.Crewmembers[3] == true)
+                                                {
+                                                    Blight2.Crewmembers[3] = false;// shows commmander swapping wiht driver
+                                                }
+                                                else
+                                                {
+                                                    Blight2.Crewmembers[0] = false;// tank can no longer drive
+                                                }
+                                            }
+                                            else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                            {
+                                                Blight2.Crewmembers[2] = false;
+                                            }
+                                            else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                            {
+                                                if (Blight2.Crewmembers[2] == true)
+                                                {
+                                                    Blight2.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                }
+                                                else
+                                                {
+                                                    Blight2.Crewmembers[1] = false;// tank can no longer drive
+                                                }
+                                            }
+                                            else if (chance > 75 && chance <= 100)// 25% chance to kill commander
+                                            {
+                                                Blight2.Crewmembers[3] = false;
+                                            }
+                                        }
+                                        else//means componets will be damged 
+                                        {
+                                            chance = R.Next(0, 101);
+                                            if (chance <= 31)
+                                            {
+                                                Blight2.Components1[2] = false;
+                                            }
+                                            else if (chance > 25 && chance <= 50)
+                                            {
+                                                Blight2.Components1[0] = false;
+                                            }
+                                            else if (chance > 50 && chance <= 75)
+                                            {
+                                                Blight2.Components1[1] = false;
+                                            }
+                                            else if (chance > 75 && chance <= 100)
+                                            {
+                                                Blight2.Components1[3] = false;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                else if (Rmed2._selected == true && Rmed2._havefired == false && Rmed2.canshoot() == true)
+                {
+                    if (Bheavy.RBheavy.Contains(mouseState.Position))
+                    {
+                        if (Bheavy._inrange == true)
+                        {
+                            Rmed2._havefired = true;
+                            if ((Rmed2._direction == tank.Direction.right && Bheavy._direction == tank.Direction.left) || (Rmed2._direction == tank.Direction.up && Bheavy._direction == tank.Direction.down) || (Rmed2._direction == tank.Direction.right && Bheavy._direction == tank.Direction.left) || (Rmed2._direction == tank.Direction.down && Bheavy._direction == tank.Direction.up) || (Rmed2._direction == tank.Direction.right && Rmed2._direction == tank.Direction.up) || (Rmed2._direction == tank.Direction.right && Rmed2._direction == tank.Direction.down) || (Rmed2._direction == tank.Direction.left && Rmed2._direction == tank.Direction.up) || (Rmed2._direction == tank.Direction.left && Rmed2._direction == tank.Direction.down) || (Rmed2._direction == tank.Direction.up && Rmed2._direction == tank.Direction.left) || (Rmed2._direction == tank.Direction.up && Rmed2._direction == tank.Direction.right) || (Rmed2._direction == tank.Direction.down && Rmed2._direction == tank.Direction.left) || (Rmed2._direction == tank.Direction.down && Rmed2._direction == tank.Direction.right))
+                            {
+                                if (Rmed2.Movactpoints < 4)
+                                {
+                                    chance = R.Next(0, 101);
+                                    if (chance >= 60)//60% chance to hit
+                                    {
+                                        chance = R.Next(0, 101);
+                                        if (chance <= 60)//60% cahnce to pen
+                                        {
+                                            chance = R.Next(1, 3);
+                                            if (chance == 1)//means crew meber will be killed
+                                            {
+                                                chance = R.Next(0, 101);//chooseing which one will die
+                                                if (chance <= 25)//25% to kill driver
+                                                {
+                                                    if (Bheavy.Crewmembers[3] == true)
+                                                    {
+                                                        Bheavy.Crewmembers[3] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bheavy.Crewmembers[0] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                                {
+                                                    Bheavy.Crewmembers[2] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                                {
+                                                    if (Bheavy.Crewmembers[2] == true)
+                                                    {
+                                                        Bheavy.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bheavy.Crewmembers[1] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 75 && chance <= 100)// 25% chance to kill commander
+                                                {
+                                                    Bheavy.Crewmembers[3] = false;
+                                                }
+                                            }
+                                            else//means componets will be damged 
+                                            {
+                                                chance = R.Next(0, 101);
+                                                if (chance <= 25)
+                                                {
+                                                    Bheavy.Components1[2] = false;
+                                                }
+                                                else if (chance > 25 && chance <= 50)
+                                                {
+                                                    Bheavy.Components1[0] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)
+                                                {
+                                                    Bheavy.Components1[1] = false;
+                                                }
+                                                else if (chance > 75 && chance <= 100)
+                                                {
+                                                    Bheavy.Components1[3] = false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    chance = R.Next(0, 101);
+                                    if (chance <= 70)//85% to hit
+                                    {
+                                        chance = R.Next(0, 101);
+                                        if (chance <= 60)//60% cahnce to pen
+                                        {
+                                            chance = R.Next(1, 3);
+                                            if (chance == 1)//means crew meber will be killed
+                                            {
+                                                chance = R.Next(0, 101);//chooseing which one will die
+                                                if (chance <= 25)//25% to kill driver
+                                                {
+                                                    if (Bheavy.Crewmembers[4] == true)
+                                                    {
+                                                        Bheavy.Crewmembers[4] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bheavy.Crewmembers[1] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                                {
+                                                    Bheavy.Crewmembers[3] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                                {
+                                                    if (Bheavy.Crewmembers[3] == true)
+                                                    {
+                                                        Bheavy.Crewmembers[3] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bheavy.Crewmembers[2] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 75 && chance <= 100)// 25% chance to kill commander
+                                                {
+                                                    Bheavy.Crewmembers[3] = false;
+                                                }
+                                            }
+                                            else//means componets will be damged 
+                                            {
+                                                chance = R.Next(0, 101);
+                                                if (chance <= 25)
+                                                {
+                                                    Bheavy.Components1[2] = false;
+                                                }
+                                                else if (chance > 25 && chance <= 50)
+                                                {
+                                                    Bheavy.Components1[0] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)
+                                                {
+                                                    Bheavy.Components1[1] = false;
+                                                }
+                                                else if (chance > 75 && chance <= 100)
+                                                {
+                                                    Bheavy.Components1[3] = false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                if (Rmed.Movactpoints < 4)
+                                {
+                                    chance = R.Next(0, 101);
+                                    if (chance >= 60)//50% chance to hit
+                                    {
+                                        chance = R.Next(0, 101);
+                                        if (chance <= 90)//90% cahnce to pen
+                                        {
+                                            chance = R.Next(1, 3);
+                                            if (chance == 1)//means crew meber will be killed
+                                            {
+                                                chance = R.Next(0, 101);//chooseing which one will die
+                                                if (chance <= 25)//25% to kill driver
+                                                {
+                                                    if (Bheavy.Crewmembers[3] == true)
+                                                    {
+                                                        Bheavy.Crewmembers[3] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bheavy.Crewmembers[0] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                                {
+                                                    Bheavy.Crewmembers[2] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                                {
+                                                    if (Bheavy.Crewmembers[2] == true)
+                                                    {
+                                                        Bheavy.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bheavy.Crewmembers[1] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 75 && chance <= 100)// 25% chance to kill commander
+                                                {
+                                                    Bheavy.Crewmembers[3] = false;
+                                                }
+                                            }
+                                            else//means componets will be damged 
+                                            {
+                                                chance = R.Next(0, 101);//chooseing which one will die
+                                                if (chance <= 49)
+                                                {
+                                                    Bheavy.Components1[0] = false;
+                                                }
+                                                else if (chance > 49 && chance <= 66)
+                                                {
+                                                    Bheavy.Components1[1] = false;
+                                                }
+                                                else if (chance > 66 && chance <= 83)
+                                                {
+                                                    Bheavy.Components1[2] = false;
+                                                }
+                                                else if (chance > 83 && chance <= 100)
+                                                {
+                                                    Bheavy.Components1[3] = false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    chance = R.Next(0, 101);
+                                    if (chance <= 70)//85% to hit
+                                    {
+                                        chance = R.Next(0, 101);
+                                        if (chance <= 90)//90% cahnce to pen
+                                        {
+                                            chance = R.Next(1, 3);
+                                            if (chance == 1)//means crew meber will be killed
+                                            {
+                                                chance = R.Next(0, 101);//chooseing which one will die
+                                                if (chance <= 25)//25% to kill driver
+                                                {
+                                                    if (Bheavy.Crewmembers[3] == true)
+                                                    {
+                                                        Bheavy.Crewmembers[3] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bheavy.Crewmembers[0] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                                {
+                                                    Bheavy.Crewmembers[2] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                                {
+                                                    if (Bheavy.Crewmembers[2] == true)
+                                                    {
+                                                        Bheavy.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bheavy.Crewmembers[1] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 75 && chance <= 100)// 25% chance to kill commander
+                                                {
+                                                    Bheavy.Crewmembers[3] = false;
+                                                }
+                                            }
+                                            else//means componets will be damged 
+                                            {
+                                                chance = R.Next(0, 101);//chooseing which one will die
+                                                if (chance <= 49)
+                                                {
+                                                    Bheavy.Components1[0] = false;
+                                                }
+                                                else if (chance > 49 && chance <= 66)
+                                                {
+                                                    Bheavy.Components1[1] = false;
+                                                }
+                                                else if (chance > 66 && chance <= 83)
+                                                {
+                                                    Bheavy.Components1[2] = false;
+                                                }
+                                                else if (chance > 83 && chance <= 100)
+                                                {
+                                                    Bheavy.Components1[3] = false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else if (Bmed.RBMed.Contains(mouseState.Position))
+                    {
+                        if (Bmed._inrange == true)
+                        {
+                            Rmed2._havefired = true;
+                            if ((Rmed2._direction == tank.Direction.right && Bmed._direction == tank.Direction.left) || (Rmed2._direction == tank.Direction.left && Bmed._direction == tank.Direction.right) || (Rmed2._direction == tank.Direction.up && Bmed._direction == tank.Direction.down) || (Rmed2._direction == tank.Direction.down && Bmed._direction == tank.Direction.up))//front facing armour
+                            {
+                                if (Rmed2.Movactpoints < 4)
+                                {
+                                    chance = R.Next(0, 101);
+                                    if (chance >= 60)//50% chance to hit
+                                    {
+                                        chance = R.Next(0, 101);
+                                        if (chance <= 60)//80% cahnce to pen
+                                        {
+                                            chance = R.Next(1, 3);
+                                            if (chance == 1)//means crew meber will be killed
+                                            {
+                                                chance = R.Next(0, 101);//chooseing which one will die
+                                                if (chance <= 25)//25% to kill driver
+                                                {
+                                                    if (Bmed.Crewmembers[3] == true)
+                                                    {
+                                                        Bmed.Crewmembers[3] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bmed.Crewmembers[0] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                                {
+                                                    Bmed.Crewmembers[2] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                                {
+                                                    if (Bmed.Crewmembers[2] == true)
+                                                    {
+                                                        Bmed.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bmed.Crewmembers[1] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 75 && chance <= 100)// 25% chance to kill commander
+                                                {
+                                                    Bmed.Crewmembers[3] = false;
+                                                }
+                                            }
+                                            else//means componets will be damged 
+                                            {
+                                                chance = R.Next(0, 101);
+                                                if (chance <= 31)
+                                                {
+                                                    Bmed.Components1[2] = false;
+                                                }
+                                                else if (chance > 31 && chance <= 54)
+                                                {
+                                                    Bmed.Components1[0] = false;
+                                                }
+                                                else if (chance > 54 && chance <= 77)
+                                                {
+                                                    Bmed.Components1[1] = false;
+                                                }
+                                                else if (chance > 77 && chance <= 100)
+                                                {
+                                                    Bmed.Components1[3] = false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    chance = R.Next(0, 101);
+                                    if (chance <= 70)//85% to hit
+                                    {
+                                        chance = R.Next(0, 101);
+                                        if (chance <= 60)//80% cahnce to pen
+                                        {
+                                            chance = R.Next(1, 3);
+                                            if (chance == 1)//means crew meber will be killed
+                                            {
+                                                chance = R.Next(0, 101);//chooseing which one will die
+                                                if (chance <= 25)//25% to kill driver
+                                                {
+                                                    if (Bmed.Crewmembers[3] == true)
+                                                    {
+                                                        Bmed.Crewmembers[3] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bmed.Crewmembers[0] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                                {
+                                                    Bmed.Crewmembers[2] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                                {
+                                                    if (Bmed.Crewmembers[2] == true)
+                                                    {
+                                                        Bmed.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bmed.Crewmembers[1] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 75 && chance <= 100)// 25% chance to kill commander
+                                                {
+                                                    Bmed.Crewmembers[3] = false;
+                                                }
+                                            }
+                                            else//means componets will be damged 
+                                            {
+                                                chance = R.Next(0, 101);
+                                                if (chance <= 31)
+                                                {
+                                                    Bmed.Components1[2] = false;
+                                                }
+                                                else if (chance > 31 && chance <= 54)
+                                                {
+                                                    Bmed.Components1[0] = false;
+                                                }
+                                                else if (chance > 54 && chance <= 77)
+                                                {
+                                                    Bmed.Components1[1] = false;
+                                                }
+                                                else if (chance > 77 && chance <= 100)
+                                                {
+                                                    Bmed.Components1[3] = false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            else//this is  more efficent way fo doeing the case statments this jsut realised not changeing heavy though far too much time 
+                            {
+                                if (Bmed.Movactpoints < 4)
+                                {
+                                    chance = R.Next(0, 101);
+                                    if (chance >= 60)//50% chance to hit
+                                    {
+                                        chance = R.Next(0, 101);
+                                        if (chance <= 80)//80% cahnce to pen
+                                        {
+                                            chance = R.Next(1, 3);
+                                            if (chance == 1)//means crew meber will be killed
+                                            {
+                                                chance = R.Next(0, 101);//chooseing which one will die
+                                                if (chance <= 25)//25% to kill driver
+                                                {
+                                                    if (Bmed.Crewmembers[3] == true)
+                                                    {
+                                                        Bmed.Crewmembers[3] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bmed.Crewmembers[0] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                                {
+                                                    Bmed.Crewmembers[2] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                                {
+                                                    if (Bmed.Crewmembers[2] == true)
+                                                    {
+                                                        Bmed.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bmed.Crewmembers[1] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 75 && chance <= 100)// 25% chance to kill commander
+                                                {
+                                                    Bmed.Crewmembers[3] = false;
+                                                }
+                                            }
+                                            else//means componets will be damged 
+                                            {
+                                                chance = R.Next(0, 101);//chooseing which one will die
+                                                if (chance <= 25)
+                                                {
+                                                    Bmed.Components1[1] = false;
+                                                }
+                                                else if (chance > 25 && chance <= 50)
+                                                {
+                                                    Bmed.Components1[3] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)
+                                                {
+                                                    Bmed.Components1[2] = false;
+                                                }
+                                                else if (chance > 75 && chance <= 100)
+                                                {
+                                                    Bmed.Components1[0] = false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    chance = R.Next(0, 101);
+                                    if (chance <= 70)//85% to hit
+                                    {
+                                        chance = R.Next(0, 101);
+                                        if (chance <= 80)//80% cahnce to pen
+                                        {
+                                            chance = R.Next(1, 3);
+                                            if (chance == 1)//means crew meber will be killed
+                                            {
+                                                chance = R.Next(0, 101);//chooseing which one will die
+                                                if (chance <= 25)//25% to kill driver
+                                                {
+                                                    if (Bmed.Crewmembers[3] == true)
+                                                    {
+                                                        Bmed.Crewmembers[3] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bmed.Crewmembers[0] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                                {
+                                                    Bmed.Crewmembers[2] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                                {
+                                                    if (Bmed.Crewmembers[2] == true)
+                                                    {
+                                                        Bmed.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bmed.Crewmembers[1] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 75 && chance <= 100)// 25% chance to kill commander
+                                                {
+                                                    Bmed.Crewmembers[3] = false;
+                                                }
+                                            }
+                                            else//means componets will be damged 
+                                            {
+                                                chance = R.Next(0, 101);//chooseing which one will die
+                                                if (chance <= 31)
+                                                {
+                                                    Bmed.Components1[2] = false;
+                                                }
+                                                else if (chance > 25 && chance <= 50)
+                                                {
+                                                    Bmed.Components1[0] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)
+                                                {
+                                                    Bmed.Components1[1] = false;
+                                                }
+                                                else if (chance > 75 && chance <= 100)
+                                                {
+                                                    Bmed.Components1[3] = false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else if (Bmed2.RB2Med.Contains(mouseState.Position))
+                    {
+                        if (Bmed2._inrange == true)
+                        {
+                            Rmed2._havefired = true;
+                            if ((Rmed2._direction == tank.Direction.right && Bmed2._direction == tank.Direction.left) || (Rmed2._direction == tank.Direction.left && Bmed2._direction == tank.Direction.right) || (Rmed2._direction == tank.Direction.up && Bmed2._direction == tank.Direction.down) || (Rmed2._direction == tank.Direction.down && Bmed2._direction == tank.Direction.up))//front facing armour
+                            {
+                                if (Rmed2.Movactpoints < 4)
+                                {
+                                    chance = R.Next(0, 101);
+                                    if (chance >= 60)//50% chance to hit
+                                    {
+                                        chance = R.Next(0, 101);
+                                        if (chance <= 60)//80% cahnce to pen
+                                        {
+                                            chance = R.Next(1, 3);
+                                            if (chance == 1)//means crew meber will be killed
+                                            {
+                                                chance = R.Next(0, 101);//chooseing which one will die
+                                                if (chance <= 25)//25% to kill driver
+                                                {
+                                                    if (Bmed2.Crewmembers[3] == true)
+                                                    {
+                                                        Bmed2.Crewmembers[3] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bmed2.Crewmembers[0] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                                {
+                                                    Bmed2.Crewmembers[2] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                                {
+                                                    if (Bmed2.Crewmembers[2] == true)
+                                                    {
+                                                        Bmed2.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bmed2.Crewmembers[1] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 75 && chance <= 100)// 25% chance to kill commander
+                                                {
+                                                    Bmed2.Crewmembers[3] = false;
+                                                }
+                                            }
+                                            else//means componets will be damged 
+                                            {
+                                                chance = R.Next(0, 101);
+                                                if (chance <= 31)
+                                                {
+                                                    Bmed2.Components1[2] = false;
+                                                }
+                                                else if (chance > 31 && chance <= 54)
+                                                {
+                                                    Bmed2.Components1[0] = false;
+                                                }
+                                                else if (chance > 54 && chance <= 77)
+                                                {
+                                                    Bmed2.Components1[1] = false;
+                                                }
+                                                else if (chance > 77 && chance <= 100)
+                                                {
+                                                    Bmed2.Components1[3] = false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    chance = R.Next(0, 101);
+                                    if (chance <= 70)//85% to hit
+                                    {
+                                        chance = R.Next(0, 101);
+                                        if (chance <= 60)//80% cahnce to pen
+                                        {
+                                            chance = R.Next(1, 3);
+                                            if (chance == 1)//means crew meber will be killed
+                                            {
+                                                chance = R.Next(0, 101);//chooseing which one will die
+                                                if (chance <= 25)//25% to kill driver
+                                                {
+                                                    if (Bmed2.Crewmembers[3] == true)
+                                                    {
+                                                        Bmed2.Crewmembers[3] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bmed2.Crewmembers[0] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                                {
+                                                    Bmed2.Crewmembers[2] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                                {
+                                                    if (Bmed2.Crewmembers[2] == true)
+                                                    {
+                                                        Bmed2.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bmed2.Crewmembers[1] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 75 && chance <= 100)// 25% chance to kill commander
+                                                {
+                                                    Bmed2.Crewmembers[3] = false;
+                                                }
+                                            }
+                                            else//means componets will be damged 
+                                            {
+                                                chance = R.Next(0, 101);
+                                                if (chance <= 31)
+                                                {
+                                                    Bmed2.Components1[2] = false;
+                                                }
+                                                else if (chance > 31 && chance <= 54)
+                                                {
+                                                    Bmed2.Components1[0] = false;
+                                                }
+                                                else if (chance > 54 && chance <= 77)
+                                                {
+                                                    Bmed2.Components1[1] = false;
+                                                }
+                                                else if (chance > 77 && chance <= 100)
+                                                {
+                                                    Bmed2.Components1[3] = false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            else//this is  more efficent way fo doeing the case statments this jsut realised not changeing heavy though far too much time 
+                            {
+                                if (Bmed2.Movactpoints < 4)
+                                {
+                                    chance = R.Next(0, 101);
+                                    if (chance >= 60)//50% chance to hit
+                                    {
+                                        chance = R.Next(0, 101);
+                                        if (chance <= 80)//80% cahnce to pen
+                                        {
+                                            chance = R.Next(1, 3);
+                                            if (chance == 1)//means crew meber will be killed
+                                            {
+                                                chance = R.Next(0, 101);//chooseing which one will die
+                                                if (chance <= 25)//25% to kill driver
+                                                {
+                                                    if (Bmed2.Crewmembers[3] == true)
+                                                    {
+                                                        Bmed2.Crewmembers[3] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bmed2.Crewmembers[0] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                                {
+                                                    Bmed2.Crewmembers[2] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                                {
+                                                    if (Bmed2.Crewmembers[2] == true)
+                                                    {
+                                                        Bmed2.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bmed2.Crewmembers[1] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 75 && chance <= 100)// 25% chance to kill commander
+                                                {
+                                                    Bmed2.Crewmembers[3] = false;
+                                                }
+                                            }
+                                            else//means componets will be damged 
+                                            {
+                                                chance = R.Next(0, 101);//chooseing which one will die
+                                                if (chance <= 25)
+                                                {
+                                                    Bmed2.Components1[1] = false;
+                                                }
+                                                else if (chance > 25 && chance <= 50)
+                                                {
+                                                    Bmed2.Components1[3] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)
+                                                {
+                                                    Bmed2.Components1[2] = false;
+                                                }
+                                                else if (chance > 75 && chance <= 100)
+                                                {
+                                                    Bmed2.Components1[0] = false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    chance = R.Next(0, 101);
+                                    if (chance <= 70)//85% to hit
+                                    {
+                                        chance = R.Next(0, 101);
+                                        if (chance <= 80)//80% cahnce to pen
+                                        {
+                                            chance = R.Next(1, 3);
+                                            if (chance == 1)//means crew meber will be killed
+                                            {
+                                                chance = R.Next(0, 101);//chooseing which one will die
+                                                if (chance <= 25)//25% to kill driver
+                                                {
+                                                    if (Bmed2.Crewmembers[3] == true)
+                                                    {
+                                                        Bmed2.Crewmembers[3] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bmed2.Crewmembers[0] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                                {
+                                                    Bmed2.Crewmembers[2] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                                {
+                                                    if (Bmed2.Crewmembers[2] == true)
+                                                    {
+                                                        Bmed2.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                    }
+                                                    else
+                                                    {
+                                                        Bmed2.Crewmembers[1] = false;// tank can no longer drive
+                                                    }
+                                                }
+                                                else if (chance > 75 && chance <= 100)// 25% chance to kill commander
+                                                {
+                                                    Bmed2.Crewmembers[3] = false;
+                                                }
+                                            }
+                                            else//means componets will be damged 
+                                            {
+                                                chance = R.Next(0, 101);//chooseing which one will die
+                                                if (chance <= 31)
+                                                {
+                                                    Bmed2.Components1[2] = false;
+                                                }
+                                                else if (chance > 25 && chance <= 50)
+                                                {
+                                                    Bmed2.Components1[0] = false;
+                                                }
+                                                else if (chance > 50 && chance <= 75)
+                                                {
+                                                    Bmed2.Components1[1] = false;
+                                                }
+                                                else if (chance > 75 && chance <= 100)
+                                                {
+                                                    Bmed2.Components1[3] = false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else if (Blight2.RB2light.Contains(mouseState.Position))//equal cahnce to hit on all the armour no need to know direction
+                    {
+                        if (Blight2._inrange == true)
+                        {
+                            Rmed2._havefired = true;
+                            if (Rmed2.Movactpoints < 4)
+                            {
+                                chance = R.Next(0, 101);
+                                if (chance >= 60)//50% chance to hit
+                                {
+                                    chance = R.Next(0, 101);
+                                    if (chance <= 90)//80% cahnce to pen
+                                    {
+                                        chance = R.Next(1, 3);
+                                        if (chance == 1)//means crew meber will be killed
+                                        {
+                                            chance = R.Next(0, 101);//chooseing which one will die
+                                            if (chance <= 25)//25% to kill driver
+                                            {
+                                                if (Blight2.Crewmembers[3] == true)
+                                                {
+                                                    Blight2.Crewmembers[3] = false;// shows commmander swapping wiht driver
+                                                }
+                                                else
+                                                {
+                                                    Blight2.Crewmembers[0] = false;// tank can no longer drive
+                                                }
+                                            }
+                                            else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                            {
+                                                Blight2.Crewmembers[2] = false;
+                                            }
+                                            else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                            {
+                                                if (Blight2.Crewmembers[2] == true)
+                                                {
+                                                    Blight2.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                }
+                                                else
+                                                {
+                                                    Blight2.Crewmembers[1] = false;// tank can no longer drive
+                                                }
+                                            }
+                                            else if (chance > 75 && chance <= 100)// 25% chance to kill commander
+                                            {
+                                                Blight2.Crewmembers[3] = false;
+                                            }
+                                        }
+                                        else//means componets will be damged  
+                                        {
+                                            chance = R.Next(0, 101);
+                                            if (chance <= 25)//tank so small equal chance of hiting all compionets
+                                            {
+                                                Blight2.Components1[2] = false;
+                                            }
+                                            else if (chance > 25 && chance <= 50)
+                                            {
+                                                Blight2.Components1[0] = false;
+                                            }
+                                            else if (chance > 50 && chance <= 75)
+                                            {
+                                                Blight2.Components1[1] = false;
+                                            }
+                                            else if (chance > 75 && chance <= 100)
+                                            {
+                                                Blight2.Components1[3] = false;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                chance = R.Next(0, 101);
+                                if (chance <= 70)//85% to hit
+                                {
+                                    chance = R.Next(0, 101);
+                                    if (chance <= 90)//80% cahnce to pen
+                                    {
+                                        chance = R.Next(1, 3);
+                                        if (chance == 1)//means crew meber will be killed
+                                        {
+                                            chance = R.Next(0, 101);//chooseing which one will die
+                                            if (chance <= 25)//25% to kill driver
+                                            {
+                                                if (Blight2.Crewmembers[3] == true)
+                                                {
+                                                    Blight2.Crewmembers[3] = false;// shows commmander swapping wiht driver
+                                                }
+                                                else
+                                                {
+                                                    Blight2.Crewmembers[0] = false;// tank can no longer drive
+                                                }
+                                            }
+                                            else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                            {
+                                                Blight2.Crewmembers[2] = false;
+                                            }
+                                            else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                            {
+                                                if (Blight2.Crewmembers[2] == true)
+                                                {
+                                                    Blight2.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                }
+                                                else
+                                                {
+                                                    Blight2.Crewmembers[1] = false;// tank can no longer drive
+                                                }
+                                            }
+                                            else if (chance > 75 && chance <= 100)// 25% chance to kill commander
+                                            {
+                                                Blight2.Crewmembers[3] = false;
+                                            }
+                                        }
+                                        else//means componets will be damged 
+                                        {
+                                            chance = R.Next(0, 101);
+                                            if (chance <= 31)
+                                            {
+                                                Blight2.Components1[2] = false;
+                                            }
+                                            else if (chance > 25 && chance <= 50)
+                                            {
+                                                Blight2.Components1[0] = false;
+                                            }
+                                            else if (chance > 50 && chance <= 75)
+                                            {
+                                                Blight2.Components1[1] = false;
+                                            }
+                                            else if (chance > 75 && chance <= 100)
+                                            {
+                                                Blight2.Components1[3] = false;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                else if (Rlight2._selected == true && Rlight2._havefired == false && Rlight2.canshoot() == true)
+                {
+                    if (Bheavy.RBheavy.Contains(mouseState.Position))
+                    {
+                        if (Bheavy._inrange == true)
+                        {
+                            Rlight2._havefired = true;
+                            if ((Rlight2._direction == tank.Direction.right && Bheavy._direction == tank.Direction.left) || (Rlight2._direction == tank.Direction.up && Bheavy._direction == tank.Direction.down) || (Rlight2._direction == tank.Direction.right && Bheavy._direction == tank.Direction.left) || (Rlight2._direction == tank.Direction.down && Bheavy._direction == tank.Direction.up) || (Rlight2._direction == tank.Direction.right && Bheavy._direction == tank.Direction.up) || (Rlight2._direction == tank.Direction.right && Bheavy._direction == tank.Direction.down) || (Rlight2._direction == tank.Direction.left && Bheavy._direction == tank.Direction.up) || (Rlight2._direction == tank.Direction.left && Bheavy._direction == tank.Direction.down) || (Rlight2._direction == tank.Direction.up && Bheavy._direction == tank.Direction.left) || (Rlight2._direction == tank.Direction.up && Bheavy._direction == tank.Direction.right) || (Rlight2._direction == tank.Direction.down && Bheavy._direction == tank.Direction.left) || (Rlight2._direction == tank.Direction.down && Bheavy._direction == tank.Direction.right))
+                            {
+                                chance = R.Next(0, 101);
+                                if (chance >= 60)//60% chance to hit
+                                {
+                                    chance = R.Next(0, 101);
+                                    if (chance <= 25)//60% cahnce to pen
+                                    {
+                                        chance = R.Next(1, 3);
+                                        if (chance == 1)//means crew meber will be killed
+                                        {
+                                            chance = R.Next(0, 101);//chooseing which one will die
+                                            if (chance <= 25)//25% to kill driver
+                                            {
+                                                if (Bheavy.Crewmembers[3] == true)
+                                                {
+                                                    Bheavy.Crewmembers[3] = false;// shows commmander swapping wiht driver
+                                                }
+                                                else
+                                                {
+                                                    Bheavy.Crewmembers[0] = false;// tank can no longer drive
+                                                }
+                                            }
+                                            else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                            {
+                                                Bheavy.Crewmembers[2] = false;
+                                            }
+                                            else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                            {
+                                                if (Bheavy.Crewmembers[2] == true)
+                                                {
+                                                    Bheavy.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                }
+                                                else
+                                                {
+                                                    Bheavy.Crewmembers[1] = false;// tank can no longer drive
+                                                }
+                                            }
+                                            else if (chance > 75 && chance <= 100)// 25% chance to kill commander
+                                            {
+                                                Bheavy.Crewmembers[3] = false;
+                                            }
+                                        }
+                                        else//means componets will be damged 
+                                        {
+                                            chance = R.Next(0, 101);
+                                            if (chance <= 25)
+                                            {
+                                                Bheavy.Components1[2] = false;
+                                            }
+                                            else if (chance > 25 && chance <= 50)
+                                            {
+                                                Bheavy.Components1[0] = false;
+                                            }
+                                            else if (chance > 50 && chance <= 75)
+                                            {
+                                                Bheavy.Components1[1] = false;
+                                            }
+                                            else if (chance > 75 && chance <= 100)
+                                            {
+                                                Bheavy.Components1[3] = false;
+                                            }
+                                        }
+                                    }
+                                }
+
+
+                            }
+                            else
+                            {
+                                chance = R.Next(0, 101);
+                                if (chance >= 60)//50% chance to hit
+                                {
+                                    chance = R.Next(0, 101);
+                                    if (chance <= 60)//90% cahnce to pen
+                                    {
+                                        chance = R.Next(1, 3);
+                                        if (chance == 1)//means crew meber will be killed
+                                        {
+                                            chance = R.Next(0, 101);//chooseing which one will die
+                                            if (chance <= 25)//25% to kill driver
+                                            {
+                                                if (Bheavy.Crewmembers[3] == true)
+                                                {
+                                                    Bheavy.Crewmembers[3] = false;// shows commmander swapping wiht driver
+                                                }
+                                                else
+                                                {
+                                                    Bheavy.Crewmembers[0] = false;// tank can no longer drive
+                                                }
+                                            }
+                                            else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                            {
+                                                Bheavy.Crewmembers[2] = false;
+                                            }
+                                            else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                            {
+                                                if (Bheavy.Crewmembers[2] == true)
+                                                {
+                                                    Bheavy.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                }
+                                                else
+                                                {
+                                                    Bheavy.Crewmembers[1] = false;// tank can no longer drive
+                                                }
+                                            }
+                                            else if (chance > 75 && chance <= 100)// 25% chance to kill commander
+                                            {
+                                                Bheavy.Crewmembers[3] = false;
+                                            }
+                                        }
+                                        else//means componets will be damged 
+                                        {
+                                            chance = R.Next(0, 101);//chooseing which one will die
+                                            if (chance <= 49)
+                                            {
+                                                Bheavy.Components1[1] = false;
+                                            }
+                                            else if (chance > 49 && chance <= 66)
+                                            {
+                                                Bheavy.Components1[2] = false;
+                                            }
+                                            else if (chance > 66 && chance <= 83)
+                                            {
+                                                Bheavy.Components1[3] = false;
+                                            }
+                                            else if (chance > 83 && chance <= 100)
+                                            {
+                                                Bheavy.Components1[4] = false;
+                                            }
+                                        }
+                                    }
+                                }
+
+
+                            }
+                        }
+                    }
+                    else if (Bmed.RBMed.Contains(mouseState.Position))
+                    {
+                        if (Bmed._inrange == true)
+                        {
+                            Rlight2._havefired = true;
+                            if ((Rlight2._direction == tank.Direction.right && Bmed._direction == tank.Direction.left) || (Rlight2._direction == tank.Direction.left && Bmed._direction == tank.Direction.right) || (Rlight2._direction == tank.Direction.up && Bmed._direction == tank.Direction.down) || (Rlight2._direction == tank.Direction.down && Bmed._direction == tank.Direction.up))//front facing armour
+                            {
+                                chance = R.Next(0, 101);
+                                if (chance >= 60)//50% chance to hit
+                                {
+                                    chance = R.Next(0, 101);
+                                    if (chance <= 25)//80% cahnce to pen
+                                    {
+                                        chance = R.Next(1, 3);
+                                        if (chance == 1)//means crew meber will be killed
+                                        {
+                                            chance = R.Next(0, 101);//chooseing which one will die
+                                            if (chance <= 25)//25% to kill driver
+                                            {
+                                                if (Bmed.Crewmembers[3] == true)
+                                                {
+                                                    Bmed.Crewmembers[3] = false;// shows commmander swapping wiht driver
+                                                }
+                                                else
+                                                {
+                                                    Bmed.Crewmembers[0] = false;// tank can no longer drive
+                                                }
+                                            }
+                                            else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                            {
+                                                Bmed.Crewmembers[2] = false;
+                                            }
+                                            else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                            {
+                                                if (Bmed.Crewmembers[2] == true)
+                                                {
+                                                    Bmed.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                }
+                                                else
+                                                {
+                                                    Bmed.Crewmembers[1] = false;// tank can no longer drive
+                                                }
+                                            }
+                                            else if (chance > 75 && chance <= 100)// 25% chance to kill commander
+                                            {
+                                                Bmed.Crewmembers[3] = false;
+                                            }
+                                        }
+                                        else//means componets will be damged 
+                                        {
+                                            chance = R.Next(0, 101);
+                                            if (chance <= 31)
+                                            {
+                                                Bmed.Components1[2] = false;
+                                            }
+                                            else if (chance > 31 && chance <= 54)
+                                            {
+                                                Bmed.Components1[0] = false;
+                                            }
+                                            else if (chance > 54 && chance <= 77)
+                                            {
+                                                Bmed.Components1[1] = false;
+                                            }
+                                            else if (chance > 77 && chance <= 100)
+                                            {
+                                                Bmed.Components1[3] = false;
+                                            }
+                                        }
+                                    }
+                                }
+
+                            }
+                            else
+                            {
+                                chance = R.Next(0, 101);
+                                if (chance >= 60)//50% chance to hit
+                                {
+                                    chance = R.Next(0, 101);
+                                    if (chance <= 60)//80% cahnce to pen
+                                    {
+                                        chance = R.Next(1, 3);
+                                        if (chance == 1)//means crew meber will be killed
+                                        {
+                                            chance = R.Next(0, 101);//chooseing which one will die
+                                            if (chance <= 25)//25% to kill driver
+                                            {
+                                                if (Bmed.Crewmembers[3] == true)
+                                                {
+                                                    Bmed.Crewmembers[3] = false;// shows commmander swapping wiht driver
+                                                }
+                                                else
+                                                {
+                                                    Bmed.Crewmembers[0] = false;// tank can no longer drive
+                                                }
+                                            }
+                                            else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                            {
+                                                Bmed.Crewmembers[2] = false;
+                                            }
+                                            else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                            {
+                                                if (Bmed.Crewmembers[2] == true)
+                                                {
+                                                    Bmed.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                }
+                                                else
+                                                {
+                                                    Bmed.Crewmembers[1] = false;// tank can no longer drive
+                                                }
+                                            }
+                                            else if (chance > 75 && chance <= 100)// 25% chance to kill commander
+                                            {
+                                                Bmed.Crewmembers[3] = false;
+                                            }
+                                        }
+                                        else//means componets will be damged 
+                                        {
+                                            chance = R.Next(0, 101);//chooseing which one will die
+                                            if (chance <= 25)
+                                            {
+                                                Bmed.Components1[1] = false;
+                                            }
+                                            else if (chance > 25 && chance <= 50)
+                                            {
+                                                Bmed.Components1[3] = false;
+                                            }
+                                            else if (chance > 50 && chance <= 75)
+                                            {
+                                                Bmed.Components1[2] = false;
+                                            }
+                                            else if (chance > 75 && chance <= 100)
+                                            {
+                                                Bmed.Components1[0] = false;
+                                            }
+                                        }
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+                    else if (Bmed2.RR2Med.Contains(mouseState.Position))
+                    {
+                        if (Bmed2._inrange == true)
+                        {
+                            Rlight2._havefired = true;
+                            if ((Rlight2._direction == tank.Direction.right && Bmed2._direction == tank.Direction.left) || (Rlight2._direction == tank.Direction.left && Bmed2._direction == tank.Direction.right) || (Rlight2._direction == tank.Direction.up && Bmed2._direction == tank.Direction.down) || (Rlight2._direction == tank.Direction.down && Bmed2._direction == tank.Direction.up))//front facing armour
+                            {
+                                chance = R.Next(0, 101);
+                                if (chance >= 60)//50% chance to hit
+                                {
+                                    chance = R.Next(0, 101);
+                                    if (chance <= 25)//80% cahnce to pen
+                                    {
+                                        chance = R.Next(1, 3);
+                                        if (chance == 1)//means crew meber will be killed
+                                        {
+                                            chance = R.Next(0, 101);//chooseing which one will die
+                                            if (chance <= 25)//25% to kill driver
+                                            {
+                                                if (Bmed2.Crewmembers[3] == true)
+                                                {
+                                                    Bmed2.Crewmembers[3] = false;// shows commmander swapping wiht driver
+                                                }
+                                                else
+                                                {
+                                                    Bmed2.Crewmembers[0] = false;// tank can no longer drive
+                                                }
+                                            }
+                                            else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                            {
+                                                Bmed2.Crewmembers[2] = false;
+                                            }
+                                            else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                            {
+                                                if (Bmed2.Crewmembers[2] == true)
+                                                {
+                                                    Bmed2.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                }
+                                                else
+                                                {
+                                                    Bmed2.Crewmembers[1] = false;// tank can no longer drive
+                                                }
+                                            }
+                                            else if (chance > 75 && chance <= 100)// 25% chance to kill commander
+                                            {
+                                                Bmed2.Crewmembers[3] = false;
+                                            }
+                                        }
+                                        else//means componets will be damged 
+                                        {
+                                            chance = R.Next(0, 101);
+                                            if (chance <= 31)
+                                            {
+                                                Bmed2.Components1[2] = false;
+                                            }
+                                            else if (chance > 31 && chance <= 54)
+                                            {
+                                                Bmed2.Components1[0] = false;
+                                            }
+                                            else if (chance > 54 && chance <= 77)
+                                            {
+                                                Bmed2.Components1[1] = false;
+                                            }
+                                            else if (chance > 77 && chance <= 100)
+                                            {
+                                                Bmed2.Components1[3] = false;
+                                            }
+                                        }
+                                    }
+                                }
+
+                            }
+                            else
+                            {
+                                chance = R.Next(0, 101);
+                                if (chance >= 60)//50% chance to hit
+                                {
+                                    chance = R.Next(0, 101);
+                                    if (chance <= 60)//80% cahnce to pen
+                                    {
+                                        chance = R.Next(1, 3);
+                                        if (chance == 1)//means crew meber will be killed
+                                        {
+                                            chance = R.Next(0, 101);//chooseing which one will die
+                                            if (chance <= 25)//25% to kill driver
+                                            {
+                                                if (Bmed2.Crewmembers[3] == true)
+                                                {
+                                                    Bmed2.Crewmembers[3] = false;// shows commmander swapping wiht driver
+                                                }
+                                                else
+                                                {
+                                                    Bmed2.Crewmembers[0] = false;// tank can no longer drive
+                                                }
+                                            }
+                                            else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                            {
+                                                Bmed2.Crewmembers[2] = false;
+                                            }
+                                            else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                            {
+                                                if (Bmed2.Crewmembers[2] == true)
+                                                {
+                                                    Bmed2.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                }
+                                                else
+                                                {
+                                                    Bmed2.Crewmembers[1] = false;// tank can no longer drive
+                                                }
+                                            }
+                                            else if (chance > 75 && chance <= 100)// 25% chance to kill commander
+                                            {
+                                                Bmed2.Crewmembers[3] = false;
+                                            }
+                                        }
+                                        else//means componets will be damged 
+                                        {
+                                            chance = R.Next(0, 101);//chooseing which one will die
+                                            if (chance <= 25)
+                                            {
+                                                Bmed2.Components1[1] = false;
+                                            }
+                                            else if (chance > 25 && chance <= 50)
+                                            {
+                                                Bmed2.Components1[3] = false;
+                                            }
+                                            else if (chance > 50 && chance <= 75)
+                                            {
+                                                Bmed2.Components1[2] = false;
+                                            }
+                                            else if (chance > 75 && chance <= 100)
+                                            {
+                                                Bmed2.Components1[0] = false;
+                                            }
+                                        }
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+                    else if (Blight2.RB2light.Contains(mouseState.Position))//equal cahnce to hit on all the armour no need to know direction
+                    {
+
+                        if (Rlight2._inrange == true)
+                        {
+                            Rlight2._havefired = true;
+                            if ((Rlight2._direction == tank.Direction.right && Blight2._direction == tank.Direction.right) || (Rlight2._direction == tank.Direction.left && Blight2._direction == tank.Direction.left) || (Rlight2._direction == tank.Direction.up && Blight2._direction == tank.Direction.up) || (Rlight2._direction == tank.Direction.down && Blight2._direction == tank.Direction.down))
+                            {
+                                chance = R.Next(0, 101);
+                                if (chance >= 60)//50% chance to hit
+                                {
+                                    chance = R.Next(0, 101);
+                                    if (chance <= 90)//80% cahnce to pen
+                                    {
+                                        chance = R.Next(1, 3);
+                                        if (chance == 1)//means crew meber will be killed
+                                        {
+                                            chance = R.Next(0, 101);//chooseing which one will die
+                                            if (chance <= 25)//25% to kill driver
+                                            {
+                                                if (Blight2.Crewmembers[3] == true)
+                                                {
+                                                    Blight2.Crewmembers[3] = false;// shows commmander swapping wiht driver
+                                                }
+                                                else
+                                                {
+                                                    Blight2.Crewmembers[0] = false;// tank can no longer drive
+                                                }
+                                            }
+                                            else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                            {
+                                                Blight2.Crewmembers[2] = false;
+                                            }
+                                            else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                            {
+                                                if (Blight2.Crewmembers[2] == true)
+                                                {
+                                                    Blight2.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                }
+                                                else
+                                                {
+                                                    Blight2.Crewmembers[1] = false;// tank can no longer drive
+                                                }
+                                            }
+                                            else if (chance > 75 && chance <= 100)// 25% chance to kill commander
+                                            {
+                                                Blight2.Crewmembers[3] = false;
+                                            }
+                                        }
+                                        else//means componets will be damged  
+                                        {
+                                            chance = R.Next(0, 101);
+                                            if (chance <= 49)//tank so small equal chance of hiting all compionets
+                                            {
+                                                Blight2.Components1[2] = false;
+                                            }
+                                            else if (chance > 49 && chance <= 66)
+                                            {
+                                                Blight2.Components1[0] = false;
+                                            }
+                                            else if (chance > 66 && chance <= 83)
+                                            {
+                                                Blight2.Components1[1] = false;
+                                            }
+                                            else if (chance > 83 && chance <= 100)
+                                            {
+                                                Blight2.Components1[3] = false;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                chance = R.Next(0, 101);
+                                if (chance >= 60)//50% chance to hit
+                                {
+                                    chance = R.Next(0, 101);
+                                    if (chance <= 60)//80% cahnce to pen
+                                    {
+                                        chance = R.Next(1, 3);
+                                        if (chance == 1)//means crew meber will be killed
+                                        {
+                                            chance = R.Next(0, 101);//chooseing which one will die
+                                            if (chance <= 25)//25% to kill driver
+                                            {
+                                                if (Blight2.Crewmembers[3] == true)
+                                                {
+                                                    Blight2.Crewmembers[3] = false;// shows commmander swapping wiht driver
+                                                }
+                                                else
+                                                {
+                                                    Blight2.Crewmembers[0] = false;// tank can no longer drive
+                                                }
+                                            }
+                                            else if (chance > 25 && chance <= 50)//25% chance to kill loader
+                                            {
+                                                Blight2.Crewmembers[2] = false;
+                                            }
+                                            else if (chance > 50 && chance <= 75)// 25% chance to kill gunner
+                                            {
+                                                if (Blight2.Crewmembers[2] == true)
+                                                {
+                                                    Blight2.Crewmembers[2] = false;// shows commmander swapping wiht driver
+                                                }
+                                                else
+                                                {
+                                                    Blight2.Crewmembers[1] = false;// tank can no longer drive
+                                                }
+                                            }
+                                            else if (chance > 75 && chance <= 100)// 25% chance to kill commander
+                                            {
+                                                Blight2.Crewmembers[3] = false;
+                                            }
+                                        }
+                                        else//means componets will be damged  
+                                        {
+                                            chance = R.Next(0, 101);
+                                            if (chance <= 25)//tank so small equal chance of hiting all compionets
+                                            {
+                                                Blight2.Components1[2] = false;
+                                            }
+                                            else if (chance > 25 && chance <= 50)
+                                            {
+                                                Blight2.Components1[0] = false;
+                                            }
+                                            else if (chance > 50 && chance <= 75)
+                                            {
+                                                Blight2.Components1[1] = false;
+                                            }
+                                            else if (chance > 75 && chance <= 100)
+                                            {
+                                                Blight2.Components1[3] = false;
+                                            }
+                                        }
+                                    }
+                                }
+
+
+                            }
+                        }
+                    }
+
+
+                }
+
             }
         }
         public void whosdead()
@@ -5913,19 +8428,25 @@ namespace NEA3
             {
                 if (bvic == true)
                 {
+                    GraphicsDevice.Clear(Color.Black);
+                    _spriteBatch.Begin();
                     Vector2 textMiddlePoint = myfontyfont.MeasureString(bluevic) / 2;
                     // Places text in center of the screen
                     Vector2 position = new Vector2(Window.ClientBounds.Width / 2, Window.ClientBounds.Height / 2 - 50);
-                    _spriteBatch.DrawString(myfontyfont, menuTitle, position, Color.AntiqueWhite, 0, textMiddlePoint, 1.5f, SpriteEffects.None, 1.0f);
+                    _spriteBatch.DrawString(myfontyfont, bluevic, position, Color.Blue, 0, textMiddlePoint, 1.5f, SpriteEffects.None, 1.0f);
                     _spriteBatch.Draw(buttonTexture, buttonRectangle, Color.White);//button rectnagle allows for mouse to click
+                    _spriteBatch.End();
                 }
                 else
                 {
+                    GraphicsDevice.Clear(Color.Black);
+                    _spriteBatch.Begin();
                     Vector2 textMiddlePoint = myfontyfont.MeasureString(redvic) / 2;
                     // Places text in center of the screen
                     Vector2 position = new Vector2(Window.ClientBounds.Width / 2, Window.ClientBounds.Height / 2 - 50);
-                    _spriteBatch.DrawString(myfontyfont, menuTitle, position, Color.AntiqueWhite, 0, textMiddlePoint, 1.5f, SpriteEffects.None, 1.0f);
+                    _spriteBatch.DrawString(myfontyfont,redvic, position, Color.Red, 0, textMiddlePoint, 1.5f, SpriteEffects.None, 1.0f);
                     _spriteBatch.Draw(buttonTexture, buttonRectangle, Color.White);//button rectnagle allows for mouse to click
+                    _spriteBatch.End();
                 }
             }
             base.Draw(gameTime);
