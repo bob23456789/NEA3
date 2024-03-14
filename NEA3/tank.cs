@@ -10,6 +10,7 @@ using System.Reflection.Metadata;
 using Microsoft.Xna.Framework.Input;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static NEA3.tank;
+using System.Threading;
 
 
 namespace NEA3
@@ -24,9 +25,7 @@ namespace NEA3
         public Rectangle RB2Med;
         public Rectangle RRMed;
         public Rectangle RR2Med;
-        public Rectangle RBLight;
         public Rectangle RB2light;
-        public Rectangle RRLight;
         public Rectangle RR2light;
          GraphicsDevice _graphicdevice;
         public Color colour;
@@ -97,12 +96,7 @@ namespace NEA3
                     if (Player == true)
                     {
                         Texture = Content.Load<Texture2D>(@"LightblueRF");
-                        if (TankID == 4)
-                        {
-                            Vector2 LBposition = new Vector2(X, Y); //positon of the rectangles for light tank 1
-                            RBLight = new Rectangle((int)LBposition.X, (int)LBposition.Y, Texture.Width, Texture.Height); // actual retangle 
-                        }
-                        else if (TankID == 5)
+                        if (TankID == 5)
                         {
                             Vector2 LB2position = new Vector2(X, Y); //positon of the rectangles 
                             RB2light = new Rectangle((int)LB2position.X, (int)LB2position.Y, Texture.Width, Texture.Height);
@@ -112,12 +106,7 @@ namespace NEA3
                     else if (Player == false)
                     {
                         Texture = Content.Load<Texture2D>(@"LightredRF");
-                        if (TankID == 4)
-                        {
-                            Vector2 LRposition = new Vector2(X, Y);
-                            RRLight = new Rectangle((int)LRposition.X, (int)LRposition.Y, Texture.Width, Texture.Height);
-                        }
-                        else if (TankID == 5)
+                        if (TankID == 5)
                         {
                             Vector2 LR2position = new Vector2(X, Y);
                             RR2light = new Rectangle((int)LR2position.X, (int)LR2position.Y, Texture.Width, Texture.Height);
@@ -182,12 +171,7 @@ namespace NEA3
                     if (Player == true)
                     {
                         Texture = Content.Load<Texture2D>(@"LightblueLF");
-                        if (TankID == 4)
-                        {
-                            Vector2 LBposition = new Vector2(X, Y); //positon of the rectangles for light tank 1
-                            RBLight = new Rectangle((int)LBposition.X, (int)LBposition.Y, Texture.Width, Texture.Height); // actual retangle 
-                        }
-                        else if (TankID == 5)
+                        if (TankID == 5)
                         {
                             Vector2 LB2position = new Vector2(X, Y); //positon of the rectangles 
                             RB2light = new Rectangle((int)LB2position.X, (int)LB2position.Y, Texture.Width, Texture.Height);
@@ -197,12 +181,7 @@ namespace NEA3
                     else if (Player == false)
                     {
                         Texture = Content.Load<Texture2D>(@"LightredLF");
-                        if (TankID == 4)
-                        {
-                            Vector2 LRposition = new Vector2(X, Y);
-                            RRLight = new Rectangle((int)LRposition.X, (int)LRposition.Y, Texture.Width, Texture.Height);
-                        }
-                        else if (TankID == 5)
+                        if (TankID == 5)
                         {
                             Vector2 LR2position = new Vector2(X, Y);
                             RR2light = new Rectangle((int)LR2position.X, (int)LR2position.Y, Texture.Width, Texture.Height);
@@ -267,12 +246,7 @@ namespace NEA3
                     if (Player == true)
                     {
                         Texture = Content.Load<Texture2D>(@"LightblueUF");
-                        if (TankID == 4)
-                        {
-                            Vector2 LBposition = new Vector2(X, Y); //positon of the rectangles for light tank 1
-                            RBLight = new Rectangle((int)LBposition.X, (int)LBposition.Y, Texture.Width, Texture.Height); // actual retangle 
-                        }
-                        else if (TankID == 5)
+                        if (TankID == 5)
                         {
                             Vector2 LB2position = new Vector2(X, Y); //positon of the rectangles 
                             RB2light = new Rectangle((int)LB2position.X, (int)LB2position.Y, Texture.Width, Texture.Height);
@@ -282,12 +256,7 @@ namespace NEA3
                     else if (Player == false)
                     {
                         Texture = Content.Load<Texture2D>(@"LightredUF");
-                        if (TankID == 4)
-                        {
-                            Vector2 LRposition = new Vector2(X, Y);
-                            RRLight = new Rectangle((int)LRposition.X, (int)LRposition.Y, Texture.Width, Texture.Height);
-                        }
-                        else if (TankID == 5)
+                        if (TankID == 5)
                         {
                             Vector2 LR2position = new Vector2(X, Y);
                             RR2light = new Rectangle((int)LR2position.X, (int)LR2position.Y, Texture.Width, Texture.Height);
@@ -352,12 +321,7 @@ namespace NEA3
                     if (Player == true)
                     {
                         Texture = Content.Load<Texture2D>(@"LightblueDF");
-                        if (TankID == 4)
-                        {
-                            Vector2 LBposition = new Vector2(X, Y); //positon of the rectangles for light tank 1
-                            RBLight = new Rectangle((int)LBposition.X, (int)LBposition.Y, Texture.Width, Texture.Height); // actual retangle 
-                        }
-                        else if (TankID == 5)
+                        if (TankID == 5)
                         {
                             Vector2 LB2position = new Vector2(X, Y); //positon of the rectangles 
                             RB2light = new Rectangle((int)LB2position.X, (int)LB2position.Y, Texture.Width, Texture.Height);
@@ -367,12 +331,8 @@ namespace NEA3
                     else if (Player == false)
                     {
                         Texture = Content.Load<Texture2D>(@"LightredDF");
-                        if (TankID == 4)
-                        {
-                            Vector2 LRposition = new Vector2(X, Y);
-                            RRLight = new Rectangle((int)LRposition.X, (int)LRposition.Y, Texture.Width, Texture.Height);
-                        }
-                        else if (TankID == 5)
+
+                        if (TankID == 5)
                         {
                             Vector2 LR2position = new Vector2(X, Y);
                             RR2light = new Rectangle((int)LR2position.X, (int)LR2position.Y, Texture.Width, Texture.Height);
@@ -453,10 +413,6 @@ namespace NEA3
 
                         spriteBatch.Draw(Texture, RB2Med, colour);
                         break;
-                    case (1, 4):
-                      
-                        spriteBatch.Draw(Texture, RBLight,colour );
-                        break;
                     case (1, 5):
                         
                         spriteBatch.Draw(Texture, RB2light, colour);
@@ -481,10 +437,6 @@ namespace NEA3
 
                         spriteBatch.Draw(Texture, RR2Med,colour );
                         break;
-                    case (1, 4):
-
-                        spriteBatch.Draw(Texture, RRLight,colour );
-                        break;
                     case (1, 5):
 
                         spriteBatch.Draw(Texture, RR2light,colour);
@@ -503,17 +455,23 @@ namespace NEA3
             Selected();
             boomornoboom();
             amidead();
-            if((_inrange == true && _dead == true)|| (_inrange == false && _dead == true))
+
+            if((_inrange == true && _dead == true) || (_inrange == false && _dead == true))
             {
                 changecolour(Color.Black);
                 Draw(spriteBatch);
             }
-            if (_inrange == true)
+            else if (_inrange == true)
             {
                 changecolour(Color.Red);
                 Draw(spriteBatch);
             }
-            if (_inrange == false)
+            else if ((Crewmembers[0] == false && Crewmembers[2] == false) || (Components1[0] == false) || (Components1[2] == false))//indicates critical damage
+            {
+                changecolour(Color.Orange);
+                Draw(spriteBatch);
+            }
+            else if (_inrange == false)
             {
                 changecolour(Color.White);
                 Draw(spriteBatch);
@@ -791,53 +749,57 @@ namespace NEA3
 
         public void turningleft(Direction direction, ContentManager content, SpriteBatch spriteBatch)//cahnges the direction of the tank  moving it 90 degrees anti clock wise
         {
-            if(direction == Direction.right)//finds oringal direction
+            if (Movactpoints > 0)
             {
-                _direction = Direction.up;//set direction depending on oringal direction
-                _movementactionpoints--;
+                if (direction == Direction.right)//finds oringal direction
+                {
+                    _direction = Direction.up;//set direction depending on oringal direction
+                    _movementactionpoints--;
+                }
+                else if (direction == Direction.up)
+                {
+                    _direction = Direction.left;
+                    _movementactionpoints--;
+                }
+                else if (direction == Direction.left)
+                {
+                    _direction = Direction.down;
+                    _movementactionpoints--;
+                }
+                else if (direction == Direction.down)
+                {
+                    _direction = Direction.right;
+                    _movementactionpoints--;
+                }
             }
-            else if (direction == Direction.up)
-            {
-                _direction = Direction.left;
-                _movementactionpoints--;
-            }
-            else if (direction == Direction.left)
-            {
-                _direction = Direction.down;
-                _movementactionpoints--;
-            }
-            else if (direction == Direction.down)
-            {
-                _direction = Direction.right;
-                _movementactionpoints--;
-            }
-            _movementactionpoints--;
             LoadContent(content);
             Draw(spriteBatch);
         }
         public void turningright(Direction direction,ContentManager content , SpriteBatch spriteBatch)//same as last for turing 90 degrees clock wise
         {
-            if (direction == Direction.right)
+            if (Movactpoints > 0)
             {
-                _direction = Direction.down;
-                _movementactionpoints--;
+                if (direction == Direction.right)
+                {
+                    _direction = Direction.down;
+                    _movementactionpoints--;
+                }
+                else if (direction == Direction.up)
+                {
+                    _direction = Direction.right;
+                    _movementactionpoints--;
+                }
+                else if (direction == Direction.left)
+                {
+                    _direction = Direction.up;
+                    _movementactionpoints--;
+                }
+                else if (direction == Direction.down)
+                {
+                    _direction = Direction.left;
+                    _movementactionpoints--;
+                }
             }
-            else if (direction == Direction.up)
-            {
-                _direction = Direction.right;
-                _movementactionpoints--;
-            }
-            else if (direction == Direction.left)
-            {
-                _direction = Direction.up;
-                _movementactionpoints--;
-            }
-            else if (direction == Direction.down)
-            {
-                _direction = Direction.left;
-                _movementactionpoints--;
-            }
-            _movementactionpoints--;
             LoadContent(content);
             Draw(spriteBatch);
         }
@@ -847,7 +809,7 @@ namespace NEA3
         }
         public void resetmovpoints()
         {
-            if (Crewmembers[1] != false && Components1[1] != false && Components1[2] != false && _dead!= true)
+            if (Crewmembers[0] != false && Components1[0] != false && Components1[1] != false && _dead!= true)
             {
 
                 if (Type == 1)
@@ -866,10 +828,13 @@ namespace NEA3
                     _havefired = false;
                 }
             }
-            else
+            else if (Crewmembers[0] == false || Components1[0] == false || Components1[1] == false)
             {
                 _movementactionpoints = 0;//carnt move if no dirver or engine
-                Components1[2] = true;//tracks being repaired
+                Components1[1] = true;//tracks being repaired
+            }
+            else
+            {
                 _havefired = true;
             }
         }//esets all points back to ma
@@ -905,6 +870,8 @@ namespace NEA3
                 if(chanceboom <= 70)//70% cahnce to blow up the tank
                 {
                     Aboom = "y";
+                    changecolour(Color.Blue);//it blwoing up
+                    Thread.Sleep(300);
                     _dead = true;
                     Components1[0] = false;
                     Components1[1] = false;
@@ -923,7 +890,7 @@ namespace NEA3
             if(Eboom == "" && Components1[0] == false)
             {
                 chanceboom = R.Next(0, 101);
-                if (chanceboom <= 20)//20% cahnce to blow up the tank
+                if (chanceboom <= 10)//10% cahnce to blow up the tank
                 {
                     Eboom = "y";
                     _dead = true;
@@ -945,11 +912,11 @@ namespace NEA3
         
         public void amidead()
         {
-            if((Game1.p1tankleft == 1 && Components1[3] == false)|| (Game1.p1tankleft == 1 && Crewmembers[2] == false) || (Game1.p2tankleft == 1 && Components1[3] == false) || (Game1.p2tankleft == 1 && Crewmembers[2] == false))
+            if((Game1.p1tankleft == 1 && Components1[2] == false)|| (Game1.p1tankleft == 1 && Crewmembers[1] == false) || (Game1.p2tankleft == 1 && Components1[2] == false) || (Game1.p2tankleft == 1 && Crewmembers[1] == false))
             {
                 _dead = true;
             }
-            if ((Components1[1] == false && Components1[3] == false) || (Components1[1] == false && Crewmembers[2] == false) || (Crewmembers[1] == false && Components1[3] == false) || (Crewmembers[1] == false && Crewmembers[2] == false))
+            if ((Components1[0] == false && Components1[2] == false) || (Components1[0] == false && Crewmembers[1] == false) || (Crewmembers[0] == false && Components1[2] == false) || (Crewmembers[0] == false && Crewmembers[1] == false))//engine + gun,engine+gunner,driver+gunner,driver+gunner
             {
                 _dead = true;
             }
