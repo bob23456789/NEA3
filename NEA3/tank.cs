@@ -16,6 +16,8 @@ namespace NEA3
 {
     internal class tank : Gameobject
     {
+        string Aboom = "";//blank like this means the ammo hasnt been hit and the test to see if ti goes boom has been done
+        string Eboom = "";//same as last but for enigne
         public Rectangle RBheavy; // Rectangle aroudn tanks 
         public Rectangle RRHeavy;
         public Rectangle RBMed;
@@ -64,7 +66,8 @@ namespace NEA3
         public bool _selected;
         public bool[] Components1 = new bool[4] { true, true, true, true };  // components 1= engine  2= tracks 3=gun 4= ammo if all destroyed tank is destroyed  tracks can be repaired 
         public bool[] Crewmembers = new bool[4] { true, true, true, true }; // crew 1= driver 2= gunner 3= loader 4= commander commander can switch wiht any loader can switch with gunner
-        public tank(int X, int Y, Direction direction, int armour, int acc, int speed, int penpower, int range, int movepoints, bool havefired, int type, bool player, int tankID, bool selected, bool inrange)
+        public bool _dead;
+        public tank(int X, int Y, Direction direction, int armour, int acc, int speed, int penpower, int range, int movepoints, bool havefired, int type, bool player, int tankID, bool selected, bool inrange,bool dead)
         {
             _tankID = tankID;
             _direction = direction;
@@ -82,6 +85,7 @@ namespace NEA3
             _movementactionpoints = movepoints;
             _havefired = havefired;
             _inrange = inrange;
+            _dead = dead;
             colour = Color.White;
         }
         public override void LoadContent(ContentManager Content)
@@ -497,6 +501,13 @@ namespace NEA3
         {
             MouseState mouseState = Mouse.GetState();
             Selected();
+            boomornoboom();
+            amidead();
+            if((_inrange == true && _dead == true)|| (_inrange == false && _dead == true))
+            {
+                changecolour(Color.Black);
+                Draw(spriteBatch);
+            }
             if (_inrange == true)
             {
                 changecolour(Color.Red);
@@ -836,7 +847,7 @@ namespace NEA3
         }
         public void resetmovpoints()
         {
-            if (Crewmembers[1] != false && Components1[1] != false && Components1[2] != false)
+            if (Crewmembers[1] != false && Components1[1] != false && Components1[2] != false && _dead!= true)
             {
 
                 if (Type == 1)
@@ -859,7 +870,7 @@ namespace NEA3
             {
                 _movementactionpoints = 0;//carnt move if no dirver or engine
                 Components1[2] = true;//tracks being repaired
-                _havefired = false;
+                _havefired = true;
             }
         }//esets all points back to ma
         public void inrangereset()//reseats in rane varible to false
@@ -884,55 +895,75 @@ namespace NEA3
                 return canshoot;
             }
         }//checks it has componets and crewmembers to shoot
+        public void boomornoboom()
+        {
+            int chanceboom = 0;
+            Random R = new Random();
+            if (Aboom == "" && Components1[3] == false)
+            {
+                chanceboom = R.Next(0, 101);
+                if(chanceboom <= 70)//70% cahnce to blow up the tank
+                {
+                    Aboom = "y";
+                    _dead = true;
+                    Components1[0] = false;
+                    Components1[1] = false;
+                    Components1[2] = false;
+                    Components1[3] = false;
+                    Crewmembers[0] = false;
+                    Crewmembers[1] = false;
+                    Crewmembers[2] = false;
+                    Crewmembers[3] = false;
+                }
+                else
+                {
+                    Aboom = "N";
+                }
+            }
+            if(Eboom == "" && Components1[0] == false)
+            {
+                chanceboom = R.Next(0, 101);
+                if (chanceboom <= 20)//20% cahnce to blow up the tank
+                {
+                    Eboom = "y";
+                    _dead = true;
+                    Components1[0] = false;
+                    Components1[1] = false;
+                    Components1[2] = false;
+                    Components1[3] = false;
+                    Crewmembers[0] = false;
+                    Crewmembers[1] = false;
+                    Crewmembers[2] = false;
+                    Crewmembers[3] = false;
+                }
+                else
+                {
+                    Eboom = "N";
+                }
+            }
+        }
         
+        public void amidead()
+        {
+            if((Game1.p1tankleft == 1 && Components1[3] == false)|| (Game1.p1tankleft == 1 && Crewmembers[2] == false) || (Game1.p2tankleft == 1 && Components1[3] == false) || (Game1.p2tankleft == 1 && Crewmembers[2] == false))
+            {
+                _dead = true;
+            }
+            if ((Components1[1] == false && Components1[3] == false) || (Components1[1] == false && Crewmembers[2] == false) || (Crewmembers[1] == false && Components1[3] == false) || (Crewmembers[1] == false && Crewmembers[2] == false))
+            {
+                _dead = true;
+            }
+            if(_dead == true)
+            {
+                _movementactionpoints = 0;
+                _havefired = true;
+                changecolour(Color.Black);
+            }
+            else
+            {
+
+            }
+        }
        
-        ////how game going to work
-
-        //armour + pen power
-        //if amrmour == pen power pen chance = 60 %
-        //if armour<pen power = 80%
-        //if armour> pen power = 45%
-        //if armour => pen power x2 =25%
-        //if armour x2 =< pen power = 95%
-        //base for heavy front = 75 heavy sides = 55 heavy back = 25 medium front = 50 medium sides + back = 35  front= sides light = 25  light s back = 10 
-        //base pen heavy = 75 medium = 50 light = 25
-
-        //Range
-        //1 = 1 tile
-        //heavy = 5 medium = 5 light = 3
-        //heavy max = opt  medium = 4 light = 2
-
-        //accuracy 
-        //base opt range acc heavy = 85 % medium = 70 % light = 60 %
-        //if have moeved = true heavy acc = 50 % mediuam = 50 % light not effected 
-        //if fireing into foresrt base -10% accuracy  
-        //if above opt range  -10% accuracy 
-        //if fireing withing 1 tile acc = 90 + -any modifers
-        //can not fire through moutians or forests
-
-        //speed
-        //1= 1 tile of movment or 55 pixles i think 
-        //base speed heavy = 1 medium = 2 light = 3
-        //forrest reduce speed by 1 can not go below 1 speed
-
-        //movepoints
-        //these count for moveing to other tiels and turing
-        //heavy = 2 medium = 3 light = 5
-
-        //damaging tanks
-        //when a tank is pened depedning on teh side its hit decide percentages if destroyed
-        //crewmate array 
-        //if gunner or driver dies then loader and commander can switch with them 
-        //if all the crew is dead the tank is destroyed
-        //if gunner is dead then have fireing will be impossible(fired will be permantly true)
-        //if driver is dead then moving is impossible(movepoints will eb set to zero)
-
-        //components array
-        //if tracks destroyed can be repaired movepoints halved
-        //repaireing will use all the movepoints that turn
-        //if ammo destroyed(not tecnically destroyed just dentoes if hit)80% chance to go boom destroying tank but hard to hit 
-        //if engine destroyed tank permantly can not move 10% to go boom 
-        //if gun destroyed tank permantly not fire(very difficult)
-        //if engine and engine are destroyed tank will be considered destroyed even if all crew is alive
     }
 }
